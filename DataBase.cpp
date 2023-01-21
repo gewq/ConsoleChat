@@ -1,5 +1,9 @@
 #include "DataBase.h"
+#include <vector>
 
+namespace {
+	std::vector<std::string> logins{ "login_1", "login_2" };
+}
 
 void database::initialize()
 {
