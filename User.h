@@ -1,6 +1,11 @@
 /**
 \file User.h
 \brief Класс содержит данные о пользователе
+
+Класс инкапсулирует в себе параметры пользователя:
+- Ник (имя) - по нику он будет известен другим пользователям
+- Логин - имя по которому он будет заходить в чат
+- Пароль
 */
 
 #pragma once
@@ -48,9 +53,9 @@ class User {
 		void setPassword(const std::string& password);
 
 	private:
-		std::string name_;
-		std::string login_;
-		std::string password_;
+		std::string name_;		///<Ник
+		std::string login_;		///<Логин
+		std::string password_;	///<Пароль
 };
 
 #endif
