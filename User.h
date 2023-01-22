@@ -14,6 +14,21 @@ class User {
 		User() = delete;
 		User(std::string name, std::string login, std::string password);
 
+		/**
+		\return Ник пользователя
+		*/
+		std::string getName() const;
+
+		/**
+		\return Логин пользователя
+		*/
+		std::string getLogin() const;
+
+		/**
+		\return Пароль пользователя
+		*/
+		std::string getPassword() const;
+
 	private:
 		std::string name_;
 		std::string login_;
