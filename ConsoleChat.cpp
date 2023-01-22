@@ -7,4 +7,6 @@ int main()
 {
     user_test::test();
     database::test();
+
+    database::initialize();
 }

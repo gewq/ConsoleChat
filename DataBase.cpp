@@ -14,7 +14,10 @@ namespace {
 
 void database::initialize()
 {
-
+	User u1("G", "Ger", "123");
+	User u2("S", "Sve", "qwe");
+	users.push_back(u1);
+	users.push_back(u2);
 }
 
 
