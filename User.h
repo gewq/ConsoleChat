@@ -12,7 +12,7 @@
 class User {
 	public:
 		User() = delete;
-		User(std::string name, std::string login, std::string password);
+		User(const std::string& name, const std::string& login, const std::string& password);
 
 		/**
 		\return Ник пользователя
