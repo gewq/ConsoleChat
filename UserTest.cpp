@@ -4,5 +4,5 @@
 
 void user_test::test()
 {
-
+	User u("name", "login", "password");
 }
