@@ -26,7 +26,7 @@ namespace database {
 	\param[in] login Логин
 	\return Признак наличия заданного Логина в базе
 	*/
-	bool isExistLogin(std::string login);
+	bool isExistLogin(const std::string& login);
 
 	/**
 	Проверить соответствует ли Пароль заданному Логину
@@ -34,7 +34,7 @@ namespace database {
 	\param[in] password Пароль
 	\return Признак правильный ли Пароль
 	*/
-	bool isCorrectPassword(std::string login, std::string password);
+	bool isCorrectPassword(const std::string& login, const std::string& password);
 
 	/**
 	Добавить в базу заданного пользователя

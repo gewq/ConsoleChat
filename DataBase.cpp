@@ -17,7 +17,7 @@ void database::initialize()
 
 
 
-bool database::isExistLogin(std::string login)
+bool database::isExistLogin(const std::string& login)
 {
 	//Итератор - const! Чтобы нельзя было изменить вектор или данные в нём.
 	std::vector<std::string>::const_iterator it =
@@ -31,7 +31,7 @@ bool database::isExistLogin(std::string login)
 
 
 
-bool database::isCorrectPassword(std::string login, std::string password)
+bool database::isCorrectPassword(const std::string& login, const std::string& password)
 {
 	return false;
 }
