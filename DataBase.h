@@ -29,6 +29,13 @@ namespace database {
 	bool isExistLogin(const std::string& login);
 
 	/**
+	Проверить есть ли в базе заданный Ник
+	\param[in] name Ник
+	\return Признак наличия заданного Ника в базе
+	*/
+	bool isExistName(const std::string& name);
+
+	/**
 	Проверить соответствует ли Пароль заданному Логину
 	\param[in] login Логин
 	\param[in] password Пароль
