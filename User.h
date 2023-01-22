@@ -20,6 +20,12 @@ class User {
 		User(const std::string& name, const std::string& login, const std::string& password);
 
 		/**
+		Перегрузка оператора '==' для поиска пользователя в базе данных
+		с использованием алгоритмов STL
+		*/
+		bool operator==(User other) const;
+
+		/**
 		\return Ник пользователя
 		*/
 		std::string getName() const;
