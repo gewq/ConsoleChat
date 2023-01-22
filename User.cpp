@@ -11,8 +11,8 @@ User::User(const std::string& name,
 
 bool User::operator==(User other) const
 {
-	//Объекты равны если совпадает Логин
-	if (login_ == other.login_) {
+	//Объекты равны если совпадает Логин И Ник
+	if ( (login_ == other.login_) && (name_ == other.name_) ) {
 		return true;
 	}
 	return false;

@@ -27,10 +27,8 @@ void user_test::test()
 
 	//Тест пегруженного оператора ==
 	User user2(name, login, password);
-	assert((user == user2) == false);
-
-	user2.setName(new_name);
-	user2.setLogin(new_login);
-	user2.setPassword(new_password);
-	assert((user == user2) == true);
+	User user3(name, login, new_password);
+	User user4(new_name, login, new_password);
+	assert((user2 == user3) == true);	//Ник И Логин совпадают
+	assert((user2 == user4) == false);	//Ник И Логин не совпадают
 }
