@@ -29,6 +29,24 @@ class User {
 		*/
 		std::string getPassword() const;
 
+		/**
+		Задать пользователю Имя
+		\param[in] name Имя
+		*/
+		void setName(const std::string& name);
+
+		/**
+		Задать пользователю Логин
+		\param[in] login Логин
+		*/
+		void setLogin(const std::string& login);
+
+		/**
+		Задать пользователю Пароль
+		\param[in] password Пароль
+		*/
+		void setPassword(const std::string& password);
+
 	private:
 		std::string name_;
 		std::string login_;

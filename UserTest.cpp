@@ -12,4 +12,14 @@ void user_test::test()
 	assert(user.getName() == name);
 	assert(user.getLogin() == login);
 	assert(user.getPassword() == password);
+
+	std::string new_name = "new_name";
+	std::string new_login = "new_login";
+	std::string new_password = "new_password";
+	user.setName(new_name);
+	user.setLogin(new_login);
+	user.setPassword(new_password);
+	assert(user.getName() == new_name);
+	assert(user.getLogin() == new_login);
+	assert(user.getPassword() == new_password);
 }

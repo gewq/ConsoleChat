@@ -21,3 +21,18 @@ std::string User::getPassword() const
 {
 	return password_;
 }
+
+void User::setName(const std::string& name)
+{
+	name_ = name;
+}
+
+void User::setLogin(const std::string& login)
+{
+	login_ = login;
+}
+
+void User::setPassword(const std::string& password)
+{
+	password_ = password;
+}
