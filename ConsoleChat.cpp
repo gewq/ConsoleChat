@@ -2,6 +2,7 @@
 
 #include "DataBase.h"
 #include "UserTest.h"
+#include "Chat.h"
 
 int main()
 {
@@ -9,4 +10,7 @@ int main()
     database::test();
 
     database::initialize();
+
+    setlocale(LC_ALL, "");
+    Chat::getInstance()->process();
 }
