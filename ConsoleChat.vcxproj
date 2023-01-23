@@ -142,12 +142,14 @@
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="ConsoleChat.cpp" />
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="State.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chat.h" />
     <ClInclude Include="DataBase.h" />
+    <ClInclude Include="State.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserTest.h" />
   </ItemGroup>
