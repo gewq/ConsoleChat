@@ -13,7 +13,7 @@
 #include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
-//#include "StartState.h"
+#include "StateStart.h"
 //#include "SignIn.h"
 //#include "Registration.h"
 //#include "LoginCorrect.h"
@@ -23,7 +23,6 @@
 //#include "PasswordCorrect.h"
 //#include "PasswordIncorrect.h"
 //#include "UserInput.h"
-
 
 class Chat
 {

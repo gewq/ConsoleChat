@@ -1,6 +1,5 @@
 #include "State.h"
 
-
 State::State(const std::string& name) : name_(name)
 {
 

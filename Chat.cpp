@@ -1,16 +1,14 @@
 #include "Chat.h"
 #include <iostream>
 
-
 //Начальная инициализация указателя
 Chat* Chat::instance_ = nullptr;
 
-
 Chat* Chat::getInstance()
 {
-    //if (instance_ == nullptr) {
-    //    instance_ = new Chat(new StartState());
-    //}
+    if (instance_ == nullptr) {
+        instance_ = new Chat(new StateStart());
+    }
     return instance_;
 }
 
