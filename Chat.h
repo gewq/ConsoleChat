@@ -14,7 +14,7 @@
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
-//#include "SignIn.h"
+#include "StateSignIn.h"
 //#include "Registration.h"
 //#include "LoginCorrect.h"
 //#include "LoginIncorrect.h"
