@@ -8,12 +8,42 @@
 */
 
 #pragma once
-#ifndef CHAT_H_SENTRY
-#define CHAT_H_SENTRY
+
+#include <string>
+#include "User.h"
+//Классы-обработчики состояний
+#include "State.h"
+//#include "StartState.h"
+//#include "SignIn.h"
+//#include "Registration.h"
+//#include "LoginCorrect.h"
+//#include "LoginIncorrect.h"
+//#include "LoginUnique.h"
+//#include "LoginNonunique.h"
+//#include "PasswordCorrect.h"
+//#include "PasswordIncorrect.h"
+//#include "UserInput.h"
+
 
 class Chat
 {
+public:
+    //Единая точка доступа к единственному объекту класса
+    static Chat* getInstance();
+    //Объект класса нельзя копировать и перемещать
+    Chat(const Chat& other) = delete;
+    Chat(Chat&& other) = delete;
+    Chat& operator= (const Chat& other) = delete;
+    Chat& operator= (Chat&& other) = delete;
 
+    void process();
+    void transitionTo(State* newState);
+
+private:
+    //Нельзя создавать объект извне класса
+    Chat(State* state);
+
+    State* state_;
+    static Chat* instance_;
+    User* userTemp_;
 };
-
-#endif
