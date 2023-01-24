@@ -1,10 +1,12 @@
 #include "StateSignIn.h"
 #include <iostream>
 
-
 SignIn::SignIn() : State("SignIn")
 {
+
 };
+
+
 
 void SignIn::handle(Chat* chat)
 {

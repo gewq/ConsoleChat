@@ -16,7 +16,7 @@
 #include "StateStart.h"
 #include "StateSignIn.h"
 //#include "Registration.h"
-//#include "LoginCorrect.h"
+#include "StateLoginCorrect.h"
 //#include "LoginIncorrect.h"
 //#include "LoginUnique.h"
 //#include "LoginNonunique.h"
@@ -44,5 +44,5 @@ private:
 
     State* state_;
     static Chat* instance_;
-    User* userTemp_;
+    //User* userTemp_;
 };
