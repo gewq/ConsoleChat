@@ -24,8 +24,9 @@ void database::initialize()
 
 bool database::isExistLogin(const std::string& login)
 {
-	for (int i = 0; i < users.size(); ++i) {
-		if (users.at(i).getLogin() == login) {
+	//Range-based loop
+	for (User user : users) {
+		if (user.getLogin() == login) {
 			return true;
 		}
 	}
@@ -36,8 +37,9 @@ bool database::isExistLogin(const std::string& login)
 
 bool database::isExistName(const std::string& name)
 {
-	for (int i = 0; i < users.size(); ++i) {
-		if (users.at(i).getName() == name) {
+	//Range-based loop
+	for (User user : users) {
+		if (user.getName() == name) {
 			return true;
 		}
 	}
