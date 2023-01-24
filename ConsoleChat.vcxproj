@@ -143,6 +143,7 @@
     <ClCompile Include="ConsoleChat.cpp" />
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="StateLoginCorrect.cpp" />
+    <ClCompile Include="StateLoginIncorrect.cpp" />
     <ClCompile Include="StateSignIn.cpp" />
     <ClCompile Include="StateStart.cpp" />
     <ClCompile Include="State.cpp" />
@@ -153,6 +154,7 @@
     <ClInclude Include="Chat.h" />
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="StateLoginCorrect.h" />
+    <ClInclude Include="StateLoginIncorrect.h" />
     <ClInclude Include="StateSignIn.h" />
     <ClInclude Include="StateStart.h" />
     <ClInclude Include="State.h" />
