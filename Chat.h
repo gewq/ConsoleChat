@@ -20,7 +20,7 @@
 #include "StateLoginIncorrect.h"
 #include "StateLoginUnique.h"
 #include "StateLoginNonunique.h"
-//#include "PasswordCorrect.h"
+#include "StatePasswordCorrect.h"
 //#include "PasswordIncorrect.h"
 //#include "UserInput.h"
 

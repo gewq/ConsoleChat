@@ -146,6 +146,7 @@
     <ClCompile Include="StateLoginIncorrect.cpp" />
     <ClCompile Include="StateLoginNonunique.cpp" />
     <ClCompile Include="StateLoginUnique.cpp" />
+    <ClCompile Include="StatePasswordCorrect.cpp" />
     <ClCompile Include="StateRegistration.cpp" />
     <ClCompile Include="StateSignIn.cpp" />
     <ClCompile Include="StateStart.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="StateLoginIncorrect.h" />
     <ClInclude Include="StateLoginNonunique.h" />
     <ClInclude Include="StateLoginUnique.h" />
+    <ClInclude Include="StatePasswordCorrect.h" />
     <ClInclude Include="StateRegistration.h" />
     <ClInclude Include="StateSignIn.h" />
     <ClInclude Include="StateStart.h" />
