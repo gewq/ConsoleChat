@@ -29,6 +29,8 @@ void user_test::test()
 	User user2(name, login, password);
 	User user3(name, login, new_password);
 	User user4(new_name, login, new_password);
-	assert((user2 == user3) == true);	//Ник И Логин совпадают
-	assert((user2 == user4) == false);	//Ник И Логин не совпадают
+
+	assert((user == user2) == false);
+	assert((user2 == user3) == true);
+	assert((user2 == user4) == true);
 }
