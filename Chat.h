@@ -18,7 +18,7 @@
 #include "StateRegistration.h"
 #include "StateLoginCorrect.h"
 #include "StateLoginIncorrect.h"
-//#include "LoginUnique.h"
+#include "StateLoginUnique.h"
 #include "StateLoginNonunique.h"
 //#include "PasswordCorrect.h"
 //#include "PasswordIncorrect.h"
