@@ -144,6 +144,7 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="StateLoginCorrect.cpp" />
     <ClCompile Include="StateLoginIncorrect.cpp" />
+    <ClCompile Include="StateRegistration.cpp" />
     <ClCompile Include="StateSignIn.cpp" />
     <ClCompile Include="StateStart.cpp" />
     <ClCompile Include="State.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="StateLoginCorrect.h" />
     <ClInclude Include="StateLoginIncorrect.h" />
+    <ClInclude Include="StateRegistration.h" />
     <ClInclude Include="StateSignIn.h" />
     <ClInclude Include="StateStart.h" />
     <ClInclude Include="State.h" />

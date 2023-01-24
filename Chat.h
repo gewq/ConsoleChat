@@ -15,7 +15,7 @@
 #include "State.h"
 #include "StateStart.h"
 #include "StateSignIn.h"
-//#include "Registration.h"
+#include "StateRegistration.h"
 #include "StateLoginCorrect.h"
 #include "StateLoginIncorrect.h"
 //#include "LoginUnique.h"
