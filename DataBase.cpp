@@ -60,6 +60,12 @@ static int8_t getUserPosition(const std::string& login);
 
 bool database::isCorrectPassword(const std::string& login, const std::string& password)
 {
+	if (isExistLogin(login)) {
+		int8_t userPosition = getUserPosition(login);
+		if (users.at(userPosition).getPassword() == password) {
+			return true;
+		}
+	}
 	return false;
 }
 
@@ -68,8 +74,8 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 void database::test()
 {
 	//Поместить тестовое значение
-	User u1("1", "login_1", "1");
-	User u2("name_2", "login_2", "1");
+	User u1("1", "login_1", "pass_1");
+	User u2("name_2", "login_2", "pass_2");
 	users.push_back(u1);
 	users.push_back(u2);
 
@@ -81,6 +87,11 @@ void database::test()
 
 	assert(getUserPosition("login_1") == 0);
 	assert(getUserPosition("login_2") == 1);
+
+	assert(database::isCorrectPassword("login_1", "pass_1") == true);
+	assert(database::isCorrectPassword("login_2", "pass_2") == true);
+	assert(database::isCorrectPassword("login_1", "passdad") == false);
+	assert(database::isCorrectPassword("login_2", "2") == false);
 
 	//Очистить от тестовых значений
 	users.clear();
