@@ -10,7 +10,7 @@
 #pragma once
 
 #include <string>
-#include "User.h"
+//#include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
@@ -21,7 +21,7 @@
 #include "StateLoginUnique.h"
 #include "StateLoginNonunique.h"
 #include "StatePasswordCorrect.h"
-//#include "PasswordIncorrect.h"
+#include "StatePasswordIncorrect.h"
 //#include "UserInput.h"
 
 class Chat

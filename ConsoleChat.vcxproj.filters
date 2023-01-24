@@ -57,6 +57,9 @@
     <ClCompile Include="StatePasswordCorrect.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="StatePasswordIncorrect.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chat.h">
@@ -96,6 +99,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="StatePasswordCorrect.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="StatePasswordIncorrect.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
