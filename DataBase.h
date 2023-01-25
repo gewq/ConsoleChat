@@ -61,7 +61,7 @@ namespace database {
 	Добавить в базу заданного пользователя
 	\param[in] user Пользователь которого добавить
 	*/
-	//void addUser(User user);
+	void addUser(const User& user);
 
 	/**
 	Запустить тесты методов модуля

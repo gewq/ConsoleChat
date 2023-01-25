@@ -98,6 +98,15 @@ void database::loadMessages(const User& user, std::vector<Message>* destination)
 
 
 
+void database::addUser(const User& user)
+{
+	//Если пользователь ещё не в базе данных
+	if (!isExistLogin(user.getLogin())) {
+		users.push_back(user);
+	}
+}
+
+
 /**
 Запустить тест функции isExistLogin()
 */
@@ -128,46 +137,11 @@ static void testPutMessage();
 */
 static void testLoadMessages();
 
-static void testLoadMessages()
-{
-	User u1("name_1", "login_1", "pass_1");
-	User u2("name_2", "login_2", "pass_2");
-	User u3("name_3", "login_3", "pass_3");
+/**
+Запустить тест функции addUser()
+*/
+static void testAddUser();
 
-	//Создать сообщения
-	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
-	Message messageU1_U3(u1.getName(), u3.getName(), "U1 -> U3");
-	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
-	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
-	//Поместить сообщения в базу данных
-	database::putMessage(messageU1_U2);
-	database::putMessage(messageU1_U3);
-	database::putMessage(messageU2_U3);
-	database::putMessage(messageU1_ALL);
-
-	std::vector<Message> messagesToUser;//Вектор сообщений конкретному пользователю
-
-	database::loadMessages(u1, &messagesToUser);	//Заполнить вектор сообщениями адресату
-	assert(messagesToUser.size() == 1);
-
-	database::loadMessages(u2, &messagesToUser);
-	assert(messagesToUser.size() == 2);
-
-	database::loadMessages(u3, &messagesToUser);
-
-	assert(messagesToUser.size() == 3);
-	assert(messagesToUser.at(0).getNameFrom() == u1.getName());
-	assert(messagesToUser.at(0).getNameTo() == u3.getName());
-	assert(messagesToUser.at(0).getText() == "U1 -> U3");
-
-	assert(messagesToUser.at(1).getNameFrom() == u2.getName());
-	assert(messagesToUser.at(1).getNameTo() == u3.getName());
-	assert(messagesToUser.at(1).getText() == "U2 -> U3");
-
-	assert(messagesToUser.at(2).getNameFrom() == u1.getName());
-	assert(messagesToUser.at(2).getNameTo() == MSG_TO_ALL);
-	assert(messagesToUser.at(2).getText() == "U1 -> ALL");
-}
 
 
 void database::test()
@@ -178,6 +152,7 @@ void database::test()
 	testGetUserPosition();
 	testPutMessage();
 	testLoadMessages();
+	testAddUser();
 }
 
 
@@ -283,4 +258,62 @@ static void testPutMessage()
 	//Очистить от тестовых значений
 	messages.clear();
 	assert(messages.empty() == true);
+}
+
+
+
+static void testLoadMessages()
+{
+	User u1("name_1", "login_1", "pass_1");
+	User u2("name_2", "login_2", "pass_2");
+	User u3("name_3", "login_3", "pass_3");
+
+	//Создать сообщения
+	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
+	Message messageU1_U3(u1.getName(), u3.getName(), "U1 -> U3");
+	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
+	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
+	//Поместить сообщения в базу данных
+	database::putMessage(messageU1_U2);
+	database::putMessage(messageU1_U3);
+	database::putMessage(messageU2_U3);
+	database::putMessage(messageU1_ALL);
+
+	std::vector<Message> messagesToUser;//Вектор сообщений конкретному пользователю
+
+	database::loadMessages(u1, &messagesToUser);	//Заполнить вектор сообщениями адресату
+	assert(messagesToUser.size() == 1);
+
+	database::loadMessages(u2, &messagesToUser);
+	assert(messagesToUser.size() == 2);
+
+	database::loadMessages(u3, &messagesToUser);
+
+	assert(messagesToUser.size() == 3);
+	assert(messagesToUser.at(0).getNameFrom() == u1.getName());
+	assert(messagesToUser.at(0).getNameTo() == u3.getName());
+	assert(messagesToUser.at(0).getText() == "U1 -> U3");
+
+	assert(messagesToUser.at(1).getNameFrom() == u2.getName());
+	assert(messagesToUser.at(1).getNameTo() == u3.getName());
+	assert(messagesToUser.at(1).getText() == "U2 -> U3");
+
+	assert(messagesToUser.at(2).getNameFrom() == u1.getName());
+	assert(messagesToUser.at(2).getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser.at(2).getText() == "U1 -> ALL");
+}
+
+
+
+static void testAddUser()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	database::addUser(user);
+	assert(database::isExistName(user.getName()) == true);
+	assert(database::isExistLogin(user.getLogin()) == true);
+	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
 }
