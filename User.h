@@ -9,8 +9,6 @@
 */
 
 #pragma once
-#ifndef USER_H_SENTRY
-#define USER_H_SENTRY
 
 #include <string>
 
@@ -63,5 +61,3 @@ class User {
 		std::string login_;		///<Логин
 		std::string password_;	///<Пароль
 };
-
-#endif

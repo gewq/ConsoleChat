@@ -9,9 +9,6 @@
 */
 
 #pragma once
-#ifndef DATA_BASE_H_SENTRY
-#define DATA_BASE_H_SENTRY
-
 #include <string>
 #include <vector>
 
@@ -71,5 +68,3 @@ namespace database {
 	*/
 	void test();
 }
-
-#endif
