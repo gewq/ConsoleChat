@@ -10,19 +10,19 @@ SignIn::SignIn() : State("SignIn")
 
 void SignIn::handle(Chat* chat)
 {
-    std::cout << "Ââåäèòå Âàø ëîãèí: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð’Ð°Ñˆ Ð»Ð¾Ð³Ð¸Ð½: ";
     std::string login;
     std::cin >> login;
     //user_tmp.setLogin(login);
 
     //if (database::isExistLogin(login) == true)
     //{
-    //    std::cout << "Ëîãèí åñòü â áàçå\n";
+    //    std::cout << "Ð›Ð¾Ð³Ð¸Ð½ ÐµÑÑ‚ÑŒ Ð² Ð±Ð°Ð·Ðµ\n";
     //    chat->transitionTo(new LoginCorrect());
     //}
     //else
     //{
-    //    std::cout << "Ëîãèí íåêîððåêòíûé\n";
+    //    std::cout << "Ð›Ð¾Ð³Ð¸Ð½ Ð½ÐµÐºÐ¾Ñ€Ñ€ÐµÐºÑ‚Ð½Ñ‹Ð¹\n";
     //    chat->transitionTo(new LoginIncorrect());
     //}
 }

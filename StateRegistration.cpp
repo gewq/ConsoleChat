@@ -10,18 +10,18 @@ Registration::Registration() : State("Registration")
 
 void Registration::handle(Chat* chat)
 {
-    std::cout << "Ïðèäóìàéòå ëîãèí: ";
+    std::cout << "ÐŸÑ€Ð¸Ð´ÑƒÐ¼Ð°Ð¹Ñ‚Ðµ Ð»Ð¾Ð³Ð¸Ð½: ";
     std::string login;
     std::cin >> login;
 
     //if (database::isExistLogin(login) == true)
     //{
-    //    std::cout << "Ëîãèí óæå åñòü â áàçå\n";
+    //    std::cout << "Ð›Ð¾Ð³Ð¸Ð½ ÑƒÐ¶Ðµ ÐµÑÑ‚ÑŒ Ð² Ð±Ð°Ð·Ðµ\n";
     //    chat->transitionTo(new LoginNonunique());
     //}
     //else
     //{
-    //    std::cout << "Ëîãèíà íåò â áàçå\n";
+    //    std::cout << "Ð›Ð¾Ð³Ð¸Ð½Ð° Ð½ÐµÑ‚ Ð² Ð±Ð°Ð·Ðµ\n";
     //    chat->transitionTo(new LoginUnique());
     //}
 }

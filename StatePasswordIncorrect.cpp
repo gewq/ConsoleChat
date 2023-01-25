@@ -10,7 +10,7 @@ PasswordIncorrect::PasswordIncorrect() : State("PasswordIncorrect")
 
 void PasswordIncorrect::handle(Chat* chat)
 {
-    std::cout << "Ïàðîëü íåâåðíûé!\n[  1 - Ââåñòè åãî çàíîâî;  2 - Îòìåíèòü âõîä  ]\n";
+    std::cout << "ÐŸÐ°Ñ€Ð¾Ð»ÑŒ Ð½ÐµÐ²ÐµÑ€Ð½Ñ‹Ð¹!\n[  1 - Ð’Ð²ÐµÑÑ‚Ð¸ ÐµÐ³Ð¾ Ð·Ð°Ð½Ð¾Ð²Ð¾;  2 - ÐžÑ‚Ð¼ÐµÐ½Ð¸Ñ‚ÑŒ Ð²Ñ…Ð¾Ð´  ]\n";
     char input;
     std::cin >> input;
 

@@ -22,7 +22,7 @@
 #include "StateLoginNonunique.h"
 #include "StatePasswordCorrect.h"
 #include "StatePasswordIncorrect.h"
-//#include "UserInput.h"
+#include "StateUserInChat.h"
 
 class Chat
 {

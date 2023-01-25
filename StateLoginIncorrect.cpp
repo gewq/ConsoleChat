@@ -10,7 +10,7 @@ LoginIncorrect::LoginIncorrect() : State("LoginIncorrect")
 
 void LoginIncorrect::handle(Chat* chat)
 {
-    std::cout << "Ëîãèí íå çàðåãèñòðèðîâàí!\n[  1 - Ââåñòè ëîãèí çàíîâî;  2 - Ðåãèñòðàöèÿ  ]\n";
+    std::cout << "Ð›Ð¾Ð³Ð¸Ð½ Ð½Ðµ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½!\n[  1 - Â¬Ð²ÐµÑÑ‚Ð¸ Ð»Ð¾Ð³Ð¸Ð½ Ð·Ð°Ð½Ð¾Ð²Ð¾;  2 - â€“ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Â¤  ]\n";
     char input;
     std::cin >> input;
 

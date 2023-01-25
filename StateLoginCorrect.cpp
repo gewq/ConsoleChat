@@ -10,23 +10,23 @@ LoginCorrect::LoginCorrect() : State("LoginCorrect")
 
 void LoginCorrect::handle(Chat* chat)
 {
-    std::cout << "Введите пароль: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РїР°СЂРѕР»СЊ: ";
     std::string password;
     std::cin >> password;
 
-    //std::string login;//УБРАТЬ!!!!! ТЕКУЩЕЕЕ ЗНАЧЕНИЕ LOGIN ДО ЗАПИСИ В БАЗУ ДАННЫХ
+    //std::string login;//РЈР‘Р РђРўР¬!!!!! РўР•РљРЈР©Р•Р•Р• Р—РќРђР§Р•РќРР• LOGIN Р”Рћ Р—РђРџРРЎР Р’ Р‘РђР—РЈ Р”РђРќРќР«РҐ
     //if (database::isCorrectPassword(login, password) == true)
     //{
-    //    std::cout << "Верный пароль\n";
+    //    std::cout << "Р’РµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ\n";
 
-    //    // Загрузить сообщения и вывести на экран
+    //    // Р—Р°РіСЂСѓР·РёС‚СЊ СЃРѕРѕР±С‰РµРЅРёСЏ Рё РІС‹РІРµСЃС‚Рё РЅР° СЌРєСЂР°РЅ
 
 
     //    chat->transitionTo(new UserInput());
     //}
     //else
     //{
-    //    std::cout << "Неверный пароль\n";
+    //    std::cout << "РќРµРІРµСЂРЅС‹Р№ РїР°СЂРѕР»СЊ\n";
     //    chat->transitionTo(new PasswordIncorrect());
     //}
 }
