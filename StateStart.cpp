@@ -1,4 +1,4 @@
-#include "StateStart.h"
+﻿#include "StateStart.h"
 #include <iostream>
 
 StateStart::StateStart() : State("StateStart")
