@@ -1,5 +1,5 @@
 /**
-\file StateEnteringRecipient.h
+\file StateEnteringAddressee.h
 \brief Класс-обработчик состояния "ВВОД АДРЕСАТА"
 */
 
@@ -8,9 +8,9 @@
 #include "State.h"
 #include "Chat.h"
 
-class EnteringRecipient : public State {
+class EnteringAddressee : public State {
 public:
-    EnteringRecipient();
+    EnteringAddressee();
 
     virtual void handle(Chat* chat) override;
 };

@@ -63,7 +63,7 @@
     <ClCompile Include="StateUserInChat.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="StateEnteringRecipient.cpp">
+    <ClCompile Include="StateEnteringAddressee.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,7 +113,7 @@
     <ClInclude Include="StateUserInChat.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="StateEnteringRecipient.h">
+    <ClInclude Include="StateEnteringAddressee.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

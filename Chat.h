@@ -23,7 +23,7 @@
 #include "StatePasswordCorrect.h"
 #include "StatePasswordIncorrect.h"
 #include "StateUserInChat.h"
-#include "StateEnteringRecipient.h"
+#include "StateEnteringAddressee.h"
 
 class Chat
 {
