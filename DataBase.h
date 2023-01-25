@@ -14,6 +14,8 @@
 
 #include <string>
 
+#include "Message.h"
+
 
 namespace database {
 	/**
@@ -42,6 +44,13 @@ namespace database {
 	\return Признак правильный ли Пароль
 	*/
 	bool isCorrectPassword(const std::string& login, const std::string& password);
+
+	/**
+	Добавить в базу сообщение от одного пользователя другому.
+	\param[in] message Сообщение
+	*/
+	void putMessage(const Message& message);
+
 
 	/**
 	Добавить в базу заданного пользователя

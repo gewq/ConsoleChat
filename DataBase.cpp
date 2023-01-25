@@ -8,8 +8,8 @@
 #include "Message.h"
 
 namespace {
-	std::vector<User> users;		//Зарегистрированные пользователи
-	std::vector<Message> messages;	//Архив сообщений пользователей друг другу
+	std::vector<User> users;		//База зарегистрированных пользователей
+	std::vector<Message> messages;	//База сообщений пользователей друг другу
 }
 
 
@@ -71,6 +71,14 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 }
 
 
+
+void database::putMessage(const Message& message)
+{
+	messages.push_back(message);
+}
+
+
+
 /**
 Запустить тест функции isExistLogin()
 */
@@ -91,6 +99,11 @@ static void testIsCorrectPassword();
 */
 static void testGetUserPosition();
 
+/**
+Запустить тест функции putMessage()
+*/
+static void testPutMessage();
+
 
 
 void database::test()
@@ -99,6 +112,7 @@ void database::test()
 	testIsExistName();
 	testIsCorrectPassword();
 	testGetUserPosition();
+	testPutMessage();
 }
 
 
@@ -186,4 +200,22 @@ static void testGetUserPosition()
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);
+}
+
+
+
+static void testPutMessage()
+{
+	const std::string nameFrom = "nameFrom";
+	const std::string nameTo = "nameTo";
+	const std::string text = "Hello nameTo!";
+	Message message(nameFrom, nameTo, text);	//Создать сообщение
+	database::putMessage(message);				//Поместить в базу сообщений
+	assert(messages.at(0).getNameFrom() == nameFrom);
+	assert(messages.at(0).getNameTo() == nameTo);
+	assert(messages.at(0).getText() == text);
+
+	//Очистить от тестовых значений
+	messages.clear();
+	assert(messages.empty() == true);
 }
