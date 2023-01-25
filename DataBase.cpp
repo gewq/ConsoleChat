@@ -301,6 +301,9 @@ static void testLoadMessages()
 	assert(messagesToUser.at(2).getNameFrom() == u1.getName());
 	assert(messagesToUser.at(2).getNameTo() == MSG_TO_ALL);
 	assert(messagesToUser.at(2).getText() == "U1 -> ALL");
+	//Очистить от тестовых значений
+	messages.clear();
+	assert(messages.empty() == true);
 }
 
 
