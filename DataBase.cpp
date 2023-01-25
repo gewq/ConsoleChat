@@ -8,6 +8,9 @@
 #include "Message.h"
 
 namespace {
+	//Имя адресата чтобы отправить сообщение всем
+	const std::string MSG_TO_ALL = "all";
+
 	std::vector<User> users;		//База зарегистрированных пользователей
 	std::vector<Message> messages;	//База сообщений пользователей друг другу
 }
@@ -79,6 +82,22 @@ void database::putMessage(const Message& message)
 
 
 
+void database::loadMessages(const User& user, std::vector<Message>* destination)
+{
+	destination->clear();
+	//Пройти по сообщениям в базе
+	for (auto& message : messages) {
+		//Если адресат сообщения совпадает с заданным пользователем
+		//или сообщение ВСЕМ
+		if (message.getNameTo() == user.getName() ||
+			(message.getNameTo() == MSG_TO_ALL)) {
+			destination->push_back(message);
+		}
+	}
+}
+
+
+
 /**
 Запустить тест функции isExistLogin()
 */
@@ -104,6 +123,51 @@ static void testGetUserPosition();
 */
 static void testPutMessage();
 
+/**
+Запустить тест функции loadMessages()
+*/
+static void testLoadMessages();
+
+static void testLoadMessages()
+{
+	User u1("name_1", "login_1", "pass_1");
+	User u2("name_2", "login_2", "pass_2");
+	User u3("name_3", "login_3", "pass_3");
+
+	//Создать сообщения
+	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
+	Message messageU1_U3(u1.getName(), u3.getName(), "U1 -> U3");
+	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
+	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
+	//Поместить сообщения в базу данных
+	database::putMessage(messageU1_U2);
+	database::putMessage(messageU1_U3);
+	database::putMessage(messageU2_U3);
+	database::putMessage(messageU1_ALL);
+
+	std::vector<Message> messagesToUser;//Вектор сообщений конкретному пользователю
+
+	database::loadMessages(u1, &messagesToUser);	//Заполнить вектор сообщениями адресату
+	assert(messagesToUser.size() == 1);
+
+	database::loadMessages(u2, &messagesToUser);
+	assert(messagesToUser.size() == 2);
+
+	database::loadMessages(u3, &messagesToUser);
+
+	assert(messagesToUser.size() == 3);
+	assert(messagesToUser.at(0).getNameFrom() == u1.getName());
+	assert(messagesToUser.at(0).getNameTo() == u3.getName());
+	assert(messagesToUser.at(0).getText() == "U1 -> U3");
+
+	assert(messagesToUser.at(1).getNameFrom() == u2.getName());
+	assert(messagesToUser.at(1).getNameTo() == u3.getName());
+	assert(messagesToUser.at(1).getText() == "U2 -> U3");
+
+	assert(messagesToUser.at(2).getNameFrom() == u1.getName());
+	assert(messagesToUser.at(2).getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser.at(2).getText() == "U1 -> ALL");
+}
 
 
 void database::test()
@@ -113,6 +177,7 @@ void database::test()
 	testIsCorrectPassword();
 	testGetUserPosition();
 	testPutMessage();
+	testLoadMessages();
 }
 
 

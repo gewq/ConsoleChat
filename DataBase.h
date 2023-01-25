@@ -13,8 +13,10 @@
 #define DATA_BASE_H_SENTRY
 
 #include <string>
+#include <vector>
 
 #include "Message.h"
+#include "User.h"
 
 
 namespace database {
@@ -51,6 +53,12 @@ namespace database {
 	*/
 	void putMessage(const Message& message);
 
+	/**
+	Загрузить сообщения, адресованные заданному пользователю
+	\param[in] user Адресат сообщений
+	\param[in] destination Вектор в который поместить сообщения
+	*/
+	void loadMessages(const User& user, std::vector<Message>* destination);
 
 	/**
 	Добавить в базу заданного пользователя
