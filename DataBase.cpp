@@ -5,10 +5,11 @@
 #include <iostream>
 
 #include "User.h"
+#include "Message.h"
 
 namespace {
-	//Зарегистрированные пользователи
-	std::vector<User> users;
+	std::vector<User> users;		//Зарегистрированные пользователи
+	std::vector<Message> messages;	//Архив сообщений пользователей друг другу
 }
 
 
