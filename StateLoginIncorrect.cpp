@@ -1,4 +1,4 @@
-#include "StateLoginIncorrect.h"
+﻿#include "StateLoginIncorrect.h"
 #include <iostream>
 
 LoginIncorrect::LoginIncorrect() : State("LoginIncorrect")

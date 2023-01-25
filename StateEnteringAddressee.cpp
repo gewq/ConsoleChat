@@ -1,4 +1,4 @@
-#include "StateEnteringAddressee.h"
+﻿#include "StateEnteringAddressee.h"
 #include <iostream>
 
 EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")

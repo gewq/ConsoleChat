@@ -1,4 +1,4 @@
-#include "StatePasswordCorrect.h"
+﻿#include "StatePasswordCorrect.h"
 #include <iostream>
 
 PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")

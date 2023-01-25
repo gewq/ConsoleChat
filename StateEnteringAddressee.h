@@ -1,4 +1,4 @@
-/**
+﻿/**
 \file StateEnteringAddressee.h
 \brief Класс-обработчик состояния "ВВОД АДРЕСАТА"
 */

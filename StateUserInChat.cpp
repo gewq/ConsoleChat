@@ -1,4 +1,4 @@
-#include "StateUserInChat.h"
+﻿#include "StateUserInChat.h"
 #include <iostream>
 
 UserInChat::UserInChat() : State("UserInChat")
