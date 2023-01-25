@@ -16,10 +16,14 @@ void UserInChat::handle(Chat* chat)
 
     switch (input) {
     case '1':
-        //chat->transitionTo(new EnterReceiver());
+        chat->transitionTo(new EnteringAddressee());
         break;
     case '2':
-        //Загрузить сообщения и вывести на экран
+        //////////////////////////////////////////////
+        //  Загрузить сообщения и вывести на экран  //
+        //////////////////////////////////////////////
+
+        chat->transitionTo(new UserInChat());
         break;
     case '3':
         chat->transitionTo(new StateStart());

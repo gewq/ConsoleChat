@@ -25,6 +25,6 @@ void EnteringAddressee::handle(Chat* chat)
     else
     {
         std::cout << "Ника нет в базе\n";
-        //chat->transitionTo(new AddresseeIsMissing());
+        chat->transitionTo(new AddresseeIsMissing());
     }
 }

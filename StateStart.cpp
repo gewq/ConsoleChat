@@ -14,7 +14,8 @@ void StateStart::handle(Chat* chat)
     char input;
     std::cin >> input;
 
-    switch (input) {
+    switch (input)
+    {
     case '1':
         chat->transitionTo(new SignIn());
         break;
@@ -22,7 +23,9 @@ void StateStart::handle(Chat* chat)
         chat->transitionTo(new Registration());
         break;
     case '3':
-        ////////////////////////////////////////////////////
+        ///////////////////////////////////////////////////
+        ///////////     ВЫХОД ИЗ ПРОГРАММЫ       //////////
+        ///////////////////////////////////////////////////
         break;
     default:
         std::cin.clear();

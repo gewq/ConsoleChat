@@ -10,16 +10,21 @@ LoginIncorrect::LoginIncorrect() : State("LoginIncorrect")
 
 void LoginIncorrect::handle(Chat* chat)
 {
-    std::cout << "Логин не зарегистрирован!\n[  1 - ¬вести логин заново;  2 - –егистраци¤  ]\n";
+    std::cout << "Логин не зарегистрирован!\n[  1 - Ввести логин заново;  2 - Регистрация  ]\n";
     char input;
     std::cin >> input;
 
-    //if (input == '1')
-    //{
-    //    chat->transitionTo(new SignIn());
-    //}
-    //else
-    //{
-    //    chat->transitionTo(new Registration());
-    //}
+    switch (input)
+    {
+    case '1':
+        chat->transitionTo(new SignIn());
+        break;
+    case '2':
+        chat->transitionTo(new Registration());
+        break;
+    default:
+        std::cin.clear();
+        chat->transitionTo(new LoginIncorrect());
+        break;
+    }
 }

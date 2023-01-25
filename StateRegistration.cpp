@@ -14,14 +14,14 @@ void Registration::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    //if (database::isExistLogin(login) == true)
-    //{
-    //    std::cout << "Логин уже есть в базе\n";
-    //    chat->transitionTo(new LoginNonunique());
-    //}
-    //else
-    //{
-    //    std::cout << "Логина нет в базе\n";
-    //    chat->transitionTo(new LoginUnique());
-    //}
+    if (database::isExistLogin(login) == true)
+    {
+        std::cout << "Логин уже есть в базе\n";
+        chat->transitionTo(new LoginNonunique());
+    }
+    else
+    {
+        std::cout << "Логина нет в базе\n";
+        chat->transitionTo(new LoginUnique());
+    }
 }

@@ -14,12 +14,17 @@ void LoginNonunique::handle(Chat* chat)
     char input;
     std::cin >> input;
 
-    if (input == '1')
+    switch (input)
     {
+    case '1':
         chat->transitionTo(new LoginCorrect());
-    }
-    else
-    {
+        break;
+    case '2':
         chat->transitionTo(new Registration());
+        break;
+    default:
+        std::cin.clear();
+        chat->transitionTo(new LoginNonunique());
+        break;
     }
 }
