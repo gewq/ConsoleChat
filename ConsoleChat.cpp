@@ -4,13 +4,16 @@
 #include "UserTest.h"
 #include "Chat.h"
 
+/**
+Запустить тесты модулей программы
+*/
+static void test();
+
 int main()
 {
 	setlocale(LC_ALL, "");
 	try {
-		user_test::test();
-		database::test();
-
+		test();
 		database::initialize();
 
 		while (true) {
@@ -27,4 +30,12 @@ int main()
 		std::cerr << "Неопределённое исключение" << std::endl;
 	}
 	return EXIT_SUCCESS;
+}
+
+
+
+static void test()
+{
+	user_test::test();
+	database::test();
 }
