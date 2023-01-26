@@ -1,4 +1,4 @@
-#include <iostream>
+﻿#include <iostream>
 
 #include "DataBase.h"
 #include "UserTest.h"
@@ -6,14 +6,25 @@
 
 int main()
 {
-    user_test::test();
-    database::test();
+	setlocale(LC_ALL, "");
+	try {
+		user_test::test();
+		database::test();
 
-    database::initialize();
+		database::initialize();
 
-    setlocale(LC_ALL, "");
-
-    while (true) {
-        Chat::getInstance()->process();
-    }
+		while (true) {
+			Chat::getInstance()->process();
+		}
+	}
+	catch (std::bad_alloc& error) {
+		std::cerr << "Ошибка выделения памяти: " << error.what() << std::endl;
+	}
+	catch (std::exception& error) {
+		std::cerr << error.what() << std::endl;
+	}
+	catch (...) {
+		std::cerr << "Неопределённое исключение" << std::endl;
+	}
+	return EXIT_SUCCESS;
 }
