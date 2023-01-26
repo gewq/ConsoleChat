@@ -75,7 +75,7 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 
 
 
-void database::putMessage(const Message& message)
+void database::pushMessage(const Message& message)
 {
 	messages.push_back(message);
 }
@@ -128,9 +128,9 @@ static void testIsCorrectPassword();
 static void testGetUserPosition();
 
 /**
-Запустить тест функции putMessage()
+Запустить тест функции pushMessage()
 */
-static void testPutMessage();
+static void testPushMessage();
 
 /**
 Запустить тест функции loadMessages()
@@ -150,7 +150,7 @@ void database::test()
 	testIsExistName();
 	testIsCorrectPassword();
 	testGetUserPosition();
-	testPutMessage();
+	testPushMessage();
 	testLoadMessages();
 	testAddUser();
 }
@@ -244,13 +244,13 @@ static void testGetUserPosition()
 
 
 
-static void testPutMessage()
+static void testPushMessage()
 {
 	const std::string nameFrom = "nameFrom";
 	const std::string nameTo = "nameTo";
 	const std::string text = "Hello nameTo!";
 	Message message(nameFrom, nameTo, text);	//Создать сообщение
-	database::putMessage(message);				//Поместить в базу сообщений
+	database::pushMessage(message);				//Поместить в базу сообщений
 	assert(messages.at(0).getNameFrom() == nameFrom);
 	assert(messages.at(0).getNameTo() == nameTo);
 	assert(messages.at(0).getText() == text);
@@ -274,10 +274,10 @@ static void testLoadMessages()
 	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
 	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
 	//Поместить сообщения в базу данных
-	database::putMessage(messageU1_U2);
-	database::putMessage(messageU1_U3);
-	database::putMessage(messageU2_U3);
-	database::putMessage(messageU1_ALL);
+	database::pushMessage(messageU1_U2);
+	database::pushMessage(messageU1_U3);
+	database::pushMessage(messageU2_U3);
+	database::pushMessage(messageU1_ALL);
 
 	std::vector<Message> messagesToUser;//Вектор сообщений конкретному пользователю
 

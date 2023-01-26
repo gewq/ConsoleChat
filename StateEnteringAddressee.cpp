@@ -21,7 +21,7 @@ void EnteringAddressee::handle(Chat* chat)
         //const std::string nameTo = "nameTo";
         //const std::string text = "Hello nameTo!";
         //Message message(nameFrom, nameTo, text);	//Создать сообщение
-        //database::putMessage(message);				//Поместить в базу сообщений
+        //database::pushMessage(message);				//Поместить в базу сообщений
 
 
 

@@ -48,7 +48,7 @@ namespace database {
 	Добавить в базу сообщение от одного пользователя другому.
 	\param[in] message Сообщение
 	*/
-	void putMessage(const Message& message);
+	void pushMessage(const Message& message);
 
 	/**
 	Загрузить сообщения, адресованные заданному пользователю
