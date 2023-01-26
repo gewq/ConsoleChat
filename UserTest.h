@@ -4,9 +4,6 @@
 */
 
 #pragma once
-#ifndef USER_TEST_H_SENTRY
-#define USER_TEST_H_SENTRY
-
 #include "User.h"
 
 namespace user_test {
@@ -15,5 +12,3 @@ namespace user_test {
 	*/
 	void test();
 }
-
-#endif
