@@ -62,6 +62,7 @@ bool database::isExistName(const std::string& name)
 static int8_t getUserPosition(const std::string& login);
 
 
+
 bool database::isCorrectPassword(const std::string& login, const std::string& password)
 {
 	if (isExistLogin(login)) {
@@ -82,14 +83,14 @@ void database::pushMessage(const Message& message)
 
 
 
-void database::loadMessages(const User& user, std::vector<Message>* destination)
+void database::loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination)
 {
 	destination->clear();
 	//Пройти по сообщениям в базе
 	for (auto& message : messages) {
 		//Если адресат сообщения совпадает с заданным пользователем
 		//или сообщение ВСЕМ
-		if (message.getNameTo() == user.getName() ||
+		if (message.getNameTo() == addressee.getName() ||
 			(message.getNameTo() == MSG_TO_ALL)) {
 			destination->push_back(message);
 		}
@@ -279,28 +280,29 @@ static void testLoadMessages()
 	database::pushMessage(messageU2_U3);
 	database::pushMessage(messageU1_ALL);
 
-	std::vector<Message> messagesToUser;//Вектор сообщений конкретному пользователю
+	//Укзатель на вектор сообщений конкретному пользователю
+	auto messagesToUser = std::make_shared<std::vector<Message> >();
 
-	database::loadMessages(u1, &messagesToUser);	//Заполнить вектор сообщениями адресату
-	assert(messagesToUser.size() == 1);
+	database::loadMessages(u1, messagesToUser);	//Заполнить вектор сообщениями адресату
+	assert(messagesToUser->size() == 1);
 
-	database::loadMessages(u2, &messagesToUser);
-	assert(messagesToUser.size() == 2);
+	database::loadMessages(u2, messagesToUser);
+	assert(messagesToUser->size() == 2);
 
-	database::loadMessages(u3, &messagesToUser);
+	database::loadMessages(u3, messagesToUser);
 
-	assert(messagesToUser.size() == 3);
-	assert(messagesToUser.at(0).getNameFrom() == u1.getName());
-	assert(messagesToUser.at(0).getNameTo() == u3.getName());
-	assert(messagesToUser.at(0).getText() == "U1 -> U3");
+	assert(messagesToUser->size() == 3);
+	assert(messagesToUser->at(0).getNameFrom() == u1.getName());
+	assert(messagesToUser->at(0).getNameTo() == u3.getName());
+	assert(messagesToUser->at(0).getText() == "U1 -> U3");
 
-	assert(messagesToUser.at(1).getNameFrom() == u2.getName());
-	assert(messagesToUser.at(1).getNameTo() == u3.getName());
-	assert(messagesToUser.at(1).getText() == "U2 -> U3");
+	assert(messagesToUser->at(1).getNameFrom() == u2.getName());
+	assert(messagesToUser->at(1).getNameTo() == u3.getName());
+	assert(messagesToUser->at(1).getText() == "U2 -> U3");
 
-	assert(messagesToUser.at(2).getNameFrom() == u1.getName());
-	assert(messagesToUser.at(2).getNameTo() == MSG_TO_ALL);
-	assert(messagesToUser.at(2).getText() == "U1 -> ALL");
+	assert(messagesToUser->at(2).getNameFrom() == u1.getName());
+	assert(messagesToUser->at(2).getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser->at(2).getText() == "U1 -> ALL");
 	//Очистить от тестовых значений
 	messages.clear();
 	assert(messages.empty() == true);

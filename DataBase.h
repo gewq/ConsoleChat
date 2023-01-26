@@ -11,6 +11,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
 
 #include "Message.h"
 #include "User.h"
@@ -52,10 +53,10 @@ namespace database {
 
 	/**
 	Загрузить сообщения, адресованные заданному пользователю
-	\param[in] user Адресат сообщений
-	\param[in] destination Вектор в который поместить сообщения
+	\param[in] addressee Адресат сообщений
+	\param[in] destination Умный указатель на вектор в который поместить сообщения
 	*/
-	void loadMessages(const User& user, std::vector<Message>* destination);
+	void loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination);
 
 	/**
 	Добавить в базу заданного пользователя
