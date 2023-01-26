@@ -10,7 +10,6 @@
 #pragma once
 
 #include <string>
-//#include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
@@ -46,5 +45,5 @@ private:
 
     State* state_;
     static Chat* instance_;
-    //User* userTemp_;
+    User* userTemp_;
 };

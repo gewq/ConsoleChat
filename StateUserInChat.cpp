@@ -10,7 +10,7 @@ UserInChat::UserInChat() : State("UserInChat")
 
 void UserInChat::handle(Chat* chat)
 {
-    std::cout << "[  1 - Отправить сообщение;  2 - Прочитать сообщения;  3 - Выход из чата  ]\n";
+    std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Выход из чата | :  ";
     char input;
     std::cin >> input;
 

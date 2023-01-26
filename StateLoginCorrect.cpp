@@ -17,17 +17,16 @@ void LoginCorrect::handle(Chat* chat)
     std::string login;//УБРАТЬ!!!!! ТЕКУЩЕЕЕ ЗНАЧЕНИЕ LOGIN ДО ЗАПИСИ В БАЗУ ДАННЫХ
     if (database::isCorrectPassword(login, password) == true)
     {
-        std::cout << "Верный пароль\n";
-
         //////////////////////////////////////////////
         //  Загрузить сообщения и вывести на экран  //
         //////////////////////////////////////////////
+
+        //database::loadMessages(user_temp_)
 
         chat->transitionTo(new UserInChat());
     }
     else
     {
-        std::cout << "Неверный пароль\n";
         chat->transitionTo(new PasswordIncorrect());
     }
 }

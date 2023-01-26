@@ -16,12 +16,10 @@ void Registration::handle(Chat* chat)
 
     if (database::isExistLogin(login) == true)
     {
-        std::cout << "Логин уже есть в базе\n";
         chat->transitionTo(new LoginNonunique());
     }
     else
     {
-        std::cout << "Логина нет в базе\n";
         chat->transitionTo(new LoginUnique());
     }
 }

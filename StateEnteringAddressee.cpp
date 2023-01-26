@@ -17,14 +17,17 @@ void EnteringAddressee::handle(Chat* chat)
     if (database::isExistName(name) == true)
     {
         // Отправить сообщение//////////////////////////////////
-
+        //const std::string nameFrom = "nameFrom";
+        //const std::string nameTo = "nameTo";
+        //const std::string text = "Hello nameTo!";
+        //Message message(nameFrom, nameTo, text);	//Создать сообщение
+        //database::putMessage(message);				//Поместить в базу сообщений
 
 
 
     }
     else
     {
-        std::cout << "Ника нет в базе\n";
         chat->transitionTo(new AddresseeIsMissing());
     }
 }

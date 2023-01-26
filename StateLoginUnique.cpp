@@ -14,10 +14,9 @@ void LoginUnique::handle(Chat* chat)
     std::string password;
     std::cin >> password;
 
-    std::string login;//УБРАТЬ!!!!! ТЕКУЩЕЕЕ ЗНАЧЕНИЕ LOGIN ДО ЗАПИСИ В БАЗУ ДАННЫХ
-    if (database::isCorrectPassword(login, password) == true)
+    std::string login = "q";//УБРАТЬ!!!!! ТЕКУЩЕЕЕ ЗНАЧЕНИЕ LOGIN ДО ЗАПИСИ В БАЗУ ДАННЫХ
+    if (password.length() > 0)
     {
-        std::cout << "Пароль корректный\n";
         chat->transitionTo(new PasswordCorrect());
     }
     else

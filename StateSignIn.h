@@ -8,6 +8,7 @@
 #include "State.h"
 #include "Chat.h"
 
+
 class SignIn : public State {
 public:
     SignIn();

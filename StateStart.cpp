@@ -10,7 +10,7 @@ StateStart::StateStart() : State("StateStart")
 
 void StateStart::handle(Chat* chat)
 {
-    std::cout << "[  1 - Вход в чат;  2 - Регистрация;  3 - Выход из программы  ]\n";
+    std::cout << "| 1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
     char input;
     std::cin >> input;
 
