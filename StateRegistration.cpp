@@ -1,4 +1,4 @@
-#include "StateRegistration.h"
+п»ї#include "StateRegistration.h"
 #include <iostream>
 
 Registration::Registration() : State("Registration")
@@ -10,18 +10,16 @@ Registration::Registration() : State("Registration")
 
 void Registration::handle(Chat* chat)
 {
-    std::cout << "Придумайте логин: ";
+    std::cout << "РџСЂРёРґСѓРјР°Р№С‚Рµ Р»РѕРіРёРЅ: ";
     std::string login;
     std::cin >> login;
 
-    //if (database::isExistLogin(login) == true)
-    //{
-    //    std::cout << "Логин уже есть в базе\n";
-    //    chat->transitionTo(new LoginNonunique());
-    //}
-    //else
-    //{
-    //    std::cout << "Логина нет в базе\n";
-    //    chat->transitionTo(new LoginUnique());
-    //}
+    if (database::isExistLogin(login) == true)
+    {
+        chat->transitionTo(new LoginNonunique());
+    }
+    else
+    {
+        chat->transitionTo(new LoginUnique());
+    }
 }

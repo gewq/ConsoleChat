@@ -1,7 +1,7 @@
-#include "Chat.h"
+п»ї#include "Chat.h"
 #include <iostream>
 
-//Начальная инициализация указателя
+//РќР°С‡Р°Р»СЊРЅР°СЏ РёРЅРёС†РёР°Р»РёР·Р°С†РёСЏ СѓРєР°Р·Р°С‚РµР»СЏ
 Chat* Chat::instance_ = nullptr;
 
 Chat* Chat::getInstance()

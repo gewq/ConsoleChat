@@ -1,4 +1,4 @@
-#include "StateSignIn.h"
+п»ї#include "StateSignIn.h"
 #include <iostream>
 
 SignIn::SignIn() : State("SignIn")
@@ -10,19 +10,18 @@ SignIn::SignIn() : State("SignIn")
 
 void SignIn::handle(Chat* chat)
 {
-    std::cout << "Введите Ваш логин: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ Р’Р°С€ Р»РѕРіРёРЅ: ";
     std::string login;
     std::cin >> login;
-    //user_tmp.setLogin(login);
 
-    //if (database::isExistLogin(login) == true)
-    //{
-    //    std::cout << "Логин есть в базе\n";
-    //    chat->transitionTo(new LoginCorrect());
-    //}
-    //else
-    //{
-    //    std::cout << "Логин некорректный\n";
-    //    chat->transitionTo(new LoginIncorrect());
-    //}
+    /*userTemp_.*/
+
+    if (database::isExistLogin(login) == true)
+    {
+        chat->transitionTo(new LoginCorrect());
+    }
+    else
+    {
+        chat->transitionTo(new LoginIncorrect());
+    }
 }

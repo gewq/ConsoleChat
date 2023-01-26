@@ -1,4 +1,4 @@
-#include "StateLoginUnique.h"
+Ôªø#include "StateLoginUnique.h"
 #include <iostream>
 
 LoginUnique::LoginUnique() : State("LoginUnique")
@@ -10,19 +10,18 @@ LoginUnique::LoginUnique() : State("LoginUnique")
 
 void LoginUnique::handle(Chat* chat)
 {
-    std::cout << "œË‰ÛÏ‡ÈÚÂ Ô‡ÓÎ¸: ";
+    std::cout << "–ü—Ä–∏–¥—É–º–∞–π—Ç–µ –ø–∞—Ä–æ–ª—å: ";
     std::string password;
     std::cin >> password;
 
-    //std::string login;//”¡–¿“‹!!!!! “≈ ”Ÿ≈≈≈ «Õ¿◊≈Õ»≈ LOGIN ƒŒ «¿œ»—» ¬ ¡¿«” ƒ¿ÕÕ€’
-    //if (database::isCorrectPassword(login, password) == true)
-    //{
-    //    std::cout << "œ‡ÓÎ¸ ÍÓÂÍÚÌ˚È\n";
-    //    chat->transitionTo(new PasswordCorrect());
-    //}
-    //else
-    //{
-    //    std::cout << "ÕÂ‰ÓÔÛÒÚËÏ˚È Ô‡ÓÎ¸ (ÔÛÒÚÓÈ)\n";
-    //    chat->transitionTo(new LoginUnique());
-    //}
+    std::string login = "q";//–£–ë–†–ê–¢–¨!!!!! –¢–ï–ö–£–©–ï–ï–ï –ó–ù–ê–ß–ï–ù–ò–ï LOGIN –î–û –ó–ê–ü–ò–°–ò –í –ë–ê–ó–£ –î–ê–ù–ù–´–•
+    if (password.length() > 0)
+    {
+        chat->transitionTo(new PasswordCorrect());
+    }
+    else
+    {
+        std::cout << "–ù–µ–¥–æ–ø—É—Å—Ç–∏–º—ã–π –ø–∞—Ä–æ–ª—å (–ø—É—Å—Ç–æ–π)\n";
+        chat->transitionTo(new LoginUnique());
+    }
 }

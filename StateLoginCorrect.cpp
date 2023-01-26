@@ -1,4 +1,4 @@
-#include "StateLoginCorrect.h"
+Ôªø#include "StateLoginCorrect.h"
 #include <iostream>
 
 LoginCorrect::LoginCorrect() : State("LoginCorrect")
@@ -10,23 +10,23 @@ LoginCorrect::LoginCorrect() : State("LoginCorrect")
 
 void LoginCorrect::handle(Chat* chat)
 {
-    std::cout << "¬‚Â‰ËÚÂ Ô‡ÓÎ¸: ";
+    std::cout << "–í–≤–µ–¥–∏—Ç–µ –ø–∞—Ä–æ–ª—å: ";
     std::string password;
     std::cin >> password;
 
-    //std::string login;//”¡–¿“‹!!!!! “≈ ”Ÿ≈≈≈ «Õ¿◊≈Õ»≈ LOGIN ƒŒ «¿œ»—» ¬ ¡¿«” ƒ¿ÕÕ€’
-    //if (database::isCorrectPassword(login, password) == true)
-    //{
-    //    std::cout << "¬ÂÌ˚È Ô‡ÓÎ¸\n";
+    std::string login;//–£–ë–†–ê–¢–¨!!!!! –¢–ï–ö–£–©–ï–ï–ï –ó–ù–ê–ß–ï–ù–ò–ï LOGIN –î–û –ó–ê–ü–ò–°–ò –í –ë–ê–ó–£ –î–ê–ù–ù–´–•
+    if (database::isCorrectPassword(login, password) == true)
+    {
+        //////////////////////////////////////////////
+        //  –ó–∞–≥—Ä—É–∑–∏—Ç—å —Å–æ–æ–±—â–µ–Ω–∏—è –∏ –≤—ã–≤–µ—Å—Ç–∏ –Ω–∞ —ç–∫—Ä–∞–Ω  //
+        //////////////////////////////////////////////
 
-    //    // «‡„ÛÁËÚ¸ ÒÓÓ·˘ÂÌËˇ Ë ‚˚‚ÂÒÚË Ì‡ ˝Í‡Ì
+        //database::loadMessages(user_temp_)
 
-
-    //    chat->transitionTo(new UserInput());
-    //}
-    //else
-    //{
-    //    std::cout << "ÕÂ‚ÂÌ˚È Ô‡ÓÎ¸\n";
-    //    chat->transitionTo(new PasswordIncorrect());
-    //}
+        chat->transitionTo(new UserInChat());
+    }
+    else
+    {
+        chat->transitionTo(new PasswordIncorrect());
+    }
 }

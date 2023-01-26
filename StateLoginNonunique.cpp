@@ -1,4 +1,4 @@
-#include "StateLoginNonunique.h"
+ï»¿#include "StateLoginNonunique.h"
 #include <iostream>
 
 LoginNonunique::LoginNonunique() : State("LoginNonunique")
@@ -10,16 +10,21 @@ LoginNonunique::LoginNonunique() : State("LoginNonunique")
 
 void LoginNonunique::handle(Chat* chat)
 {
-    std::cout << "Ëîãèí óæå çàðåãèñòðèðîâàí!\n[  1 - Âîéòè ïî ýòîìó ëîãèíó;  2 - Íàçàä ê ðåãèñòðàöèè  ]\n";
+    std::cout << "Ð›Ð¾Ð³Ð¸Ð½ ÑƒÐ¶Ðµ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½!\n| 1 - Ð’Ð¾Ð¹Ñ‚Ð¸ Ð¿Ð¾ ÑÑ‚Ð¾Ð¼Ñƒ Ð»Ð¾Ð³Ð¸Ð½Ñƒ | 2 - ÐÐ°Ð·Ð°Ð´ Ðº Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ð¸ | :  ";
     char input;
     std::cin >> input;
 
-    if (input == '1')
+    switch (input)
     {
+    case '1':
         chat->transitionTo(new LoginCorrect());
-    }
-    else
-    {
+        break;
+    case '2':
         chat->transitionTo(new Registration());
+        break;
+    default:
+        std::cin.clear();
+        chat->transitionTo(new LoginNonunique());
+        break;
     }
 }

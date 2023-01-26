@@ -1,12 +1,13 @@
-/**
+п»ї/**
 \file StateSignIn.h
-\brief Класс-обработчик состояния "ВХОД ПОЛЬЗОВАТЕЛЯ"
+\brief РљР»Р°СЃСЃ-РѕР±СЂР°Р±РѕС‚С‡РёРє СЃРѕСЃС‚РѕСЏРЅРёСЏ "Р’РҐРћР” РџРћР›Р¬Р—РћР’РђРўР•Р›РЇ"
 */
 
 #pragma once
 
 #include "State.h"
 #include "Chat.h"
+
 
 class SignIn : public State {
 public:

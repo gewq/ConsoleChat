@@ -1,4 +1,4 @@
-/**
+﻿/**
 \file Chat.h
 \brief Класс управляет логикой работы чата
 
@@ -10,7 +10,7 @@
 #pragma once
 
 #include <string>
-//#include "User.h"
+#include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
@@ -22,7 +22,9 @@
 #include "StateLoginNonunique.h"
 #include "StatePasswordCorrect.h"
 #include "StatePasswordIncorrect.h"
-//#include "UserInput.h"
+#include "StateUserInChat.h"
+#include "StateEnteringAddressee.h"
+#include "StateAddresseeIsMissing.h"
 
 class Chat
 {
@@ -44,5 +46,5 @@ private:
 
     State* state_;
     static Chat* instance_;
-    //User* userTemp_;
+    User* userTemp_;
 };

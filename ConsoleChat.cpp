@@ -12,5 +12,8 @@ int main()
     database::initialize();
 
     setlocale(LC_ALL, "");
-    Chat::getInstance()->process();
+
+    while (true) {
+        Chat::getInstance()->process();
+    }
 }

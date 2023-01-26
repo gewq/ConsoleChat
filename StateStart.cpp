@@ -1,4 +1,4 @@
-#include "StateStart.h"
+ï»¿#include "StateStart.h"
 #include <iostream>
 
 StateStart::StateStart() : State("StateStart")
@@ -10,17 +10,26 @@ StateStart::StateStart() : State("StateStart")
 
 void StateStart::handle(Chat* chat)
 {
-    std::cout << "[  1 - Âõîä â ÷àò;  2 - Ðåãèñòðàöèÿ;  3 - Âûõîä èç ïðîãðàììû  ]\n";
+    std::cout << "| 1 - Ð’Ñ…Ð¾Ð´ Ð² Ñ‡Ð°Ñ‚ | 2 - Ð ÐµÐ³Ð¸ÑÑ‚Ñ€Ð°Ñ†Ð¸Ñ | 3 - Ð’Ñ‹Ñ…Ð¾Ð´ Ð¸Ð· Ð¿Ñ€Ð¾Ð³Ñ€Ð°Ð¼Ð¼Ñ‹ | :  ";
     char input;
     std::cin >> input;
 
-    //if (input == '1') {
-    //    chat->transitionTo(new SignIn());
-    //}
-    //else if (input == '2'){
-    //    chat->transitionTo(new Registration());
-    //}
-    //else {
-    //
-    //}
+    switch (input)
+    {
+    case '1':
+        chat->transitionTo(new SignIn());
+        break;
+    case '2':
+        chat->transitionTo(new Registration());
+        break;
+    case '3':
+        ///////////////////////////////////////////////////
+        ///////////     Ð’Ð«Ð¥ÐžÐ” Ð˜Ð— ÐŸÐ ÐžÐ“Ð ÐÐœÐœÐ«       //////////
+        ///////////////////////////////////////////////////
+        break;
+    default:
+        std::cin.clear();
+        chat->transitionTo(new StateStart());
+        break;
+    }
 }

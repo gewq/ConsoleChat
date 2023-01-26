@@ -1,4 +1,4 @@
-#include "StatePasswordCorrect.h"
+ï»¿#include "StatePasswordCorrect.h"
 #include <iostream>
 
 PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")
@@ -10,24 +10,29 @@ PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")
 
 void PasswordCorrect::handle(Chat* chat)
 {
-    std::cout << "Ïðèäóìàéòå Íèê: ";
+    std::cout << "ÐŸÑ€Ð¸Ð´ÑƒÐ¼Ð°Ð¹Ñ‚Ðµ ÐÐ¸Ðº: ";
     std::string name;
     std::cin >> name;
 
-    //if (database::isExistName(name) == true)
-    //{
-    //    std::cout << "Ïîëüçîâàòåëü ñ òàêèì Íèêîì óæå çàðåãèñòðèðîâàí\n";
-    //    chat->transitionTo(new PasswordCorrect());
-    //}
-    //else
-    //{
-    //    std::cout << "Óíèêàëüíûé íèê\n";
+    if (database::isExistName(name) == true)
+    {
+        std::cout << "ÐŸÐ¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»ÑŒ Ñ Ñ‚Ð°ÐºÐ¸Ð¼ ÐÐ¸ÐºÐ¾Ð¼ ÑƒÐ¶Ðµ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½\n";
+        chat->transitionTo(new PasswordCorrect());
+    }
+    else
+    {
+        std::cout << name << ", Ð’Ñ‹ ÑƒÑÐ¿ÐµÑˆÐ½Ð¾ Ð·Ð°Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€Ð¾Ð²Ð°Ð½Ñ‹!\n";
 
-    //    // Çàãðóçèòü ñîîáùåíèÿ è âûâåñòè íà ýêðàí
-
-
+        //Ð’Ð½ÐµÑÑ‚Ð¸ Ð¿Ð¾Ð»ÑŒÐ·Ð¾Ð²Ð°Ñ‚ÐµÐ»Ñ Ð² Ð±Ð°Ð·Ñƒ Ð´Ð°Ð½Ð½Ñ‹Ñ…
 
 
-    //    chat->transitionTo(new UserInput());
-    //}
+
+        /////////////////////////////////////////////
+        // Ð—Ð°Ð³Ñ€ÑƒÐ·Ð¸Ñ‚ÑŒ ÑÐ¾Ð¾Ð±Ñ‰ÐµÐ½Ð¸Ñ Ð¸ Ð²Ñ‹Ð²ÐµÑÑ‚Ð¸ Ð½Ð° ÑÐºÑ€Ð°Ð½  //
+        /////////////////////////////////////////////
+
+
+
+        chat->transitionTo(new UserInChat());
+    }
 }
