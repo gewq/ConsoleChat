@@ -10,6 +10,7 @@
 #pragma once
 
 #include <string>
+#include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
