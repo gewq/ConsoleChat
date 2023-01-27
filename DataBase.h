@@ -73,6 +73,11 @@ namespace database {
 	std::string getNameByLogin(const std::string& login);
 
 	/**
+	\return Количество зарегистрированных пользователей
+	*/
+	size_t getNumberUser();
+
+	/**
 	Запустить тесты методов модуля
 	*/
 	void test();

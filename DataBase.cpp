@@ -119,6 +119,14 @@ std::string database::getNameByLogin(const std::string& login)
 }
 
 
+
+size_t database::getNumberUser()
+{
+	return users.size();
+}
+
+
+
 static void testIsExistLogin();
 static void testIsExistName();
 static void testIsCorrectPassword();
@@ -127,6 +135,7 @@ static void testPushMessage();
 static void testLoadMessages();
 static void testAddUser();
 static void testGetNameByLogin();
+static void testGetNumberUser();
 
 void database::test()
 {
@@ -138,6 +147,7 @@ void database::test()
 	testLoadMessages();
 	testAddUser();
 	testGetNameByLogin();
+	testGetNumberUser();
 }
 
 
@@ -317,4 +327,25 @@ static void testGetNameByLogin()
 
 	assert(database::getNameByLogin(user.getLogin()) == user.getName());
 	assert(database::getNameByLogin("Not_Exist") == "");
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testGetNumberUser()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+	assert(database::getNumberUser() == 1);
+
+	//Поместить тестовое значение
+	User user2("name", "login", "password");
+	users.push_back(user2);
+	assert(database::getNumberUser() == 2);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
 }
