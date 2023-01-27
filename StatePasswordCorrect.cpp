@@ -21,14 +21,12 @@ void PasswordCorrect::handle(Chat* chat)
     else {
         chat->currentUser_.setName(name);
         database::addUser(chat->currentUser_);
-        std::cout << "Вы успешно зарегистрированы!\n";
-
+        std::cout << "Вы успешно зарегистрированы!\n"
+                  << chat->currentUser_.getName() << ", добро пожаловать в Чат!\n";
 
         /////////////////////////////////////////////
         // Загрузить сообщения и вывести на экран  //
         /////////////////////////////////////////////
-
-
 
         chat->transitionTo(new UserInChat());
     }

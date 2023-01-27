@@ -40,8 +40,8 @@ public:
     void process();
     void transitionTo(State* newState);
 
-    User currentUser_{ "", "", "" };
     static bool exit_;//выход из программы
+    User currentUser_{ "", "", "" };
 
 private:
     //Нельзя создавать объект извне класса

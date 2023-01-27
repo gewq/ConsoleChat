@@ -17,11 +17,12 @@ void LoginCorrect::handle(Chat* chat)
     chat->currentUser_.setPassword(password);
 
     if (database::isCorrectPassword(chat->currentUser_.getLogin(), password) == true) {
-        
-        
-        ////////////////////////database::loadMessages(State::currentUser_, )
-        ////////////////////////
+        std::cout << chat->currentUser_.getName() << ", добро пожаловать в Чат!\n";    
 
+        //////////////////////////////////////////////
+        //  Загрузить сообщения и вывести на экран  //
+        //////////////////////////////////////////////
+        //database::loadMessages(State::currentUser_, )
 
         chat->transitionTo(new UserInChat());
     }

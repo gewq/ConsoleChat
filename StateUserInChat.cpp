@@ -10,8 +10,7 @@ UserInChat::UserInChat() : State("UserInChat")
 
 void UserInChat::handle(Chat* chat)
 {
-    std::cout << chat->currentUser_.getName() << ", добро пожаловать в Чат!\n"
-              <<"| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Выход из чата | :  ";
+    std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Выход из чата | :  ";
     char input;
     std::cin >> input;
 
@@ -24,8 +23,6 @@ void UserInChat::handle(Chat* chat)
             //////////////////////////////////////////////
             //  Загрузить сообщения и вывести на экран  //
             //////////////////////////////////////////////
-
-
 
             chat->transitionTo(new UserInChat());
             break;
