@@ -12,22 +12,26 @@ void EnteringAddressee::handle(Chat* chat)
 {
     std::cout << "Введите Ник адресата (all - отправить всем): ";
     std::string name;
-    std::cin >> name;///////////////////////////////////////////
+    std::cin >> name;
 
-    if (database::isExistName(name) == true)
-    {
-        // Отправить сообщение//////////////////////////////////
-        //const std::string nameFrom = "nameFrom";
-        //const std::string nameTo = "nameTo";
-        //const std::string text = "Hello nameTo!";
-        //Message message(nameFrom, nameTo, text);	//Создать сообщение
-        //database::pushMessage(message);				//Поместить в базу сообщений
+    if (database::isExistName(name) == true) {
+        std::cout << "Введите сообщение: ";
+        std::string text;
+        std::cin >> text;
+        if (!text.empty()) {
+            // Отправить сообщение
+            Message message(chat->currentUser_.getName(), name, text);  //Создать сообщение
+            database::pushMessage(message);				                //Поместить в базу сообщений
 
+            std::cout << "Сообщение отправлено\n";
+        }
+        else {
+            std::cout << "Сообщение не было отправлено (отсутствует текст сообщения)\n";
+        }
 
-
+        chat->transitionTo(new UserInChat());
     }
-    else
-    {
+    else {
         chat->transitionTo(new AddresseeIsMissing());
     }
 }

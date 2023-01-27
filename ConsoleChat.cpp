@@ -16,9 +16,9 @@ int main()
 		test();
 		database::initialize();
 
-		while (true) {
-			Chat::getInstance()->process();
-		}
+		while (Chat::exit_ != true) {
+        Chat::getInstance()->process();
+    }
 	}
 	catch (std::bad_alloc& error) {
 		std::cerr << "Ошибка выделения памяти: " << error.what() << std::endl;

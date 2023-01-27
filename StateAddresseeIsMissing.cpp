@@ -16,15 +16,18 @@ void AddresseeIsMissing::handle(Chat* chat)
     std::cin >> input;
 
     switch (input) {
-    case '1':
-        chat->transitionTo(new EnteringAddressee());
-        break;
-    case '2':
-        chat->transitionTo(new UserInChat());
-        break;
-    default:
-        std::cin.clear();
-        chat->transitionTo(new AddresseeIsMissing());
-        break;
+        case '1': {
+            chat->transitionTo(new EnteringAddressee());
+            break;
+        }
+        case '2': {
+            chat->transitionTo(new UserInChat());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new AddresseeIsMissing());
+            break;
+        }
     }
 }

@@ -14,17 +14,19 @@ void PasswordIncorrect::handle(Chat* chat)
     char input;
     std::cin >> input;
 
-    switch (input)
-    {
-    case '1':
-        chat->transitionTo(new LoginCorrect());
-        break;
-    case '2':
-        chat->transitionTo(new StateStart());
-        break;
-    default:
-        std::cin.clear();
-        chat->transitionTo(new PasswordIncorrect());
-        break;
+    switch (input) {
+        case '1': {
+            chat->transitionTo(new LoginCorrect());
+            break;
+        }
+        case '2': {
+            chat->transitionTo(new StateStart());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new PasswordIncorrect());
+            break;
+        }
     }
 }

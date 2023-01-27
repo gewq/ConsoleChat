@@ -14,12 +14,12 @@ void Registration::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    if (database::isExistLogin(login) == true)
-    {
+    chat->currentUser_.setLogin(login);
+
+    if (database::isExistLogin(login) == true) {
         chat->transitionTo(new LoginNonunique());
     }
-    else
-    {
+    else {
         chat->transitionTo(new LoginUnique());
     }
 }
