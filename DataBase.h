@@ -65,6 +65,14 @@ namespace database {
 	void addUser(const User& user);
 
 	/**
+	Вернуть ник по логину.
+	Если логин не зарегистрирован - возвращает пустую строку
+	\param[in] login Логин
+	\return Ник пользователя
+	*/
+	std::string getNameByLogin(const std::string& login);
+
+	/**
 	Запустить тесты методов модуля
 	*/
 	void test();

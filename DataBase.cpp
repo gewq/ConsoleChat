@@ -108,42 +108,25 @@ void database::addUser(const User& user)
 }
 
 
-/**
-Запустить тест функции isExistLogin()
-*/
+
+std::string database::getNameByLogin(const std::string& login)
+{
+	if (isExistLogin(login)) {
+		int userPosition = getUserPosition(login);
+		return users.at(userPosition).getName();
+	}
+	return "";
+}
+
+
 static void testIsExistLogin();
-
-/**
-Запустить тест функции isExistName()
-*/
 static void testIsExistName();
-
-/**
-Запустить тест функции isCorrectPassword()
-*/
 static void testIsCorrectPassword();
-
-/**
-Запустить тест функции getUserPosition()
-*/
 static void testGetUserPosition();
-
-/**
-Запустить тест функции pushMessage()
-*/
 static void testPushMessage();
-
-/**
-Запустить тест функции loadMessages()
-*/
 static void testLoadMessages();
-
-/**
-Запустить тест функции addUser()
-*/
 static void testAddUser();
-
-
+static void testGetNameByLogin();
 
 void database::test()
 {
@@ -154,6 +137,7 @@ void database::test()
 	testPushMessage();
 	testLoadMessages();
 	testAddUser();
+	testGetNameByLogin();
 }
 
 
@@ -321,4 +305,16 @@ static void testAddUser()
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);
+}
+
+
+
+static void testGetNameByLogin()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+
+	assert(database::getNameByLogin(user.getLogin()) == user.getName());
+	assert(database::getNameByLogin("Not_Exist") == "");
 }
