@@ -1,6 +1,9 @@
 ﻿#include "Chat.h"
 #include <iostream>
 
+//Завершение работы программы
+bool Chat::exit_ = false;
+
 //Начальная инициализация указателя
 Chat* Chat::instance_ = nullptr;
 

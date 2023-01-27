@@ -14,14 +14,11 @@ void SignIn::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    /*userTemp_.*/
-
-    if (database::isExistLogin(login) == true)
-    {
+    if (database::isExistLogin(login) == true) {
+        chat->currentUser_.setLogin(login);
         chat->transitionTo(new LoginCorrect());
     }
-    else
-    {
+    else {
         chat->transitionTo(new LoginIncorrect());
     }
 }

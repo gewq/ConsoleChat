@@ -13,7 +13,7 @@ int main()
 
     setlocale(LC_ALL, "");
 
-    while (true) {
+    while (Chat::exit_ != true) {
         Chat::getInstance()->process();
     }
 }

@@ -14,9 +14,9 @@ void EnteringAddressee::handle(Chat* chat)
     std::string name;
     std::cin >> name;///////////////////////////////////////////
 
-    if (database::isExistName(name) == true)
-    {
-        // Отправить сообщение//////////////////////////////////
+    if (database::isExistName(name) == true) {
+
+        // Отправить сообщение
         //const std::string nameFrom = "nameFrom";
         //const std::string nameTo = "nameTo";
         //const std::string text = "Hello nameTo!";
@@ -26,8 +26,7 @@ void EnteringAddressee::handle(Chat* chat)
 
 
     }
-    else
-    {
+    else {
         chat->transitionTo(new AddresseeIsMissing());
     }
 }

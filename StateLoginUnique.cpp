@@ -14,13 +14,11 @@ void LoginUnique::handle(Chat* chat)
     std::string password;
     std::cin >> password;
 
-    std::string login = "q";//УБРАТЬ!!!!! ТЕКУЩЕЕЕ ЗНАЧЕНИЕ LOGIN ДО ЗАПИСИ В БАЗУ ДАННЫХ
-    if (password.length() > 0)
-    {
+    if (password.length() > 0) {
+        chat->currentUser_.setPassword(password);
         chat->transitionTo(new PasswordCorrect());
     }
-    else
-    {
+    else {
         std::cout << "Недопустимый пароль (пустой)\n";
         chat->transitionTo(new LoginUnique());
     }

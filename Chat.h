@@ -40,11 +40,13 @@ public:
     void process();
     void transitionTo(State* newState);
 
+    User currentUser_{ "", "", "" };
+    static bool exit_;//выход из программы
+
 private:
     //Нельзя создавать объект извне класса
     Chat(State* state);
 
     State* state_;
     static Chat* instance_;
-    User* userTemp_;
 };

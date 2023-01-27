@@ -14,17 +14,14 @@ void PasswordCorrect::handle(Chat* chat)
     std::string name;
     std::cin >> name;
 
-    if (database::isExistName(name) == true)
-    {
+    if (database::isExistName(name) == true) {
         std::cout << "Пользователь с таким Ником уже зарегистрирован\n";
         chat->transitionTo(new PasswordCorrect());
     }
-    else
-    {
-        std::cout << name << ", Вы успешно зарегистрированы!\n";
-
-        //Внести пользователя в базу данных
-
+    else {
+        chat->currentUser_.setName(name);
+        database::addUser(chat->currentUser_);
+        std::cout << "Вы успешно зарегистрированы!\n";
 
 
         /////////////////////////////////////////////

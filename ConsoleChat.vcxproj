@@ -112,7 +112,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -139,9 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Chat.cpp" />
+    <ClCompile Include="Chat.cpp">
+      <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level4</WarningLevel>
+    </ClCompile>
     <ClCompile Include="ConsoleChat.cpp" />
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="Message.cpp" />
     <ClCompile Include="StateAddresseeIsMissing.cpp" />
     <ClCompile Include="StateEnteringAddressee.cpp" />
     <ClCompile Include="StateLoginCorrect.cpp" />
@@ -159,6 +162,7 @@
     <ClCompile Include="UserTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Message.h" />
     <ClInclude Include="StateAddresseeIsMissing.h" />
     <ClInclude Include="Chat.h" />
     <ClInclude Include="DataBase.h" />
