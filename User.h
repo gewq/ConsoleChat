@@ -56,6 +56,11 @@ class User {
 		*/
 		void setPassword(const std::string& password);
 
+		/**
+		Присвоить значения полей класса пустой строке
+		*/
+		void reset();
+
 	private:
 		std::string name_;		///<Ник
 		std::string login_;		///<Логин

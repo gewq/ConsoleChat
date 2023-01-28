@@ -71,6 +71,15 @@ void User::setPassword(const std::string& password)
 
 
 
+void User::reset()
+{
+	name_ = "";
+	login_ = "";
+	password_ = "";
+}
+
+
+
 void user::test()
 {
 	//Тест конструктора по-умолчанию и get-методов
@@ -108,4 +117,10 @@ void user::test()
 	assert((user == user2) == false);
 	assert((user2 == user3) == true);
 	assert((user2 == user4) == true);
+
+	//Tecт reset()
+	user.reset();
+	assert(user.getName() == "");
+	assert(user.getLogin() == "");
+	assert(user.getPassword() == "");
 }
