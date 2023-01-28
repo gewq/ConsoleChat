@@ -45,7 +45,7 @@ public:
 
 private:
     //Нельзя создавать объект извне класса
-    Chat(State* state);
+    explicit Chat(State* state);
 
     State* state_;
     static Chat* instance_;
