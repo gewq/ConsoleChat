@@ -146,7 +146,7 @@
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="AddresseeIsMissing.cpp" />
-    <ClCompile Include="StateEnteringAddressee.cpp" />
+    <ClCompile Include="EnteringAddressee.cpp" />
     <ClCompile Include="StateLoginCorrect.cpp" />
     <ClCompile Include="StateLoginIncorrect.cpp" />
     <ClCompile Include="StateLoginNonunique.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="AddresseeIsMissing.h" />
     <ClInclude Include="Chat.h" />
     <ClInclude Include="DataBase.h" />
-    <ClInclude Include="StateEnteringAddressee.h" />
+    <ClInclude Include="EnteringAddressee.h" />
     <ClInclude Include="StateLoginCorrect.h" />
     <ClInclude Include="StateLoginIncorrect.h" />
     <ClInclude Include="StateLoginNonunique.h" />

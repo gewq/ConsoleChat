@@ -12,7 +12,9 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include "User.h"
+#include "Message.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
@@ -25,7 +27,7 @@
 #include "StatePasswordCorrect.h"
 #include "StatePasswordIncorrect.h"
 #include "StateUserInChat.h"
-#include "StateEnteringAddressee.h"
+#include "EnteringAddressee.h"
 #include "AddresseeIsMissing.h"
 
 class Chat{

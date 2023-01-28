@@ -10,7 +10,13 @@
 
 class UserInChat : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     UserInChat();
 
+    /**
+    Обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"
+    */
     virtual void handle(Chat* chat) override;
 };

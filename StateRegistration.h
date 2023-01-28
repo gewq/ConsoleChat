@@ -10,7 +10,13 @@
 
 class Registration : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     Registration();
 
+    /**
+    Обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
+    */
     virtual void handle(Chat* chat) override;
 };

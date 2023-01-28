@@ -10,7 +10,13 @@
 
 class LoginIncorrect : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     LoginIncorrect();
 
+    /**
+    Обработчик состояния "ЛОГИН НЕКОРРЕКТНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

@@ -13,18 +13,29 @@ void LoginCorrect::handle(Chat* chat)
     std::cout << "Введите пароль: ";
     std::string password;
     std::cin >> password;
-   
-    chat->currentUser_.setPassword(password);
 
-    if (database::isCorrectPassword(chat->currentUser_.getLogin(), password) == true) {
-        std::cout << chat->currentUser_.getName() << ", добро пожаловать в Чат!\n";    
+    std::string login = chat->currentUser_.getLogin();
+    std::string name;
 
-        //////////////////////////////////////////////
-        //  Загрузить сообщения и вывести на экран  //
-        //////////////////////////////////////////////
-        //database::loadMessages(State::currentUser_, )
+    if (database::isCorrectPassword(login, password) == true) {
+        chat->currentUser_.setPassword(password);
 
-        chat->transitionTo(new UserInChat());
+        name = database::getNameByLogin(login);
+
+        if (name.length() > 0) {
+            chat->currentUser_.setName(name);
+
+            std::cout << name << ", добро пожаловать в Чат!\n";
+
+            //Загрузить сообщения и вывести на экран
+            //database::loadMessages(chat->currentUser_, chat->messagesToCurrentUser_);
+
+            chat->transitionTo(new UserInChat());
+        }
+        else {
+            std::cout << "Логин отсутствует в базе\n";
+            chat->transitionTo(new SignIn());
+        }
     }
     else {
         chat->transitionTo(new PasswordIncorrect());

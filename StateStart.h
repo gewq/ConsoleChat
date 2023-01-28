@@ -10,7 +10,13 @@
 
 class StateStart : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     StateStart();
 
+    /**
+    Обработчик состояния "НИКТО НЕ ЗАЛОГИНЕН"
+    */
     virtual void handle(Chat* chat) override;
 };

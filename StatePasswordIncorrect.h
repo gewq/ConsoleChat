@@ -10,7 +10,13 @@
 
 class PasswordIncorrect : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     PasswordIncorrect();
 
+    /**
+    Обработчик состояния "ПАРОЛЬ НЕВЕРНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

@@ -1,5 +1,5 @@
 ﻿/**
-\file StateEnteringAddressee.h
+\file EnteringAddressee.h
 \brief Класс-обработчик состояния "ВВОД АДРЕСАТА"
 */
 
@@ -10,7 +10,13 @@
 
 class EnteringAddressee : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     EnteringAddressee();
 
+    /**
+    Обработчик состояния "ВВОД АДРЕСАТА"
+    */
     virtual void handle(Chat* chat) override;
 };
