@@ -15,7 +15,7 @@ int main()
 	try {
 		test();
 		database::initialize();
-
+		
 		while (Chat::exit_ != true) {
         Chat::getInstance()->process();
     }
