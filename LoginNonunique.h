@@ -1,5 +1,5 @@
 ﻿/**
-\file StateLoginNonunique.h
+\file LoginNonunique.h
 \brief Класс-обработчик состояния "ЛОГИН НЕУНИКАЛЬНЫЙ"
 */
 
