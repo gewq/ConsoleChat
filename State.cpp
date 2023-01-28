@@ -14,7 +14,7 @@ State::~State()
 
 
 
-std::string State::getName() const
+const std::string& State::getName() const
 {
 	return name_;
 }
