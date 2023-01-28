@@ -1,4 +1,4 @@
-﻿#include "StateLoginCorrect.h"
+﻿#include "LoginCorrect.h"
 #include <iostream>
 
 LoginCorrect::LoginCorrect() : State("LoginCorrect")
@@ -27,8 +27,9 @@ void LoginCorrect::handle(Chat* chat)
 
             std::cout << name << ", добро пожаловать в Чат!\n";
 
-            //Загрузить сообщения и вывести на экран
-            //database::loadMessages(chat->currentUser_, chat->messagesToCurrentUser_);
+            //Загрузить сообщения и вывести на экран                
+            auto messagesToUser = std::make_shared<std::vector<Message> >(); //Укзатель на вектор сообщений конкретному пользователю
+            database::loadMessages(chat->currentUser_, messagesToUser);	     //Заполнить вектор сообщениями адресату
 
             chat->transitionTo(new UserInChat());
         }
