@@ -2,9 +2,11 @@
 \file Chat.h
 \brief Класс управляет логикой работы чата
 
-Управляет процессом входа / выхода / регистрации нового пользователя в системе.
-Представляет собой конечный автомат - использовать паттерн State.
-Объект класса должен быть ОДИН - использовать паттерн Singleton
+Управляет процессом входа / выхода / регистрации нового пользователя в системе,
+отправкой сообщений и т.д.
+Логика работы представлена в виде конечного автомата - паттерн State.
+Логика определяется текущим состоянием и условиями переходами между ними.
+Объект класса должен быть ОДИН - паттерн Singleton
 */
 
 #pragma once
@@ -26,27 +28,40 @@
 #include "StateEnteringAddressee.h"
 #include "StateAddresseeIsMissing.h"
 
-class Chat
-{
-public:
-    //Единая точка доступа к единственному объекту класса
-    static Chat* getInstance();
-    //Объект класса нельзя копировать и перемещать
-    Chat(const Chat& other) = delete;
-    Chat(Chat&& other) = delete;
-    Chat& operator= (const Chat& other) = delete;
-    Chat& operator= (Chat&& other) = delete;
+class Chat{
+    public:
+        /**
+        Единая точка доступа к единственному объекту класса
+        \return Указатель на объект класса
+        */
+        static Chat* getInstance();
 
-    void process();
-    void transitionTo(State* newState);
+        //Объект класса нельзя копировать и перемещать
+        Chat(const Chat& other) = delete;
+        Chat(Chat&& other) = delete;
+        Chat& operator= (const Chat& other) = delete;
+        Chat& operator= (Chat&& other) = delete;
 
-    static bool exit_;//выход из программы
-    User currentUser_{ "", "", "" };
+        /**
+        Логика работы чата
+        */
+        void process();
 
-private:
-    //Нельзя создавать объект извне класса
-    explicit Chat(State* state);
+        /**
+        Перейти в новое состояние
+        \param[in] newState Указатель на объект - новое состояние
+        */
+        void transitionTo(State* newState);
 
-    State* state_;
-    static Chat* instance_;
+        static bool exit_;//выход из программы
+        User currentUser_{ "", "", "" };
+
+    private:
+        /**
+        Конструктор private - потому что нельзя создавать объект извне класса
+        */
+        explicit Chat(State* state);
+
+        State* state_;          ///<Текущее состояние
+        static Chat* instance_; ///<Указатель на единственный объект класса
 };
