@@ -14,15 +14,23 @@ void EnteringAddressee::handle(Chat* chat)
     std::string name;
     std::cin >> name;
 
-    if (database::isExistName(name) == true) {
-        std::cout << "Сообщение: ";
+    //Проверить наличие других пользователей чата
+    if (database::getNumberUser() == 1) {
+        std::cout << "Вы единственный пользователь чата\n";
+        chat->transitionTo(new UserInChat());
+    }
+    else if ((name != "all") && (database::isExistName(name) != true)) {
+        chat->transitionTo(new AddresseeIsMissing());
+    }
+    else {
+        std::cout << "Введите сообщение: ";
         std::string text;
         std::cin >> text;
 
-        if (text.length() > 0) {
+        if (!text.empty()) {
             // Отправить сообщение
-            Message message(chat->currentUser_.getName(), name, text);	//Создать сообщение
-            database::putMessage(message);				                //Поместить в базу сообщений
+            Message message(chat->currentUser_.getName(), name, text);  //Создать сообщение
+            database::pushMessage(message);				                //Поместить в базу сообщений
 
             std::cout << "Сообщение отправлено\n";
         }
@@ -31,8 +39,5 @@ void EnteringAddressee::handle(Chat* chat)
         }
 
         chat->transitionTo(new UserInChat());
-    }
-    else {
-        chat->transitionTo(new AddresseeIsMissing());
     }
 }

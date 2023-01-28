@@ -62,6 +62,7 @@ bool database::isExistName(const std::string& name)
 static int8_t getUserPosition(const std::string& login);
 
 
+
 bool database::isCorrectPassword(const std::string& login, const std::string& password)
 {
 	if (isExistLogin(login)) {
@@ -75,21 +76,21 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 
 
 
-void database::putMessage(const Message& message)
+void database::pushMessage(const Message& message)
 {
 	messages.push_back(message);
 }
 
 
 
-void database::loadMessages(const User& user, std::vector<Message>* destination)
+void database::loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination)
 {
 	destination->clear();
 	//Пройти по сообщениям в базе
 	for (auto& message : messages) {
 		//Если адресат сообщения совпадает с заданным пользователем
 		//или сообщение ВСЕМ
-		if (message.getNameTo() == user.getName() ||
+		if (message.getNameTo() == addressee.getName() ||
 			(message.getNameTo() == MSG_TO_ALL)) {
 			destination->push_back(message);
 		}
@@ -108,9 +109,45 @@ void database::addUser(const User& user)
 
 
 
+std::string database::getNameByLogin(const std::string& login)
+{
+	if (isExistLogin(login)) {
+		int userPosition = getUserPosition(login);
+		return users.at(userPosition).getName();
+	}
+	return "";
+}
+
+
+
+size_t database::getNumberUser()
+{
+	return users.size();
+}
+
+
+
+static void testIsExistLogin();
+static void testIsExistName();
+static void testIsCorrectPassword();
+static void testGetUserPosition();
+static void testPushMessage();
+static void testLoadMessages();
+static void testAddUser();
+static void testGetNameByLogin();
+static void testGetNumberUser();
 
 void database::test()
 {
+	testIsExistLogin();
+	testIsExistName();
+	testIsCorrectPassword();
+	testGetUserPosition();
+	testPushMessage();
+	testLoadMessages();
+	testAddUser();
+	testGetNameByLogin();
+	testGetNumberUser();
 }
 
 
@@ -131,4 +168,184 @@ static int8_t getUserPosition(const std::string& login)
 	else {
 		return static_cast<int8_t> (iterator - users.begin());
 	}
+}
+
+
+
+static void testIsExistLogin()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+
+	assert(database::isExistLogin(user.getLogin()) == true);
+	assert(database::isExistLogin("incorrect_login") == false);
+
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testIsExistName()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+
+	assert(database::isExistName(user.getName()) == true);
+	assert(database::isExistName("incorrect_name") == false);
+
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testIsCorrectPassword()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+
+	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	assert(database::isCorrectPassword(user.getLogin(), "incorrect_password") == false);
+	assert(database::isCorrectPassword("incorrect_login", user.getPassword()) == false);
+
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testGetUserPosition()
+{
+	//Поместить тестовое значение
+	User user_1("name_1", "login_1", "password_1");
+	User user_2("name_2", "login_2", "password_2");
+	users.push_back(user_1);
+	users.push_back(user_2);
+
+	assert(getUserPosition(user_1.getLogin()) == 0);
+	assert(getUserPosition(user_2.getLogin()) == 1);
+
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testPushMessage()
+{
+	const std::string nameFrom = "nameFrom";
+	const std::string nameTo = "nameTo";
+	const std::string text = "Hello nameTo!";
+	Message message(nameFrom, nameTo, text);	//Создать сообщение
+	database::pushMessage(message);				//Поместить в базу сообщений
+	assert(messages.at(0).getNameFrom() == nameFrom);
+	assert(messages.at(0).getNameTo() == nameTo);
+	assert(messages.at(0).getText() == text);
+
+	//Очистить от тестовых значений
+	messages.clear();
+	assert(messages.empty() == true);
+}
+
+
+
+static void testLoadMessages()
+{
+	User u1("name_1", "login_1", "pass_1");
+	User u2("name_2", "login_2", "pass_2");
+	User u3("name_3", "login_3", "pass_3");
+
+	//Создать сообщения
+	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
+	Message messageU1_U3(u1.getName(), u3.getName(), "U1 -> U3");
+	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
+	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
+	//Поместить сообщения в базу данных
+	database::pushMessage(messageU1_U2);
+	database::pushMessage(messageU1_U3);
+	database::pushMessage(messageU2_U3);
+	database::pushMessage(messageU1_ALL);
+
+	//Укзатель на вектор сообщений конкретному пользователю
+	auto messagesToUser = std::make_shared<std::vector<Message> >();
+
+	database::loadMessages(u1, messagesToUser);	//Заполнить вектор сообщениями адресату
+	assert(messagesToUser->size() == 1);
+
+	database::loadMessages(u2, messagesToUser);
+	assert(messagesToUser->size() == 2);
+
+	database::loadMessages(u3, messagesToUser);
+
+	assert(messagesToUser->size() == 3);
+	assert(messagesToUser->at(0).getNameFrom() == u1.getName());
+	assert(messagesToUser->at(0).getNameTo() == u3.getName());
+	assert(messagesToUser->at(0).getText() == "U1 -> U3");
+
+	assert(messagesToUser->at(1).getNameFrom() == u2.getName());
+	assert(messagesToUser->at(1).getNameTo() == u3.getName());
+	assert(messagesToUser->at(1).getText() == "U2 -> U3");
+
+	assert(messagesToUser->at(2).getNameFrom() == u1.getName());
+	assert(messagesToUser->at(2).getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser->at(2).getText() == "U1 -> ALL");
+	//Очистить от тестовых значений
+	messages.clear();
+	assert(messages.empty() == true);
+}
+
+
+
+static void testAddUser()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	database::addUser(user);
+	assert(database::isExistName(user.getName()) == true);
+	assert(database::isExistLogin(user.getLogin()) == true);
+	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testGetNameByLogin()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+
+	assert(database::getNameByLogin(user.getLogin()) == user.getName());
+	assert(database::getNameByLogin("Not_Exist") == "");
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testGetNumberUser()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	users.push_back(user);
+	assert(database::getNumberUser() == 1);
+
+	//Поместить тестовое значение
+	User user2("name", "login", "password");
+	users.push_back(user2);
+	assert(database::getNumberUser() == 2);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
 }

@@ -10,6 +10,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <memory>
+
 
 #include "Message.h"
 #include "User.h"
@@ -47,20 +49,33 @@ namespace database {
 	Добавить в базу сообщение от одного пользователя другому.
 	\param[in] message Сообщение
 	*/
-	void putMessage(const Message& message);
+	void pushMessage(const Message& message);
 
 	/**
 	Загрузить сообщения, адресованные заданному пользователю
-	\param[in] user Адресат сообщений
-	\param[in] destination Вектор в который поместить сообщения
+	\param[in] addressee Адресат сообщений
+	\param[in] destination Умный указатель на вектор в который поместить сообщения
 	*/
-	void loadMessages(const User& user, std::vector<Message>* destination);
+	void loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination);
 
 	/**
 	Добавить в базу заданного пользователя
 	\param[in] user Пользователь которого добавить
 	*/
 	void addUser(const User& user);
+
+	/**
+	Вернуть ник по логину.
+	Если логин не зарегистрирован - возвращает пустую строку
+	\param[in] login Логин
+	\return Ник пользователя
+	*/
+	std::string getNameByLogin(const std::string& login);
+
+	/**
+	\return Количество зарегистрированных пользователей
+	*/
+	size_t getNumberUser();
 
 	/**
 	Запустить тесты методов модуля
