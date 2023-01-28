@@ -1,5 +1,5 @@
 ﻿/**
-\file StateAddresseeIsMissing.h
+\file AddresseeIsMissing.h
 \brief Класс-обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
 */
 

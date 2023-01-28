@@ -26,7 +26,7 @@
 #include "StatePasswordIncorrect.h"
 #include "StateUserInChat.h"
 #include "StateEnteringAddressee.h"
-#include "StateAddresseeIsMissing.h"
+#include "AddresseeIsMissing.h"
 
 class Chat{
     public:
