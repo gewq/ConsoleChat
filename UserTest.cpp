@@ -4,6 +4,12 @@
 
 void user_test::test()
 {
+	//Тест конструктора по-умолчанию и get-методов
+	User user1;
+	assert(user1.getName() == "");
+	assert(user1.getLogin() == "");
+	assert(user1.getPassword() == "");
+
 	//Тест параметризованного конструктора и get-методов
 	std::string name = "name";
 	std::string login = "login";

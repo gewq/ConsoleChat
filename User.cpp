@@ -1,5 +1,11 @@
 #include "User.h"
 
+User::User() : name_(""), login_(""), password_("")
+{
+}
+
+
+
 User::User(const std::string& name,
 	const std::string& login,
 	const std::string& password):

@@ -14,7 +14,7 @@
 
 class User {
 	public:
-		User() = delete;
+		User();
 		User(const std::string& name, const std::string& login, const std::string& password);
 
 		/**
