@@ -10,7 +10,13 @@
 
 class EnteringAddressee : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     EnteringAddressee();
 
+    /**
+    Обработчик состояния "ВВОД АДРЕСАТА"
+    */
     virtual void handle(Chat* chat) override;
 };

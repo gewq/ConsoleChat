@@ -10,7 +10,13 @@
 
 class LoginNonunique : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     LoginNonunique();
 
+    /**
+    Обработчик состояния "ЛОГИН НЕУНИКАЛЬНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

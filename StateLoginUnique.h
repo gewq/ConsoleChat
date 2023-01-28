@@ -10,7 +10,13 @@
 
 class LoginUnique : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     LoginUnique();
 
+    /**
+    Обработчик состояния "ЛОГИН УНИКАЛЬНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

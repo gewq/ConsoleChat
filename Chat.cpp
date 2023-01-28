@@ -1,11 +1,17 @@
 ﻿#include "Chat.h"
 #include <iostream>
+#include <vector>
 
-//Завершение работы программы
 bool Chat::exit_ = false;
+//Message Chat::messagesToCurrentUser_ = std::make_shared<std::vector<Message> >();
 
-//Начальная инициализация указателя
+
+/**
+Начальная инициализация указателя
+*/
 Chat* Chat::instance_ = nullptr;
+
+
 
 Chat* Chat::getInstance()
 {
