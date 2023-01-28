@@ -10,7 +10,7 @@ AddresseeIsMissing::AddresseeIsMissing() : State("AddresseeIsMissing")
 
 void AddresseeIsMissing::handle(Chat* chat)
 {
-    std::cout << "Пользователь с таким Ником не зарегистрирован.\n"
+    std::cout << "Пользователь с таким Ником не зарегистрирован.\n\n"
               << "| 1 - Ввести Ник адресата повторно | 2 - Отмена отправки сообщения | :  ";
     char input;
     std::cin >> input;
