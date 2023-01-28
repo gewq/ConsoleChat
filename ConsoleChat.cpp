@@ -36,5 +36,6 @@ int main()
 static void test()
 {
 	user::test();
+	message::test();
 	database::test();
 }
