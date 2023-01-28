@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 
 #include "DataBase.h"
-#include "UserTest.h"
 #include "Chat.h"
 
 /**
@@ -36,6 +35,6 @@ int main()
 
 static void test()
 {
-	user_test::test();
+	user::test();
 	database::test();
 }

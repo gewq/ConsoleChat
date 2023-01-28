@@ -61,3 +61,10 @@ class User {
 		std::string login_;		///<Логин
 		std::string password_;	///<Пароль
 };
+
+namespace user {
+	/**
+	Запустить тестирование методов класса User
+	*/
+	void test();
+}
