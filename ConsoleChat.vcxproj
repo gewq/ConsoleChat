@@ -148,7 +148,7 @@
     <ClCompile Include="AddresseeIsMissing.cpp" />
     <ClCompile Include="EnteringAddressee.cpp" />
     <ClCompile Include="LoginCorrect.cpp" />
-    <ClCompile Include="StateLoginIncorrect.cpp" />
+    <ClCompile Include="LoginIncorrect.cpp" />
     <ClCompile Include="StateLoginNonunique.cpp" />
     <ClCompile Include="StateLoginUnique.cpp" />
     <ClCompile Include="StatePasswordCorrect.cpp" />
@@ -168,7 +168,7 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="EnteringAddressee.h" />
     <ClInclude Include="LoginCorrect.h" />
-    <ClInclude Include="StateLoginIncorrect.h" />
+    <ClInclude Include="LoginIncorrect.h" />
     <ClInclude Include="StateLoginNonunique.h" />
     <ClInclude Include="StateLoginUnique.h" />
     <ClInclude Include="StatePasswordCorrect.h" />

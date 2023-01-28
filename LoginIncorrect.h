@@ -1,5 +1,5 @@
 ﻿/**
-\file StateLoginIncorrect.h
+\file LoginIncorrect.h
 \brief Класс-обработчик состояния "ЛОГИН НЕКОРРЕКТНЫЙ"
 */
 

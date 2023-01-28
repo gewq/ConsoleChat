@@ -14,14 +14,13 @@
 #include <string>
 #include <iostream>
 #include "User.h"
-#include "Message.h"
 //Классы-обработчики состояний
 #include "State.h"
 #include "StateStart.h"
 #include "StateSignIn.h"
 #include "StateRegistration.h"
 #include "LoginCorrect.h"
-#include "StateLoginIncorrect.h"
+#include "LoginIncorrect.h"
 #include "StateLoginUnique.h"
 #include "StateLoginNonunique.h"
 #include "StatePasswordCorrect.h"
