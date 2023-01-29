@@ -24,7 +24,7 @@ void Chat::process()
 
 
 
-Chat::Chat() : state_(new StartState()), user_(new User) 
+Chat::Chat() : state_(new StartState()), user_(new User), isRun_(nullptr)
 {
 
 };
