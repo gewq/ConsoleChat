@@ -17,7 +17,7 @@ void LoginCorrect::handle(Chat* chat)
     std::string login = chat->currentUser_.getLogin();
     std::string name;
 
-    if (database::isCorrectPassword(login, password) == true) {
+    if (database::isCorrectPassword(login, password)) {
         chat->currentUser_.setPassword(password);
 
         name = database::getNameByLogin(login);

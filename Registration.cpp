@@ -16,7 +16,7 @@ void Registration::handle(Chat* chat)
 
     chat->currentUser_.setLogin(login);
 
-    if (database::isExistLogin(login) == true) {
+    if (database::isExistLogin(login)) {
         chat->transitionTo(new LoginNonunique());
     }
     else {

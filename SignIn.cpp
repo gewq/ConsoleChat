@@ -14,7 +14,7 @@ void SignIn::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    if (database::isExistLogin(login) == true) {
+    if (database::isExistLogin(login)) {
         chat->currentUser_.setLogin(login);
         chat->transitionTo(new LoginCorrect());
     }
