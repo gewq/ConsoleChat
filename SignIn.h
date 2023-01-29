@@ -1,5 +1,5 @@
 ﻿/**
-\file StateSignIn.h
+\file SignIn.h
 \brief Класс-обработчик состояния "ВХОД ПОЛЬЗОВАТЕЛЯ"
 */
 
