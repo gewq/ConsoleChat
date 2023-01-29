@@ -22,7 +22,7 @@ void LoginCorrect::handle(Chat* chat)
 
         name = database::getNameByLogin(login);
 
-        if (name.length() > 0) {
+        if (!name.empty()) {
             chat->currentUser_.setName(name);
 
             std::cout << name << ", добро пожаловать в Чат!\n";
