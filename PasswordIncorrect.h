@@ -1,5 +1,5 @@
 ﻿/**
-\file StatePasswordIncorrect.h
+\file PasswordIncorrect.h
 \brief Класс-обработчик состояния "ПАРОЛЬ НЕВЕРНЫЙ"
 */
 
