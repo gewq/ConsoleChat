@@ -10,9 +10,9 @@ StartState::StartState() : State("StartState")
 
 void StartState::handle(Chat* chat)
 {
-    chat->currentUser_.setLogin("");
-    chat->currentUser_.setPassword("");
-    chat->currentUser_.setName("");
+    chat->getUser()->setLogin("");
+    chat->getUser()->setPassword("");
+    chat->getUser()->setName("");
 
     std::cout << "\n| 1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
     char input;

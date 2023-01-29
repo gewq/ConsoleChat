@@ -15,7 +15,7 @@ void LoginUnique::handle(Chat* chat)
     std::cin >> password;
 
     if (!password.empty()) {
-        chat->currentUser_.setPassword(password);
+        chat->getUser()->setPassword(password);
         chat->transitionTo(new PasswordCorrect());
     }
     else {

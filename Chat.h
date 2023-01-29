@@ -55,6 +55,11 @@ class Chat{
         void transitionTo(State* newState);
 
         /**
+        \return Указатель на текущего пользователя чата
+        */
+        User* getUser();
+
+        /**
         Установить Признак продолжения работы программы
         */
         void attach(bool* isRun);
@@ -64,15 +69,14 @@ class Chat{
         */
         void exit();
 
-        User currentUser_{ "", "", "" };
-
     private:
         /**
         Конструктор private - потому что нельзя создавать объект извне класса
         */
-        explicit Chat(State* state);
+        explicit Chat();
 
         State* state_;          ///<Текущее состояние
         static Chat* instance_; ///<Указатель на единственный объект класса
-        bool* isRun_;            ///<Признак продолжения работы программы
+        User* user_;            ///<Текущий пользователь чата
+        bool* isRun_;           ///<Признак продолжения работы программы
 };

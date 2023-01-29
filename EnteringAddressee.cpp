@@ -28,7 +28,7 @@ void EnteringAddressee::handle(Chat* chat)
         std::cin >> text;
         if (!text.empty()) {
             // Отправить сообщение
-            Message message(chat->currentUser_.getName(), name, text);  //Создать сообщение
+            Message message(chat->getUser()->getName(), name, text);  //Создать сообщение
             database::pushMessage(message);				                //Поместить в базу сообщений
 
             std::cout << "Сообщение отправлено\n";

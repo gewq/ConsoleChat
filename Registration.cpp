@@ -14,7 +14,7 @@ void Registration::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    chat->currentUser_.setLogin(login);
+    chat->getUser()->setLogin(login);
 
     if (database::isExistLogin(login)) {
         chat->transitionTo(new LoginNonunique());
