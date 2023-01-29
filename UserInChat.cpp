@@ -10,7 +10,7 @@ UserInChat::UserInChat() : State("UserInChat")
 
 void UserInChat::handle(Chat* chat)
 {
-    std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Выход из чата | :  ";
+    std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Список пользователей | 4 - Выход из чата | :  ";
     char input;
     std::cin >> input;
 
@@ -41,6 +41,15 @@ void UserInChat::handle(Chat* chat)
             break;
         }
         case '3': {
+            //Загрузить список пользователей и вывести на экран
+            auto userNames = std::make_shared<std::vector<std::string> >();
+            database::loadUserNames(userNames);
+            for (auto& name : *userNames) {
+                std::cout << name << std::endl;
+            }
+            break;
+        }
+        case '4': {
             chat->transitionTo(new StartState());
             chat->getUser()->reset();
             break;
