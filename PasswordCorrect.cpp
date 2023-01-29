@@ -1,4 +1,4 @@
-﻿#include "StatePasswordCorrect.h"
+﻿#include "PasswordCorrect.h"
 #include <iostream>
 
 PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")
@@ -24,8 +24,9 @@ void PasswordCorrect::handle(Chat* chat)
         std::cout << "Вы успешно зарегистрированы!\n"
             << chat->currentUser_.getName() << ", добро пожаловать в Чат!\n";
 
-        //Загрузить сообщения и вывести на экран
-        //database::loadMessages(chat->currentUser_, chat->messagesToCurrentUser_);
+        //Загрузить сообщения и вывести на экран                
+        auto messagesToUser = std::make_shared<std::vector<Message> >(); //Указатель на вектор сообщений конкретному пользователю
+        database::loadMessages(chat->currentUser_, messagesToUser);	     //Заполнить вектор сообщениями адресату
 
         chat->transitionTo(new UserInChat());
     }

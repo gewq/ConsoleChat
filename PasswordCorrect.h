@@ -1,5 +1,5 @@
 ﻿/**
-\file StatePasswordCorrect.h
+\file PasswordCorrect.h
 \brief Класс-обработчик состояния "ПАРОЛЬ КОРРЕКТНЫЙ"
 */
 

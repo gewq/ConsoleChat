@@ -23,7 +23,7 @@
 #include "LoginIncorrect.h"
 #include "LoginUnique.h"
 #include "LoginNonunique.h"
-#include "StatePasswordCorrect.h"
+#include "PasswordCorrect.h"
 #include "StatePasswordIncorrect.h"
 #include "StateUserInChat.h"
 #include "EnteringAddressee.h"

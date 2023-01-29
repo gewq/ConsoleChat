@@ -28,7 +28,7 @@ void LoginCorrect::handle(Chat* chat)
             std::cout << name << ", добро пожаловать в Чат!\n";
 
             //Загрузить сообщения и вывести на экран                
-            auto messagesToUser = std::make_shared<std::vector<Message> >(); //Укзатель на вектор сообщений конкретному пользователю
+            auto messagesToUser = std::make_shared<std::vector<Message> >(); //Указатель на вектор сообщений конкретному пользователю
             database::loadMessages(chat->currentUser_, messagesToUser);	     //Заполнить вектор сообщениями адресату
 
             chat->transitionTo(new UserInChat());
