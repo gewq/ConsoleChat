@@ -20,7 +20,7 @@ void PasswordIncorrect::handle(Chat* chat)
         break;
     }
     case '2': {
-        chat->transitionTo(new StateStart());
+        chat->transitionTo(new StartState());
         break;
     }
     default: {

@@ -28,7 +28,7 @@ void UserInChat::handle(Chat* chat)
         break;
     }
     case '3': {
-        chat->transitionTo(new StateStart());
+        chat->transitionTo(new StartState());
         break;
     }
     default: {

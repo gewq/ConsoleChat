@@ -155,7 +155,7 @@
     <ClCompile Include="PasswordIncorrect.cpp" />
     <ClCompile Include="Registration.cpp" />
     <ClCompile Include="SignIn.cpp" />
-    <ClCompile Include="StateStart.cpp" />
+    <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="StateUserInChat.cpp" />
     <ClCompile Include="User.cpp" />
@@ -175,7 +175,7 @@
     <ClInclude Include="PasswordIncorrect.h" />
     <ClInclude Include="Registration.h" />
     <ClInclude Include="SignIn.h" />
-    <ClInclude Include="StateStart.h" />
+    <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="StateUserInChat.h" />
     <ClInclude Include="User.h" />

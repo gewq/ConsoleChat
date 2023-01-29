@@ -1,14 +1,14 @@
-﻿#include "StateStart.h"
+﻿#include "StartState.h"
 #include <iostream>
 
-StateStart::StateStart() : State("StateStart")
+StartState::StartState() : State("StartState")
 {
 
 };
 
 
 
-void StateStart::handle(Chat* chat)
+void StartState::handle(Chat* chat)
 {
     chat->currentUser_.setLogin("");
     chat->currentUser_.setPassword("");
@@ -34,7 +34,7 @@ void StateStart::handle(Chat* chat)
     }
     default: {
         std::cin.clear();
-        chat->transitionTo(new StateStart());
+        chat->transitionTo(new StartState());
         break;
     }
     }

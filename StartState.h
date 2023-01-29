@@ -1,5 +1,5 @@
 ﻿/**
-\file StateStart.h
+\file StartState.h
 \brief Класс-обработчик состояния "НИКТО НЕ ЗАЛОГИНЕН"
 */
 
@@ -8,12 +8,12 @@
 #include "State.h"
 #include "Chat.h"
 
-class StateStart : public State {
+class StartState : public State {
 public:
     /**
     Конструктор по-умолчанию
     */
-    StateStart();
+    StartState();
 
     /**
     Обработчик состояния "НИКТО НЕ ЗАЛОГИНЕН"
