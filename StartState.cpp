@@ -10,7 +10,7 @@ StartState::StartState() : State("StartState")
 
 void StartState::handle(Chat* chat)
 {
-    std::cout << "1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
+    std::cout << "|1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
     char input;
     std::cin >> input;
 
