@@ -20,12 +20,7 @@ void UserInChat::handle(Chat* chat)
             break;
         }
         case '2': {
-            //Загрузить список пользователей и вывести на экран
-            auto userNames = std::make_shared<std::vector<std::string> >();
-            database::loadUserNames(userNames);
-            for (auto& name : *userNames) {
-                std::cout << name << std::endl;
-            }
+            chat->printUserList();
             break;
         }
         case '3': {

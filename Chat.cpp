@@ -57,3 +57,15 @@ void Chat::exit()
 {
     *isRun_ = false;
 }
+
+
+
+void Chat::printUserList()
+{
+    //Загрузить список пользователей и вывести на экран
+    auto userNames = std::make_shared<std::vector<std::string> >();
+    database::loadUserNames(userNames);
+    for (auto& name : *userNames) {
+        std::cout << name << std::endl;
+    }
+}
