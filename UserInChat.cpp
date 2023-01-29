@@ -10,7 +10,7 @@ UserInChat::UserInChat() : State("UserInChat")
 
 void UserInChat::handle(Chat* chat)
 {
-    std::cout << "| 1 - Отправить сообщение | 2 - Список пользователей | 3 - Выход из чата | :  ";
+    std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Список пользователей | 4 - Выход из чата | :  ";
     char input;
     std::cin >> input;
 
@@ -20,10 +20,14 @@ void UserInChat::handle(Chat* chat)
             break;
         }
         case '2': {
-            chat->printUserList();
+            chat->printMessagesToUser();
             break;
         }
         case '3': {
+            chat->printUserList();
+            break;
+        }
+        case '4': {
             chat->transitionTo(new StartState());
             chat->getUser()->reset();
             break;
