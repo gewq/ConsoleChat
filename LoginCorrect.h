@@ -1,5 +1,5 @@
 ﻿/**
-\file StateLoginCorrect.h
+\file LoginCorrect.h
 \brief Класс-обработчик состояния "ЛОГИН КОРРЕКТНЫЙ"
 */
 
@@ -10,7 +10,13 @@
 
 class LoginCorrect : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     LoginCorrect();
 
+    /**
+    Обработчик состояния "ЛОГИН КОРРЕКТНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

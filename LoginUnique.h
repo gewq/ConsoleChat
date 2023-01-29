@@ -1,5 +1,5 @@
 ﻿/**
-\file StateLoginUnique.h
+\file LoginUnique.h
 \brief Класс-обработчик состояния "ЛОГИН УНИКАЛЬНЫЙ"
 */
 
@@ -10,7 +10,13 @@
 
 class LoginUnique : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     LoginUnique();
 
+    /**
+    Обработчик состояния "ЛОГИН УНИКАЛЬНЫЙ"
+    */
     virtual void handle(Chat* chat) override;
 };

@@ -1,4 +1,4 @@
-﻿#include "StateSignIn.h"
+﻿#include "SignIn.h"
 #include <iostream>
 
 SignIn::SignIn() : State("SignIn")
@@ -14,8 +14,8 @@ void SignIn::handle(Chat* chat)
     std::string login;
     std::cin >> login;
 
-    if (database::isExistLogin(login) == true) {
-        chat->currentUser_.setLogin(login);
+    if (database::isExistLogin(login)) {
+        chat->getUser()->setLogin(login);
         chat->transitionTo(new LoginCorrect());
     }
     else {

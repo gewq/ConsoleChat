@@ -1,5 +1,5 @@
 ﻿/**
-\file StateUserInChat.h
+\file UserInChat.h
 \brief Класс-обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"
 */
 
@@ -10,7 +10,13 @@
 
 class UserInChat : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     UserInChat();
 
+    /**
+    Обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"
+    */
     virtual void handle(Chat* chat) override;
 };

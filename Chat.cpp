@@ -1,16 +1,16 @@
 ﻿#include "Chat.h"
 #include <iostream>
-
-//Завершение работы программы
-bool Chat::exit_ = false;
+#include <vector>
 
 //Начальная инициализация указателя на статический объект класса
 Chat* Chat::instance_ = nullptr;
 
+
+
 Chat* Chat::getInstance()
 {
     if (instance_ == nullptr) {
-        instance_ = new Chat(new StateStart());
+        instance_ = new Chat();
     }
     return instance_;
 }
@@ -24,7 +24,7 @@ void Chat::process()
 
 
 
-Chat::Chat(State* state) : state_(state)
+Chat::Chat() : state_(new StartState()), user_(new User) 
 {
 
 };
@@ -35,4 +35,25 @@ void Chat::transitionTo(State* newState)
 {
     delete state_;
     state_ = newState;
+}
+
+
+
+User* Chat::getUser()
+{
+    return user_;
+}
+
+
+
+void Chat::attach(bool* isRun)
+{
+    isRun_ = isRun;
+}
+
+
+
+void Chat::exit()
+{
+    *isRun_ = false;
 }

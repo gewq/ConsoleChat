@@ -1,5 +1,5 @@
 ﻿/**
-\file StateRegistration.h
+\file Registration.h
 \brief Класс-обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
 */
 
@@ -10,7 +10,13 @@
 
 class Registration : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     Registration();
 
+    /**
+    Обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
+    */
     virtual void handle(Chat* chat) override;
 };

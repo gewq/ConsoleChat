@@ -1,4 +1,4 @@
-﻿#include "StateLoginUnique.h"
+﻿#include "LoginUnique.h"
 #include <iostream>
 
 LoginUnique::LoginUnique() : State("LoginUnique")
@@ -14,8 +14,8 @@ void LoginUnique::handle(Chat* chat)
     std::string password;
     std::cin >> password;
 
-    if (password.length() > 0) {
-        chat->currentUser_.setPassword(password);
+    if (!password.empty()) {
+        chat->getUser()->setPassword(password);
         chat->transitionTo(new PasswordCorrect());
     }
     else {

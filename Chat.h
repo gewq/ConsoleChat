@@ -12,21 +12,22 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 #include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
-#include "StateStart.h"
-#include "StateSignIn.h"
-#include "StateRegistration.h"
-#include "StateLoginCorrect.h"
-#include "StateLoginIncorrect.h"
-#include "StateLoginUnique.h"
-#include "StateLoginNonunique.h"
-#include "StatePasswordCorrect.h"
-#include "StatePasswordIncorrect.h"
-#include "StateUserInChat.h"
-#include "StateEnteringAddressee.h"
-#include "StateAddresseeIsMissing.h"
+#include "StartState.h"
+#include "SignIn.h"
+#include "Registration.h"
+#include "LoginCorrect.h"
+#include "LoginIncorrect.h"
+#include "LoginUnique.h"
+#include "LoginNonunique.h"
+#include "PasswordCorrect.h"
+#include "PasswordIncorrect.h"
+#include "UserInChat.h"
+#include "EnteringAddressee.h"
+#include "AddresseeIsMissing.h"
 
 class Chat{
     public:
@@ -48,20 +49,34 @@ class Chat{
         void process();
 
         /**
-        Перейти в новое состояние
+        Перейти в заданное состояние
         \param[in] newState Указатель на объект - новое состояние
         */
         void transitionTo(State* newState);
 
-        static bool exit_;//выход из программы
-        User currentUser_{ "", "", "" };
+        /**
+        \return Указатель на текущего пользователя чата
+        */
+        User* getUser();
+
+        /**
+        Установить Признак продолжения работы программы
+        */
+        void attach(bool* isRun);
+
+        /**
+        Переход в состояние Завершение работы программы
+        */
+        void exit();
 
     private:
         /**
         Конструктор private - потому что нельзя создавать объект извне класса
         */
-        explicit Chat(State* state);
+        explicit Chat();
 
         State* state_;          ///<Текущее состояние
         static Chat* instance_; ///<Указатель на единственный объект класса
+        User* user_;            ///<Текущий пользователь чата
+        bool* isRun_;           ///<Признак продолжения работы программы
 };

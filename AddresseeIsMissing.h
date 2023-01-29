@@ -1,5 +1,5 @@
 ﻿/**
-\file StateAddresseeIsMissing.h
+\file AddresseeIsMissing.h
 \brief Класс-обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
 */
 
@@ -10,7 +10,13 @@
 
 class AddresseeIsMissing : public State {
 public:
+    /**
+    Конструктор по-умолчанию
+    */
     AddresseeIsMissing();
 
+    /**
+    Обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
+    */
     virtual void handle(Chat* chat) override;
 };

@@ -1,4 +1,4 @@
-﻿#include "StateEnteringAddressee.h"
+﻿#include "EnteringAddressee.h"
 #include <iostream>
 
 EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
@@ -14,7 +14,7 @@ void EnteringAddressee::handle(Chat* chat)
     std::string name;
     std::cin >> name;
 		
-		//Проверить наличие других пользователей чата
+	//Проверить наличие других пользователей чата
     if (database::getNumberUser() == 1) {
         std::cout << "Вы единственный пользователь чата\n";
         chat->transitionTo(new UserInChat());
@@ -28,8 +28,8 @@ void EnteringAddressee::handle(Chat* chat)
         std::cin >> text;
         if (!text.empty()) {
             // Отправить сообщение
-            Message message(chat->currentUser_.getName(), name, text);  //Создать сообщение
-            database::pushMessage(message);				                //Поместить в базу сообщений
+            Message message(chat->getUser()->getName(), name, text);  //Создать сообщение
+            database::pushMessage(message);				              //Поместить в базу сообщений
 
             std::cout << "Сообщение отправлено\n";
         }
