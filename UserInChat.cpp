@@ -30,6 +30,7 @@ void UserInChat::handle(Chat* chat)
             }
             //Есть сообщения
             else {
+                //Вывести сообщения пользователю на экран
                 for (auto& message : *messagesToUser) {
                     std::cout << message.getNameFrom() << " to "
                         << message.getNameTo() << ": "
@@ -41,6 +42,7 @@ void UserInChat::handle(Chat* chat)
         }
         case '3': {
             chat->transitionTo(new StartState());
+            chat->getUser()->reset();
             break;
         }
         default: {
