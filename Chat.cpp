@@ -69,3 +69,16 @@ void Chat::printUserList()
         std::cout << name << std::endl;
     }
 }
+
+
+
+void Chat::printMessagesToUser()
+{
+    //Загрузить сообщения и вывести на экран
+    auto messagesToUser = std::make_shared<std::vector<Message> >();    //Сообщения текущему пользователю
+    database::loadMessages(*user_, messagesToUser);                     //Заполнить вектор - сообщениями пользователю
+    for (auto& message : *messagesToUser) {
+        std::cout << message.getNameFrom() <<
+            ": " << message.getText() << std::endl;
+    }
+}
