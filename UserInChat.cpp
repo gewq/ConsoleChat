@@ -1,4 +1,4 @@
-﻿#include "StateUserInChat.h"
+﻿#include "UserInChat.h"
 #include <iostream>
 
 UserInChat::UserInChat() : State("UserInChat")
@@ -21,8 +21,8 @@ void UserInChat::handle(Chat* chat)
     }
     case '2': {
         //Загрузить сообщения и вывести на экран
-        auto messagesToCurrentUser = std::make_shared<std::vector<Message> >();
-        database::loadMessages(chat->currentUser_, messagesToCurrentUser);	       //Заполнить вектор сообщениями адресату
+        auto messagesToUser = std::make_shared<std::vector<Message> >(); //Указатель на вектор сообщений конкретному пользователю
+        database::loadMessages(chat->currentUser_, messagesToUser);	     //Заполнить вектор сообщениями адресату
 
         chat->transitionTo(new UserInChat());
         break;

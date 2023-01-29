@@ -1,5 +1,5 @@
 ﻿/**
-\file StateUserInChat.h
+\file UserInChat.h
 \brief Класс-обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"
 */
 

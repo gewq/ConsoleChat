@@ -25,7 +25,7 @@
 #include "LoginNonunique.h"
 #include "PasswordCorrect.h"
 #include "PasswordIncorrect.h"
-#include "StateUserInChat.h"
+#include "UserInChat.h"
 #include "EnteringAddressee.h"
 #include "AddresseeIsMissing.h"
 

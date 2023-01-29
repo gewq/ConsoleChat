@@ -157,7 +157,7 @@
     <ClCompile Include="SignIn.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
-    <ClCompile Include="StateUserInChat.cpp" />
+    <ClCompile Include="UserInChat.cpp" />
     <ClCompile Include="User.cpp" />
     <ClCompile Include="UserTest.cpp" />
   </ItemGroup>
@@ -177,7 +177,7 @@
     <ClInclude Include="SignIn.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
-    <ClInclude Include="StateUserInChat.h" />
+    <ClInclude Include="UserInChat.h" />
     <ClInclude Include="User.h" />
     <ClInclude Include="UserTest.h" />
   </ItemGroup>
