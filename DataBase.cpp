@@ -30,7 +30,7 @@ void database::initialize()
 bool database::isExistLogin(const std::string& login)
 {
 	//Range-based loop
-	for (auto& user : users) {
+	for (const auto& user : users) {
 		if (user.getLogin() == login) {
 			return true;
 		}
@@ -43,7 +43,7 @@ bool database::isExistLogin(const std::string& login)
 bool database::isExistName(const std::string& name)
 {
 	//Range-based loop
-	for (auto& user : users) {
+	for (const auto& user : users) {
 		if (user.getName() == name) {
 			return true;
 		}
@@ -87,7 +87,7 @@ void database::loadMessages(const User& addressee, std::shared_ptr<std::vector<M
 {
 	destination->clear();
 	//Пройти по сообщениям в базе
-	for (auto& message : messages) {
+	for (const auto& message : messages) {
 		//Если адресат сообщения совпадает с заданным пользователем
 		//или сообщение ВСЕМ
 		if (message.getNameTo() == addressee.getName() ||
