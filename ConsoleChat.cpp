@@ -16,7 +16,10 @@ int main()
 		test();
 		database::initialize();
 		
-		while (Chat::exit_ != true) {
+		bool isRun = true;
+		Chat::getInstance()->attach(&isRun);
+
+		while (isRun) {
 			Chat::getInstance()->process();
 		}
 	}

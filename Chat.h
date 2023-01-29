@@ -49,12 +49,21 @@ class Chat{
         void process();
 
         /**
-        Перейти в новое состояние
+        Перейти в заданное состояние
         \param[in] newState Указатель на объект - новое состояние
         */
         void transitionTo(State* newState);
 
-        static bool exit_;//выход из программы
+        /**
+        Установить Признак продолжения работы программы
+        */
+        void attach(bool* isRun);
+
+        /**
+        Переход в состояние Завершение работы программы
+        */
+        void exit();
+
         User currentUser_{ "", "", "" };
 
     private:
@@ -65,4 +74,5 @@ class Chat{
 
         State* state_;          ///<Текущее состояние
         static Chat* instance_; ///<Указатель на единственный объект класса
+        bool* isRun_;            ///<Признак продолжения работы программы
 };

@@ -29,7 +29,7 @@ void StartState::handle(Chat* chat)
     }
     case '3': {
         std::cout << "Завершение работы";
-        chat->exit_ = true;
+        chat->exit();
         break;
     }
     default: {

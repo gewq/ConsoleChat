@@ -2,9 +2,6 @@
 #include <iostream>
 #include <vector>
 
-bool Chat::exit_ = false;
-//Message Chat::messagesToCurrentUser_ = std::make_shared<std::vector<Message> >();
-
 //Начальная инициализация указателя на статический объект класса
 Chat* Chat::instance_ = nullptr;
 
@@ -38,4 +35,18 @@ void Chat::transitionTo(State* newState)
 {
     delete state_;
     state_ = newState;
+}
+
+
+
+void Chat::attach(bool* isRun)
+{
+    isRun_ = isRun;
+}
+
+
+
+void Chat::exit()
+{
+    *isRun_ = false;
 }
