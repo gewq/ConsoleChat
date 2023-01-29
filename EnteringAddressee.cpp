@@ -29,7 +29,7 @@ void EnteringAddressee::handle(Chat* chat)
         if (!text.empty()) {
             // Отправить сообщение
             Message message(chat->getUser()->getName(), name, text);  //Создать сообщение
-            database::pushMessage(message);				                //Поместить в базу сообщений
+            database::pushMessage(message);				              //Поместить в базу сообщений
 
             std::cout << "Сообщение отправлено\n";
         }

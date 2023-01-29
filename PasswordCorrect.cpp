@@ -28,6 +28,10 @@ void PasswordCorrect::handle(Chat* chat)
         auto messagesToUser = std::make_shared<std::vector<Message> >(); //Указатель на вектор сообщений конкретному пользователю
         database::loadMessages(*chat->getUser(), messagesToUser);	     //Заполнить вектор сообщениями адресату
 
+        for (auto& m : *messagesToUser) {
+            std::cout << m.getNameFrom() << " to " << m.getNameTo() << ": " << m.getText() << std::endl;
+        }
+
         chat->transitionTo(new UserInChat());
     }
 }
