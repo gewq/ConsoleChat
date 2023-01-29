@@ -79,6 +79,13 @@ class Chat{
         */
         void printMessagesToUser();
 
+        /**
+        Проверка Логина/Пароля/Ника на наличие пробелов
+        \param[in] str Введенное значение
+    	\return Признак отсутствия пробелов
+	    */
+        bool isCorrectValue(const std::string& str);
+
     private:
         /**
         Конструктор private - потому что нельзя создавать объект извне класса

@@ -87,3 +87,17 @@ void Chat::printMessagesToUser()
         }
     }
 }
+
+
+
+bool Chat::isCorrectValue(const std::string& str)
+{
+    std::size_t found = str.find(' ');  //Позиция первого символа первого совпадения
+                                        //Если совпадений найдено не было, функция возвращает строку::npo
+    if (found != std::string::npos) {
+        return false;
+    }
+    else {
+        return true;
+    }
+}
