@@ -1,4 +1,4 @@
-﻿#include "StateRegistration.h"
+﻿#include "Registration.h"
 #include <iostream>
 
 Registration::Registration() : State("Registration")

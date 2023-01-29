@@ -1,5 +1,5 @@
 ﻿/**
-\file StateRegistration.h
+\file Registration.h
 \brief Класс-обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
 */
 
