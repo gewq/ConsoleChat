@@ -15,13 +15,11 @@ void LoginCorrect::handle(Chat* chat)
     std::cin >> password;
 
     std::string login = chat->getUser()->getLogin();
-    std::string name;
 
     if (database::isCorrectPassword(login, password)) {
         chat->getUser()->setPassword(password);
 
-        name = database::getNameByLogin(login);
-
+        std::string name = database::getNameByLogin(login);
         if (!name.empty()) {
             chat->getUser()->setName(name);
             std::cout << name << ", добро пожаловать в Чат!\n";
