@@ -10,7 +10,7 @@ LoginIncorrect::LoginIncorrect() : State("LoginIncorrect")
 
 void LoginIncorrect::handle(Chat* chat)
 {
-    std::cout << "Логин не зарегистрирован!\n\n| 1 - Ввести Логин заново | 2 - Регистрация | :  ";
+    std::cout << "Логин не зарегистрирован!\n| 1 - Ввести Логин заново | 2 - Регистрация | :  ";
     char input;
     std::cin >> input;
 

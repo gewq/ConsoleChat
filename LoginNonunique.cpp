@@ -10,7 +10,7 @@ LoginNonunique::LoginNonunique() : State("LoginNonunique")
 
 void LoginNonunique::handle(Chat* chat)
 {
-    std::cout << "Логин уже зарегистрирован!\n\n| 1 - Войти по этому Логину | 2 - Назад к регистрации | :  ";
+    std::cout << "Логин уже зарегистрирован!\n| 1 - Войти по этому Логину | 2 - Назад к регистрации | :  ";
     char input;
     std::cin >> input;
 
