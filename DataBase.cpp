@@ -127,6 +127,16 @@ size_t database::getNumberUser()
 
 
 
+void database::loadUserNames(std::shared_ptr<std::vector<std::string> > userNames)
+{
+	userNames->clear();
+	for (const auto& user : users) {
+		userNames->push_back(user.getName());
+	}
+}
+
+
+
 static void testIsExistLogin();
 static void testIsExistName();
 static void testIsCorrectPassword();
@@ -136,6 +146,7 @@ static void testLoadMessages();
 static void testAddUser();
 static void testGetNameByLogin();
 static void testGetNumberUser();
+static void testLoadUserNames();
 
 void database::test()
 {
@@ -148,6 +159,7 @@ void database::test()
 	testAddUser();
 	testGetNameByLogin();
 	testGetNumberUser();
+	testLoadUserNames();
 }
 
 
@@ -345,6 +357,29 @@ static void testGetNumberUser()
 	User user2("name", "login", "password");
 	users.push_back(user2);
 	assert(database::getNumberUser() == 2);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testLoadUserNames()
+{
+	//Поместить тестовое значение
+	User user_1("user_1", "login_1", "password_1");
+	User user_2("user_2", "login_2", "password_2");
+	users.push_back(user_1);
+	users.push_back(user_2);
+
+	//Укзатель на вектор сообщений конкретному пользователю
+	auto userNames = std::make_shared<std::vector<std::string> >();
+
+	database::loadUserNames(userNames);
+	assert(userNames->size() == 2);
+	assert(userNames->at(0) == user_1.getName());
+	assert(userNames->at(1) == user_2.getName());
+
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);

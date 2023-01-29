@@ -78,6 +78,12 @@ namespace database {
 	size_t getNumberUser();
 
 	/**
+	Загрузить имена зарегистрированных пользователей
+	\param[in] userNames Умный указатель на вектор в который поместить имена пользователей
+	*/
+	void loadUserNames(std::shared_ptr<std::vector<std::string> > userNames);
+
+	/**
 	Запустить тесты методов модуля
 	*/
 	void test();
