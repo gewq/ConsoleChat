@@ -10,32 +10,28 @@ StartState::StartState() : State("StartState")
 
 void StartState::handle(Chat* chat)
 {
-    chat->getUser()->setLogin("");
-    chat->getUser()->setPassword("");
-    chat->getUser()->setName("");
-
-    std::cout << "\n| 1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
+    std::cout << "1 - Вход в чат | 2 - Регистрация | 3 - Выход из программы | :  ";
     char input;
     std::cin >> input;
 
     switch (input) {
-    case '1': {
-        chat->transitionTo(new SignIn());
-        break;
-    }
-    case '2': {
-        chat->transitionTo(new Registration());
-        break;
-    }
-    case '3': {
-        std::cout << "Завершение работы";
-        chat->exit();
-        break;
-    }
-    default: {
-        std::cin.clear();
-        chat->transitionTo(new StartState());
-        break;
-    }
+        case '1': {
+            chat->transitionTo(new SignIn());
+            break;
+        }
+        case '2': {
+            chat->transitionTo(new Registration());
+            break;
+        }
+        case '3': {
+            std::cout << "Завершение работы";
+            chat->exit();
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new StartState());
+            break;
+        }
     }
 }
