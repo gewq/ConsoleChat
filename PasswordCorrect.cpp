@@ -23,6 +23,15 @@ void PasswordCorrect::handle(Chat* chat)
         database::addUser(*chat->getUser());
         std::cout << "Вы успешно зарегистрированы!\n"
             << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
+
+        //Загрузить сообщения и вывести на экран
+        auto messagesToUser = std::make_shared<std::vector<Message> >();    //Сообщения конкретному пользователю
+        database::loadMessages(*chat->getUser(), messagesToUser);           //Заполнить вектор - сообщениями пользователю
+        for (auto& message : *messagesToUser) {
+            std::cout << message.getNameFrom() << " to "
+                << message.getNameTo() << ": "
+                << message.getText() << std::endl;
+        }
         chat->transitionTo(new UserInChat());
     }
 }
