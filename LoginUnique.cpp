@@ -10,7 +10,7 @@ LoginUnique::LoginUnique() : State("LoginUnique")
 
 void LoginUnique::handle(Chat* chat)
 {
-    std::cout << "Придумайте пароль: ";
+    std::cout << "Придумайте Пароль: ";
     std::string password;
     std::cin >> password;
 
@@ -19,7 +19,7 @@ void LoginUnique::handle(Chat* chat)
         chat->transitionTo(new PasswordCorrect());
     }
     else {
-        std::cout << "Недопустимый пароль (пустой)\n";
+        std::cout << "Недопустимый Пароль (пустой)\n";
         chat->transitionTo(new LoginUnique());
     }
 }

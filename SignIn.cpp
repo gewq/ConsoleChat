@@ -10,7 +10,7 @@ SignIn::SignIn() : State("SignIn")
 
 void SignIn::handle(Chat* chat)
 {
-    std::cout << "Введите Ваш логин: ";
+    std::cout << "Введите Ваш Логин: ";
     std::string login;
     std::cin >> login;
 

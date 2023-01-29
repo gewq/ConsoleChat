@@ -10,7 +10,7 @@ LoginCorrect::LoginCorrect() : State("LoginCorrect")
 
 void LoginCorrect::handle(Chat* chat)
 {
-    std::cout << "Введите пароль: ";
+    std::cout << "Введите Пароль: ";
     std::string password;
     std::cin >> password;
 

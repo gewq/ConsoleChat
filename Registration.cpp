@@ -10,7 +10,7 @@ Registration::Registration() : State("Registration")
 
 void Registration::handle(Chat* chat)
 {
-    std::cout << "Придумайте логин: ";
+    std::cout << "Придумайте Логин: ";
     std::string login;
     std::cin >> login;
 
