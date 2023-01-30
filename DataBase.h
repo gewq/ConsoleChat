@@ -10,8 +10,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <list>
 #include <memory>
-
 
 #include "Message.h"
 #include "User.h"
@@ -56,7 +56,7 @@ namespace database {
 	\param[in] addressee Адресат сообщений
 	\param[in] destination Умный указатель на вектор в который поместить сообщения
 	*/
-	void loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination);
+	void loadMessages(const User& addressee, std::shared_ptr<std::list<Message> > destination);
 
 	/**
 	Добавить в базу заданного пользователя

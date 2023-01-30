@@ -1,8 +1,9 @@
 #include "DataBase.h"
 
 #include <vector>
+#include <list>
 #include <assert.h>
-#include <iostream>
+
 
 #include "User.h"
 #include "Message.h"
@@ -12,7 +13,7 @@ namespace {
 	const std::string MSG_TO_ALL = "all";
 
 	std::vector<User> users;		//База зарегистрированных пользователей
-	std::vector<Message> messages;	//База сообщений пользователей друг другу
+	std::list<Message> messages;	//База сообщений пользователей друг другу
 }
 
 
@@ -83,7 +84,7 @@ void database::pushMessage(const Message& message)
 
 
 
-void database::loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination)
+void database::loadMessages(const User& addressee, std::shared_ptr<std::list<Message> > destination)
 {
 	destination->clear();
 	//Пройти по сообщениям в базе
@@ -253,14 +254,15 @@ static void testGetUserPosition()
 
 static void testPushMessage()
 {
+	messages.clear();
 	const std::string nameFrom = "nameFrom";
 	const std::string nameTo = "nameTo";
 	const std::string text = "Hello nameTo!";
 	Message message(nameFrom, nameTo, text);	//Создать сообщение
 	database::pushMessage(message);				//Поместить в базу сообщений
-	assert(messages.at(0).getNameFrom() == nameFrom);
-	assert(messages.at(0).getNameTo() == nameTo);
-	assert(messages.at(0).getText() == text);
+	assert(messages.front().getNameFrom() == nameFrom);
+	assert(messages.front().getNameTo() == nameTo);
+	assert(messages.front().getText() == text);
 
 	//Очистить от тестовых значений
 	messages.clear();
@@ -271,44 +273,40 @@ static void testPushMessage()
 
 static void testLoadMessages()
 {
+	messages.clear();
 	User u1("name_1", "login_1", "pass_1");
 	User u2("name_2", "login_2", "pass_2");
-	User u3("name_3", "login_3", "pass_3");
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
-	Message messageU1_U3(u1.getName(), u3.getName(), "U1 -> U3");
-	Message messageU2_U3(u2.getName(), u3.getName(), "U2 -> U3");
+	Message messageU2_U1(u2.getName(), u1.getName(), "U2 -> U1");
 	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
 	//Поместить сообщения в базу данных
 	database::pushMessage(messageU1_U2);
-	database::pushMessage(messageU1_U3);
-	database::pushMessage(messageU2_U3);
+	database::pushMessage(messageU2_U1);
 	database::pushMessage(messageU1_ALL);
 
-	//Укзатель на вектор сообщений конкретному пользователю
-	auto messagesToUser = std::make_shared<std::vector<Message> >();
+	//Укзатель на сообщения конкретному пользователю
+	auto messagesToUser = std::make_shared<std::list<Message> >();
 
 	database::loadMessages(u1, messagesToUser);	//Заполнить вектор сообщениями адресату
-	assert(messagesToUser->size() == 1);
+	assert(messagesToUser->size() == 2);
+	assert(messagesToUser->front().getNameFrom() == u2.getName());
+	assert(messagesToUser->front().getNameTo() == u1.getName());
+	assert(messagesToUser->front().getText() == "U2 -> U1");
+	assert(messagesToUser->back().getNameFrom() == u1.getName());
+	assert(messagesToUser->back().getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser->back().getText() == "U1 -> ALL");
 
 	database::loadMessages(u2, messagesToUser);
 	assert(messagesToUser->size() == 2);
+	assert(messagesToUser->front().getNameFrom() == u1.getName());
+	assert(messagesToUser->front().getNameTo() == u2.getName());
+	assert(messagesToUser->front().getText() == "U1 -> U2");
+	assert(messagesToUser->back().getNameFrom() == u1.getName());
+	assert(messagesToUser->back().getNameTo() == MSG_TO_ALL);
+	assert(messagesToUser->back().getText() == "U1 -> ALL");
 
-	database::loadMessages(u3, messagesToUser);
-
-	assert(messagesToUser->size() == 3);
-	assert(messagesToUser->at(0).getNameFrom() == u1.getName());
-	assert(messagesToUser->at(0).getNameTo() == u3.getName());
-	assert(messagesToUser->at(0).getText() == "U1 -> U3");
-
-	assert(messagesToUser->at(1).getNameFrom() == u2.getName());
-	assert(messagesToUser->at(1).getNameTo() == u3.getName());
-	assert(messagesToUser->at(1).getText() == "U2 -> U3");
-
-	assert(messagesToUser->at(2).getNameFrom() == u1.getName());
-	assert(messagesToUser->at(2).getNameTo() == MSG_TO_ALL);
-	assert(messagesToUser->at(2).getText() == "U1 -> ALL");
 	//Очистить от тестовых значений
 	messages.clear();
 	assert(messages.empty() == true);
