@@ -78,7 +78,7 @@ void Chat::printMessagesToUser()
     auto messagesToUser = std::make_shared<std::list<Message> >();  //Сообщения текущему пользователю
     database::loadMessages(*user_, messagesToUser);                 //Заполнить вектор - сообщениями пользователю
     if (messagesToUser->empty()) {
-        std::cout << "Сообщений нет.\n";
+        std::cout << "Вам сообщений нет.\n";
     }
     else {
         for (auto& message : *messagesToUser) {
@@ -86,4 +86,14 @@ void Chat::printMessagesToUser()
                 ": " << message.getText() << std::endl;
         }
     }
+}
+
+
+
+void Chat::removeAccount()
+{
+    database::removeMessagesToUser(user_->getName());
+    database::removeUser(*user_);
+    user_->reset();
+    std::cout << "Ваш аккаунт удалён.\n";
 }
