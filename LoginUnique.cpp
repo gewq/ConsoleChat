@@ -12,7 +12,7 @@ void LoginUnique::handle(Chat* chat)
 {
     std::cout << "Придумайте Пароль: ";
     std::string password;
-    std::cin >> password;
+    std::getline(std::cin >> std::ws, password);
 
     if (!chat->isCorrectValue(password)) {
         chat->transitionTo(new LoginUnique());
