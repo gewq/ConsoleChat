@@ -84,6 +84,12 @@ namespace database {
 	void loadUserNames(std::shared_ptr<std::vector<std::string> > userNames);
 
 	/**
+	Удалить из базы все сообщения, адресованные пользователю с заданным ником
+	\param[in] name Ник пользователя
+	*/
+	void removeMessagesToUser(const std::string& name);
+
+	/**
 	Запустить тесты методов модуля
 	*/
 	void test();

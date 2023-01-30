@@ -3,7 +3,7 @@
 #include <vector>
 #include <list>
 #include <assert.h>
-
+#include <iostream>
 
 #include "User.h"
 #include "Message.h"
@@ -138,6 +138,20 @@ void database::loadUserNames(std::shared_ptr<std::vector<std::string> > userName
 
 
 
+void database::removeMessagesToUser(const std::string& name)
+{
+	//Удалить сообщение по условию true
+	messages.remove_if([&name](const Message& message) {
+		//Если адресат текущего сообщения совпадает с заданным именем
+		if (message.getNameTo() == name) {
+			return true;
+		}
+		return false;
+		});
+}
+
+
+
 static void testIsExistLogin();
 static void testIsExistName();
 static void testIsCorrectPassword();
@@ -148,6 +162,8 @@ static void testAddUser();
 static void testGetNameByLogin();
 static void testGetNumberUser();
 static void testLoadUserNames();
+static void testRemoveMessagesToUser();
+
 
 void database::test()
 {
@@ -161,6 +177,7 @@ void database::test()
 	testGetNameByLogin();
 	testGetNumberUser();
 	testLoadUserNames();
+	testRemoveMessagesToUser();
 }
 
 
@@ -381,4 +398,32 @@ static void testLoadUserNames()
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);
+}
+
+
+
+static void testRemoveMessagesToUser()
+{
+	messages.clear();
+	User u1("name_1", "login_1", "pass_1");
+	User u2("name_2", "login_2", "pass_2");
+
+	//Создать сообщения
+	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
+	Message messageU2_U1(u2.getName(), u1.getName(), "U2 -> U1");
+	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
+	//Поместить сообщения в базу данных
+	database::pushMessage(messageU1_U2);
+	database::pushMessage(messageU2_U1);
+	database::pushMessage(messageU1_ALL);
+
+	database::removeMessagesToUser(u1.getName());
+
+	for (auto& message : messages) {
+		//Нет сообщений адресованных пользователю u1
+		assert((message.getNameTo() == u1.getName()) == false);
+	}
+	//Очистить от тестовых значений
+	messages.clear();
+	assert(messages.empty() == true);
 }
