@@ -110,6 +110,13 @@ void database::addUser(const User& user)
 
 
 
+void database::removeUser(const User& user)
+{
+	users.erase(std::remove(users.begin(), users.end(), user), users.end());
+}
+
+
+
 std::string database::getNameByLogin(const std::string& login)
 {
 	if (isExistLogin(login)) {
@@ -159,6 +166,7 @@ static void testGetUserPosition();
 static void testPushMessage();
 static void testLoadMessages();
 static void testAddUser();
+static void testRemoveUser();
 static void testGetNameByLogin();
 static void testGetNumberUser();
 static void testLoadUserNames();
@@ -174,6 +182,7 @@ void database::test()
 	testPushMessage();
 	testLoadMessages();
 	testAddUser();
+	testRemoveUser();
 	testGetNameByLogin();
 	testGetNumberUser();
 	testLoadUserNames();
@@ -339,6 +348,25 @@ static void testAddUser()
 	assert(database::isExistName(user.getName()) == true);
 	assert(database::isExistLogin(user.getLogin()) == true);
 	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	//Очистить от тестовых значений
+	users.clear();
+	assert(users.empty() == true);
+}
+
+
+
+static void testRemoveUser()
+{
+	//Поместить тестовое значение
+	User user("name", "login", "password");
+	database::addUser(user);
+	database::removeUser(user);
+
+	assert(users.empty() == true);
+	assert(database::isExistName(user.getName()) == false);
+	assert(database::isExistLogin(user.getLogin()) == false);
+	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == false);
+
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);

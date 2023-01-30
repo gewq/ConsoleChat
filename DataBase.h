@@ -65,6 +65,12 @@ namespace database {
 	void addUser(const User& user);
 
 	/**
+	Удалить заданного пользователя из базы
+	\param[in] user Пользователь которого удалить
+	*/
+	void removeUser(const User& user);
+
+	/**
 	Вернуть ник по логину.
 	Если логин не зарегистрирован - возвращает пустую строку
 	\param[in] login Логин
