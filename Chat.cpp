@@ -65,7 +65,7 @@ void Chat::printUserList()
     //Загрузить список пользователей и вывести на экран
     auto userNames = std::make_shared<std::vector<std::string> >();
     database::loadUserNames(userNames);
-    for (auto& name : *userNames) {
+    for (const auto& name : *userNames) {
         std::cout << name << std::endl;
     }
 }
@@ -81,7 +81,7 @@ void Chat::printMessagesToUser()
         std::cout << "Сообщений нет.\n";
     }
     else {
-        for (auto& message : *messagesToUser) {
+        for (const auto& message : *messagesToUser) {
             std::cout << message.getNameFrom() <<
                 ": " << message.getText() << std::endl;
         }
