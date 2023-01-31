@@ -14,7 +14,7 @@ void LoginUnique::handle(Chat* chat)
     std::string password;
     std::getline(std::cin >> std::ws, password);
 
-    if (!chat->isCorrectValue(password)) {
+    if (!chat->isValidValue(password)) {
         chat->transitionTo(new LoginUnique());
     }
     else {

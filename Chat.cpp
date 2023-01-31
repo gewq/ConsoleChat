@@ -92,19 +92,18 @@ void Chat::printMessagesToUser()
 
 
 
-bool Chat::isCorrectValue(const std::string& str)
+bool Chat::isValidValue(const std::string& str)
 {
     //Проверяем, чтобы пароль содержал только латинские буквы (прописные и заглавные), цифры от нуля до девяти,
     //а также специальные символы: ` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; " ' < > , . ? /       
-    char ch;   
-    for (int i = 0; i < str.size(); ++i) {
-        ch = str[i];
-        if ((ch < '!') || (ch > '~') || (ch == ' '))
-        {
-            std::cout << "Содержит недопустимый символ ( №" << i+1 << " ). Попробуйте еще раз\n";
-            return false;
-        }
+    std::string permissionedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()_-+={}[]\|:;'<>,.?/";
+    char ch = '"';
+    permissionedChars.push_back(ch);
+    
+    size_t pos = str.find_first_not_of(permissionedChars);
+    if (pos != std::string::npos) {
+        std::cout << "Содержит недопустимый символ ( позиция " << pos + 1 << " ). Попробуйте еще раз\n";
+        return false;
     }
-
     return true;
 }

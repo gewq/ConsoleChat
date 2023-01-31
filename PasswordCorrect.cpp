@@ -14,7 +14,7 @@ void PasswordCorrect::handle(Chat* chat)
     std::string name;
     std::getline(std::cin >> std::ws, name);
 
-    if (!chat->isCorrectValue(name)) {
+    if (!chat->isValidValue(name)) {
         chat->transitionTo(new PasswordCorrect());
     }
     else if (database::isExistName(name)) {

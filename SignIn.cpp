@@ -14,7 +14,7 @@ void SignIn::handle(Chat* chat)
     std::string login;
     std::getline(std::cin >> std::ws, login);
 
-    if (!chat->isCorrectValue(login)) {
+    if (!chat->isValidValue(login)) {
         chat->transitionTo(new SignIn());
     }
     else if (database::isExistLogin(login)) {

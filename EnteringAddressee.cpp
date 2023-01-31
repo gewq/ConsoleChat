@@ -14,7 +14,7 @@ void EnteringAddressee::handle(Chat* chat)
     std::string name;
     std::getline(std::cin >> std::ws, name);
 
-    if (!chat->isCorrectValue(name)) {
+    if (!chat->isValidValue(name)) {
         chat->transitionTo(new EnteringAddressee());
     }		
 	//Проверить наличие других пользователей чата

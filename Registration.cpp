@@ -14,7 +14,7 @@ void Registration::handle(Chat* chat)
     std::string login;
     std::getline(std::cin >> std::ws, login); //функция ввода ws использует пробелы из входного потока
 
-    if (!chat->isCorrectValue(login)) {
+    if (!chat->isValidValue(login)) {
         chat->transitionTo(new Registration());
     }
     else {
