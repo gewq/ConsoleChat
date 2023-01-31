@@ -13,6 +13,7 @@
 
 #include <string>
 #include <iostream>
+
 #include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
@@ -78,6 +79,11 @@ class Chat{
         Вывод в консоль сообщений текущему пользователю чата
         */
         void printMessagesToUser();
+
+        /**
+        Удалить аккаунт пользователя
+        */
+        void removeAccount();
 
     private:
         /**
