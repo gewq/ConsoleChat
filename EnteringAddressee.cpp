@@ -12,10 +12,13 @@ void EnteringAddressee::handle(Chat* chat)
 {
     std::cout << "Введите Ник адресата (all - отправить всем): ";
     std::string name;
-    std::cin >> name;
-		
+    std::getline(std::cin >> std::ws, name);
+
+    if (!chat->isCorrectValue(name)) {
+        chat->transitionTo(new EnteringAddressee());
+    }		
 	//Проверить наличие других пользователей чата
-    if (database::getNumberUser() == 1) {
+    else if (database::getNumberUser() == 1) {
         std::cout << "Вы единственный пользователь чата\n";
         chat->transitionTo(new UserInChat());
     }

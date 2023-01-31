@@ -12,9 +12,12 @@ void PasswordCorrect::handle(Chat* chat)
 {
     std::cout << "Придумайте Ник: ";
     std::string name;
-    std::cin >> name;
+    std::getline(std::cin >> std::ws, name);
 
-    if (database::isExistName(name)) {
+    if (!chat->isCorrectValue(name)) {
+        chat->transitionTo(new PasswordCorrect());
+    }
+    else if (database::isExistName(name)) {
         std::cout << "Пользователь с таким Ником уже зарегистрирован\n";
         chat->transitionTo(new PasswordCorrect());
     }

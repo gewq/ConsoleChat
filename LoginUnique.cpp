@@ -12,14 +12,13 @@ void LoginUnique::handle(Chat* chat)
 {
     std::cout << "Придумайте Пароль: ";
     std::string password;
-    std::cin >> password;
+    std::getline(std::cin >> std::ws, password);
 
-    if (!password.empty()) {
-        chat->getUser()->setPassword(password);
-        chat->transitionTo(new PasswordCorrect());
+    if (!chat->isCorrectValue(password)) {
+        chat->transitionTo(new LoginUnique());
     }
     else {
-        std::cout << "Недопустимый Пароль (пустой)\n";
-        chat->transitionTo(new LoginUnique());
+        chat->getUser()->setPassword(password);
+        chat->transitionTo(new PasswordCorrect());
     }
 }

@@ -84,6 +84,13 @@ class Chat{
         Удалить аккаунт пользователя
         */
         void removeAccount();
+				
+				/**
+        Проверка Логина/Пароля/Ника на наличие пробелов
+        \param[in] str Введенное значение
+				\return Признак корректного значения (без пробелов)
+				*/
+        bool isCorrectValue(const std::string& str);
 
     private:
         /**

@@ -65,9 +65,10 @@ void Chat::printUserList()
     //Загрузить список пользователей и вывести на экран
     auto userNames = std::make_shared<std::vector<std::string> >();
     database::loadUserNames(userNames);
-    for (const auto& name : *userNames) {
-        std::cout << name << std::endl;
-    }
+		for (const auto& name : *userNames) {
+			std::cout << name << "; ";
+		}
+		std::cout << std::endl;
 }
 
 
@@ -96,4 +97,22 @@ void Chat::removeAccount()
     database::removeUser(*user_);
     user_->reset();
     std::cout << "Ваш аккаунт удалён.\n";
+}
+
+
+
+bool Chat::isCorrectValue(const std::string& str)
+{
+    //Проверяем, чтобы пароль содержал только латинские буквы (прописные и заглавные), цифры от нуля до девяти,
+    //а также специальные символы: ` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; " ' < > , . ? /  
+    char ch;   
+    for (int i = 0; i < str.size(); ++i) {
+        ch = str[i];
+        if ((ch < '!') || (ch > '~') || (ch == ' '))
+        {
+            std::cout << "Содержит недопустимый символ ( №" << i+1 << " ). Попробуйте еще раз\n";
+            return false;
+        }
+    }
+    return true;
 }
