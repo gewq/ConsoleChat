@@ -10,8 +10,8 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <list>
 #include <memory>
-
 
 #include "Message.h"
 #include "User.h"
@@ -56,13 +56,19 @@ namespace database {
 	\param[in] addressee Адресат сообщений
 	\param[in] destination Умный указатель на вектор в который поместить сообщения
 	*/
-	void loadMessages(const User& addressee, std::shared_ptr<std::vector<Message> > destination);
+	void loadMessages(const User& addressee, std::shared_ptr<std::list<Message> > destination);
 
 	/**
 	Добавить в базу заданного пользователя
 	\param[in] user Пользователь которого добавить
 	*/
 	void addUser(const User& user);
+
+	/**
+	Удалить заданного пользователя из базы
+	\param[in] user Пользователь которого удалить
+	*/
+	void removeUser(const User& user);
 
 	/**
 	Вернуть ник по логину.
@@ -82,6 +88,12 @@ namespace database {
 	\param[in] userNames Умный указатель на вектор в который поместить имена пользователей
 	*/
 	void loadUserNames(std::shared_ptr<std::vector<std::string> > userNames);
+
+	/**
+	Удалить из базы все сообщения, адресованные пользователю с заданным ником
+	\param[in] name Ник пользователя
+	*/
+	void removeMessagesToUser(const std::string& name);
 
 	/**
 	Запустить тесты методов модуля

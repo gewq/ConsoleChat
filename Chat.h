@@ -13,6 +13,7 @@
 
 #include <string>
 #include <iostream>
+
 #include "User.h"
 //Классы-обработчики состояний
 #include "State.h"
@@ -29,71 +30,76 @@
 #include "EnteringAddressee.h"
 #include "AddresseeIsMissing.h"
 
-class Chat{
-    public:
-        /**
-        Единая точка доступа к единственному объекту класса
-        \return Указатель на объект класса
-        */
-        static Chat* getInstance();
+class Chat {
+public:
+    /**
+    Единая точка доступа к единственному объекту класса
+    \return Указатель на объект класса
+    */
+    static Chat* getInstance();
 
-        //Объект класса нельзя копировать и перемещать
-        Chat(const Chat& other) = delete;
-        Chat(Chat&& other) = delete;
-        Chat& operator= (const Chat& other) = delete;
-        Chat& operator= (Chat&& other) = delete;
+    //Объект класса нельзя копировать и перемещать
+    Chat(const Chat& other) = delete;
+    Chat(Chat&& other) = delete;
+    Chat& operator= (const Chat& other) = delete;
+    Chat& operator= (Chat&& other) = delete;
 
-        /**
-        Логика работы чата
-        */
-        void process();
+    /**
+    Логика работы чата
+    */
+    void process();
 
-        /**
-        Перейти в заданное состояние
-        \param[in] newState Указатель на объект - новое состояние
-        */
-        void transitionTo(State* newState);
+    /**
+    Перейти в заданное состояние
+    \param[in] newState Указатель на объект - новое состояние
+    */
+    void transitionTo(State* newState);
 
-        /**
-        \return Указатель на текущего пользователя чата
-        */
-        User* getUser();
+    /**
+    \return Указатель на текущего пользователя чата
+    */
+    User* getUser();
 
-        /**
-        Установить Признак продолжения работы программы
-        */
-        void attach(bool* isRun);
+    /**
+    Установить Признак продолжения работы программы
+    */
+    void attach(bool* isRun);
 
-        /**
-        Завершить работу программы
-        */
-        void exit();
+    /**
+    Завершить работу программы
+    */
+    void exit();
 
-        /**
-        Вывод в консоль списка имён зарегистрированных пользователей
-        */
-        void printUserList();
+    /**
+    Вывод в консоль списка имён зарегистрированных пользователей
+    */
+    void printUserList();
 
-        /**
-        Вывод в консоль сообщений текущему пользователю чата
-        */
-        void printMessagesToUser();
+    /**
+    Вывод в консоль сообщений текущему пользователю чата
+    */
+    void printMessagesToUser();
 
-        /**
-        Проверка Логина/Пароля/Ника на наличие пробелов
-        \param[in] str Введенное значение
-    	\return Признак корректного значения (без пробелов)
-	    */
-        bool isValidValue(const std::string& str);
+    /**
+    Удалить аккаунт пользователя
+    */
+    void removeAccount();
 
-    private:
-        /**
-        Конструктор private - потому что нельзя создавать объект извне класса
-        */
-        explicit Chat();
+    /**
+    Проверка Логина/Пароля/Ника на наличие запрещённых символов
+    \param[in] inputValue Введенное значение
+    \return Признак корректного значения (нет запрещённых символов)
+    */
+    bool isCorrectValue(const std::string& inputValue);
 
-        static Chat* instance_; ///<Указатель на единственный объект класса
-        User* user_;            ///<Текущий пользователь чата (чтобы передавать параметры пользователя между состояниями)
-        State* state_;          ///<Текущее состояние
-        bool* isRun_;           ///<Признак продолжения работы программы
+private:
+    /**
+    Конструктор private - потому что нельзя создавать объект извне класса
+    */
+    explicit Chat();
+
+    static Chat* instance_; ///<Указатель на единственный объект класса
+    User* user_;            ///<Текущий пользователь чата (чтобы передавать параметры пользователя между состояниями)
+    State* state_;          ///<Текущее состояние
+    bool* isRun_;           ///<Признак продолжения работы программы
 };

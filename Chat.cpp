@@ -65,8 +65,7 @@ void Chat::printUserList()
     //Загрузить список пользователей и вывести на экран
     auto userNames = std::make_shared<std::vector<std::string> >();
     database::loadUserNames(userNames);
-    std::cout << "Список пользователей: ";
-    for (auto& name : *userNames) {
+    for (const auto& name : *userNames) {
         std::cout << name << "; ";
     }
     std::cout << std::endl;
@@ -77,32 +76,38 @@ void Chat::printUserList()
 void Chat::printMessagesToUser()
 {
     //Загрузить сообщения и вывести на экран
-    auto messagesToUser = std::make_shared<std::vector<Message> >();    //Сообщения текущему пользователю
-    database::loadMessages(*user_, messagesToUser);                     //Заполнить вектор - сообщениями пользователю
+    auto messagesToUser = std::make_shared<std::list<Message> >();  //Сообщения текущему пользователю
+    database::loadMessages(*user_, messagesToUser);                 //Заполнить вектор - сообщениями пользователю
     if (messagesToUser->empty()) {
-        std::cout << "Сообщений нет.\n";
+        std::cout << "Вам сообщений нет.\n";
     }
     else {
-        for (auto& message : *messagesToUser) {
-            std::cout << message.getNameFrom() <<
-                ": " << message.getText() << std::endl;
+        for (const auto& message : *messagesToUser) {
+            std::cout << message.getNameFrom() << ": "
+                << message.getText() << std::endl;
         }
     }
 }
 
 
 
-bool Chat::isValidValue(const std::string& str)
+void Chat::removeAccount()
 {
-    //Проверяем, чтобы пароль содержал только латинские буквы (прописные и заглавные), цифры от нуля до девяти,
-    //а также специальные символы: ` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; " ' < > , . ? /       
-    std::string permissionedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789`~!@#$%^&*()_-+={}[]\|:;'<>,.?/";
-    char ch = '"';
-    permissionedChars.push_back(ch);
-    
-    size_t pos = str.find_first_not_of(permissionedChars);
+    database::removeMessagesToUser(user_->getName());
+    database::removeUser(*user_);
+    user_->reset();
+    std::cout << "Ваш аккаунт удалён.\n";
+}
+
+
+
+bool Chat::isCorrectValue(const std::string& inputValue)
+{
+    //Можно вводить символы латинского алфавита и арабские цифры
+    const std::string permissionedChars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    size_t pos = inputValue.find_first_not_of(permissionedChars);
     if (pos != std::string::npos) {
-        std::cout << "Содержит недопустимый символ ( позиция " << pos + 1 << " ). Попробуйте еще раз\n";
         return false;
     }
     return true;

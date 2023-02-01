@@ -3,7 +3,6 @@
 
 LoginUnique::LoginUnique() : State("LoginUnique")
 {
-
 };
 
 
@@ -14,11 +13,16 @@ void LoginUnique::handle(Chat* chat)
     std::string password;
     std::getline(std::cin >> std::ws, password);
 
-    if (!chat->isValidValue(password)) {
-        chat->transitionTo(new LoginUnique());
-    }
-    else {
+    //Допустимые символы
+    if (chat->isCorrectValue(password)) {
         chat->getUser()->setPassword(password);
         chat->transitionTo(new PasswordCorrect());
+    }
+
+    //Недопустимые символы
+    else {
+        std::cout << "Некорректные символы.\n";
+        std::cin.clear();
+        chat->transitionTo(new LoginUnique());
     }
 }

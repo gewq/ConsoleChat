@@ -3,7 +3,6 @@
 
 EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
 {
-
 };
 
 
@@ -11,35 +10,40 @@ EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
 void EnteringAddressee::handle(Chat* chat)
 {
     std::cout << "Введите Ник адресата (all - отправить всем): ";
-    std::string name;
-    std::getline(std::cin >> std::ws, name);
+    std::string nameAdressee;
+    std::getline(std::cin >> std::ws, nameAdressee);
 
-    if (!chat->isValidValue(name)) {
-        chat->transitionTo(new EnteringAddressee());
-    }		
-	//Проверить наличие других пользователей чата
-    else if (database::getNumberUser() == 1) {
+    //Зарегистрирован только один пользователь
+    if (database::getNumberUser() == 1) {
         std::cout << "Вы единственный пользователь чата\n";
         chat->transitionTo(new UserInChat());
     }
-    else if ((name != "all") && (database::isExistName(name) != true)) {
+
+    //Неверное имя адресата
+    else if ((nameAdressee != "all") && (!database::isExistName(nameAdressee))) {
+
         chat->transitionTo(new AddresseeIsMissing());
     }
+
+    //Адресат корректный
     else {
         std::cout << "Введите сообщение: ";
-        std::string text;
-        std::cin >> text;
-        if (!text.empty()) {
-            // Отправить сообщение
-            Message message(chat->getUser()->getName(), name, text);  //Создать сообщение
-            database::pushMessage(message);				              //Поместить в базу сообщений
+        std::string textMessage;
+        std::getline(std::cin >> std::ws, textMessage);
 
+        //Текст введён
+        if (!textMessage.empty()) {
+            //Создать сообщение
+            Message message(chat->getUser()->getName(), nameAdressee, textMessage);
+            //Поместить в базу сообщений
+            database::pushMessage(message);
             std::cout << "Сообщение отправлено\n";
         }
-        else {
-            std::cout << "Сообщение не было отправлено (отсутствует текст сообщения)\n";
-        }
 
+        //Текст не введён
+        else {
+            std::cout << "Сообщение не отправлено (отсутствует текст сообщения)\n";
+        }
         chat->transitionTo(new UserInChat());
     }
 }

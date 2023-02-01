@@ -3,7 +3,6 @@
 
 StartState::StartState() : State("StartState")
 {
-
 };
 
 
@@ -15,23 +14,23 @@ void StartState::handle(Chat* chat)
     std::cin >> input;
 
     switch (input) {
-        case '1': {
-            chat->transitionTo(new SignIn());
-            break;
-        }
-        case '2': {
-            chat->transitionTo(new Registration());
-            break;
-        }
-        case '3': {
-            std::cout << "Завершение работы";
-            chat->exit();
-            break;
-        }
-        default: {
-            std::cin.clear();
-            chat->transitionTo(new StartState());
-            break;
-        }
+    case '1': {
+        chat->transitionTo(new SignIn());
+        break;
+    }
+    case '2': {
+        chat->transitionTo(new Registration());
+        break;
+    }
+    case '3': {
+        std::cout << "Завершение работы";
+        chat->exit();
+        break;
+    }
+    default: {
+        std::cin.clear();
+        chat->transitionTo(new StartState());
+        break;
+    }
     }
 }

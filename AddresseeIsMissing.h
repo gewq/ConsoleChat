@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class AddresseeIsMissing : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    AddresseeIsMissing();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        AddresseeIsMissing();
 
-    /**
-    Обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
+        */
+        virtual void handle(Chat* chat) override;
 };

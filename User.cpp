@@ -11,7 +11,7 @@ User::User() : name_(""), login_(""), password_("")
 
 User::User(const std::string& name,
 	const std::string& login,
-	const std::string& password):
+	const std::string& password) :
 	name_(name), login_(login), password_(password)
 {
 }
@@ -73,9 +73,9 @@ void User::setPassword(const std::string& password)
 
 void User::reset()
 {
-	name_ = "";
-	login_ = "";
-	password_ = "";
+	name_.clear();
+	login_.clear();
+	password_.clear();
 }
 
 

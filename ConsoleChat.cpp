@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <windows.h>
 
 #include "DataBase.h"
 #include "Chat.h"
@@ -10,11 +11,13 @@ static void test();
 
 int main()
 {
-	setlocale(LC_ALL, "");
+	//Для корректного ввода/вывода кириллицы в консоль
+	SetConsoleOutputCP(1251);
+	SetConsoleCP(1251);
 	try {
 		test();
 		database::initialize();
-		
+
 		bool isRun = true;
 		Chat::getInstance()->attach(&isRun);
 
