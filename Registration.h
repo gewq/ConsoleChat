@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class Registration : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    Registration();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        Registration();
 
-    /**
-    Обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
+        */
+        virtual void handle(Chat* chat) override;
 };

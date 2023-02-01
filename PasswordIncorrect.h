@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class PasswordIncorrect : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    PasswordIncorrect();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        PasswordIncorrect();
 
-    /**
-    Обработчик состояния "ПАРОЛЬ НЕВЕРНЫЙ"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "ПАРОЛЬ НЕВЕРНЫЙ"
+        */
+        virtual void handle(Chat* chat) override;
 };

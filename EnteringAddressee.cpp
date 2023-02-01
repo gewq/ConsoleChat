@@ -20,7 +20,7 @@ void EnteringAddressee::handle(Chat* chat)
     }
 
     //Неверное имя адресата
-    else if ((nameAdressee != "all") && (!database::isExistName(nameAdressee))) {
+    else if ( (nameAdressee != "all") && ( !database::isExistName(nameAdressee) ) ) {
 
         chat->transitionTo(new AddresseeIsMissing());
     }

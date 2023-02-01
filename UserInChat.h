@@ -9,11 +9,11 @@
 #include "Chat.h"
 
 class UserInChat : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    UserInChat();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        UserInChat();
 
     /**
     Обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"

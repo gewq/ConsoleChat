@@ -10,23 +10,23 @@ AddresseeIsMissing::AddresseeIsMissing() : State("AddresseeIsMissing")
 void AddresseeIsMissing::handle(Chat* chat)
 {
     std::cout << "Пользователь с таким Ником не зарегистрирован.\n"
-        << "| 1 - Ввести Ник адресата повторно | 2 - Отменить отправку сообщения | :  ";
+              << "| 1 - Ввести Ник адресата повторно | 2 - Отменить отправку сообщения | :  ";
     char input;
     std::cin >> input;
 
     switch (input) {
-    case '1': {
-        chat->transitionTo(new EnteringAddressee());
-        break;
-    }
-    case '2': {
-        chat->transitionTo(new UserInChat());
-        break;
-    }
-    default: {
-        std::cin.clear();
-        chat->transitionTo(new AddresseeIsMissing());
-        break;
-    }
+        case '1': {
+            chat->transitionTo(new EnteringAddressee());
+            break;
+        }
+        case '2': {
+            chat->transitionTo(new UserInChat());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new AddresseeIsMissing());
+            break;
+        }
     }
 }
