@@ -101,13 +101,11 @@ void Chat::removeAccount()
 
 
 
-bool Chat::isCorrectValue(const std::string& str)
+bool Chat::isCorrectValue(const std::string& inputValue)
 {
-    //Проверяем, чтобы пароль содержал только латинские буквы (прописные и заглавные), цифры от нуля до девяти,
-    //а также специальные символы: ` ~ ! @ # $ % ^ & * ( ) _ - + = { } [ ] \ | : ; " ' < > , . ? /  
     char ch;   
-    for (int i = 0; i < str.size(); ++i) {
-        ch = str[i];
+    for (int i = 0; i < inputValue.size(); ++i) {
+        ch = inputValue[i];
         if ((ch < '!') || (ch > '~') || (ch == ' '))
         {
             std::cout << "Содержит недопустимый символ ( №" << i+1 << " ). Попробуйте еще раз\n";
