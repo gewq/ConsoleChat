@@ -9,7 +9,7 @@ SignIn::SignIn() : State("SignIn")
 
 void SignIn::handle(Chat* chat)
 {
-    std::cout << "Введите Ваш Логин (допустимые символы 'a'-'z', 'A'-'Z'): ";
+    std::cout << "Введите Ваш Логин (допустимые символы 'a'-'z', 'A'-'Z', '0'-'9'): ";
     std::string login;
     std::getline(std::cin >> std::ws, login);
 

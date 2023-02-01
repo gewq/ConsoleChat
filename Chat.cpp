@@ -83,8 +83,8 @@ void Chat::printMessagesToUser()
     }
     else {
         for (const auto& message : *messagesToUser) {
-            std::cout << message.getNameFrom() <<
-                ": " << message.getText() << std::endl;
+            std::cout << message.getNameFrom() << ": "
+                << message.getText() << std::endl;
         }
     }
 }
@@ -103,8 +103,9 @@ void Chat::removeAccount()
 
 bool Chat::isCorrectValue(const std::string& inputValue)
 {
-    //Можно вводить только символы латинского алфавита
-    std::string permissionedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    //Можно вводить символы латинского алфавита и арабские цифры
+    const std::string permissionedChars =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     size_t pos = inputValue.find_first_not_of(permissionedChars);
     if (pos != std::string::npos) {
         return false;

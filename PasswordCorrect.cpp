@@ -13,19 +13,28 @@ void PasswordCorrect::handle(Chat* chat)
     std::string name;
     std::getline(std::cin >> std::ws, name);
 
-    if (!chat->isCorrectValue(name)) {
-        chat->transitionTo(new PasswordCorrect());
+    //Допустимые символы
+    if (chat->isCorrectValue(name)) {
+        //Такой ник уже зарегистрирован
+        if (database::isExistName(name)) {
+            std::cout << "Пользователь с таким Ником уже зарегистрирован\n";
+            chat->transitionTo(new PasswordCorrect());
+        }
+
+        //Ник уникальный
+        else {
+            chat->getUser()->setName(name);
+            database::addUser(*chat->getUser());
+            std::cout << "Вы успешно зарегистрированы!\n"
+                << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
+            chat->transitionTo(new UserInChat());
+        }
     }
-    else if (database::isExistName(name)) {
-        std::cout << "Пользователь с таким Ником уже зарегистрирован\n";
-        chat->transitionTo(new PasswordCorrect());
-    }
+
+    //Недопустимые символы
     else {
-        chat->getUser()->setName(name);
-        database::addUser(*chat->getUser());
-        std::cout << "Вы успешно зарегистрированы!\n"
-            << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
-        chat->printMessagesToUser();    //Вывести сообщения пользователю
-        chat->transitionTo(new UserInChat());
+        std::cout << "Некорректные символы.\n";
+        std::cin.clear();
+        chat->transitionTo(new PasswordCorrect());
     }
 }
