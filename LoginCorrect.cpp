@@ -3,7 +3,6 @@
 
 LoginCorrect::LoginCorrect() : State("LoginCorrect")
 {
-
 };
 
 

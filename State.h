@@ -12,32 +12,31 @@
 
 class Chat;
 
-class State
-{
-public:
-    /**
-    Конструктор
-    \param[in] name Название состояния
-    */
-    State(const std::string& name);
+class State{
+    public:
+        /**
+        Конструктор
+        \param[in] name Название состояния
+        */
+        State(const std::string& name);
 
-    /**
-    Виртуальный деструктор - чтобы удалять весь объект производного класса,
-    а не только его базовую часть
-    */
-    virtual ~State();
+        /**
+        Деструктор виртуальный - чтобы удалять весь объект производного класса,
+        а не только его базовую часть
+        */
+        virtual ~State();
 
-    /**
-    Обработчик конкретного состояния - реализацию определяют производные классы
-    \param[in] chat Указатель на объект - Чат
-    */
-    virtual void handle(Chat* chat) = 0;
+        /**
+        Обработчик конкретного состояния - реализацию определяют производные классы
+        \param[in] chat Указатель на объект - Чат
+        */
+        virtual void handle(Chat* chat) = 0;
 
-    /**
-    \return Название состояния
-    */
-    const std::string& getName() const;
+        /**
+        \return Название состояния
+        */
+        const std::string& getName() const;
 
-private:
-    std::string name_;	///<Название состояния
+    private:
+        std::string name_;	///<Название состояния
 };

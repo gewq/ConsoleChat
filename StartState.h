@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class StartState : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    StartState();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        StartState();
 
-    /**
-    Обработчик состояния "НИКТО НЕ ЗАЛОГИНЕН"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "НИКТО НЕ ЗАЛОГИНЕН"
+        */
+        virtual void handle(Chat* chat) override;
 };

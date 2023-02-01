@@ -3,7 +3,6 @@
 
 UserInChat::UserInChat() : State("UserInChat")
 {
-
 };
 
 

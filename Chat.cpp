@@ -65,10 +65,10 @@ void Chat::printUserList()
     //Загрузить список пользователей и вывести на экран
     auto userNames = std::make_shared<std::vector<std::string> >();
     database::loadUserNames(userNames);
-		for (const auto& name : *userNames) {
-			std::cout << name << "; ";
-		}
-		std::cout << std::endl;
+	for (const auto& name : *userNames) {
+		std::cout << name << "; ";
+	}
+	std::cout << std::endl;
 }
 
 

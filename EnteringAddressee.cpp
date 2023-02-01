@@ -3,7 +3,6 @@
 
 EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
 {
-
 };
 
 
@@ -30,7 +29,7 @@ void EnteringAddressee::handle(Chat* chat)
         std::string text;
         std::cin >> text;
         if (!text.empty()) {
-            // Отправить сообщение
+            //Отправить сообщение
             Message message(chat->getUser()->getName(), name, text);  //Создать сообщение
             database::pushMessage(message);				              //Поместить в базу сообщений
 

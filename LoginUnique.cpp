@@ -3,7 +3,6 @@
 
 LoginUnique::LoginUnique() : State("LoginUnique")
 {
-
 };
 
 

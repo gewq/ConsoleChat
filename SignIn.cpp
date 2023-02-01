@@ -3,7 +3,6 @@
 
 SignIn::SignIn() : State("SignIn")
 {
-
 };
 
 

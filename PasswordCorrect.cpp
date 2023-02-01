@@ -3,7 +3,6 @@
 
 PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")
 {
-
 };
 
 

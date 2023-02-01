@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class LoginIncorrect : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    LoginIncorrect();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        LoginIncorrect();
 
-    /**
-    Обработчик состояния "ЛОГИН НЕКОРРЕКТНЫЙ"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "ЛОГИН НЕКОРРЕКТНЫЙ"
+        */
+        virtual void handle(Chat* chat) override;
 };

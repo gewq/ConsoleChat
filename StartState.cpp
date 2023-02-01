@@ -3,7 +3,6 @@
 
 StartState::StartState() : State("StartState")
 {
-
 };
 
 

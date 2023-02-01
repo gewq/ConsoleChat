@@ -15,7 +15,9 @@
 class User {
 	public:
 		User();
-		User(const std::string& name, const std::string& login, const std::string& password);
+		User(const std::string& name,
+			const std::string& login,
+			const std::string& password);
 
 		/**
 		Перегрузка оператора '==' для поиска пользователя в базе данных
@@ -57,7 +59,7 @@ class User {
 		void setPassword(const std::string& password);
 
 		/**
-		Присвоить значения полей класса пустой строке
+		Присвоить значения полей класса - пустая строка
 		*/
 		void reset();
 

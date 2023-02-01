@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class LoginNonunique : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    LoginNonunique();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        LoginNonunique();
 
-    /**
-    Обработчик состояния "ЛОГИН НЕУНИКАЛЬНЫЙ"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "ЛОГИН НЕУНИКАЛЬНЫЙ"
+        */
+        virtual void handle(Chat* chat) override;
 };

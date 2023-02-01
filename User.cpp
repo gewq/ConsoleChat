@@ -73,9 +73,9 @@ void User::setPassword(const std::string& password)
 
 void User::reset()
 {
-	name_ = "";
-	login_ = "";
-	password_ = "";
+	name_.clear();
+	login_.clear();
+	password_.clear();
 }
 
 

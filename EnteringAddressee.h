@@ -9,14 +9,14 @@
 #include "Chat.h"
 
 class EnteringAddressee : public State {
-public:
-    /**
-    Конструктор по-умолчанию
-    */
-    EnteringAddressee();
+    public:
+        /**
+        Конструктор по-умолчанию
+        */
+        EnteringAddressee();
 
-    /**
-    Обработчик состояния "ВВОД АДРЕСАТА"
-    */
-    virtual void handle(Chat* chat) override;
+        /**
+        Обработчик состояния "ВВОД АДРЕСАТА"
+        */
+        virtual void handle(Chat* chat) override;
 };
