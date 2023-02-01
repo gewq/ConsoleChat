@@ -103,14 +103,11 @@ void Chat::removeAccount()
 
 bool Chat::isCorrectValue(const std::string& inputValue)
 {
-    char ch;   
-    for (int i = 0; i < inputValue.size(); ++i) {
-        ch = inputValue[i];
-        if ((ch < '!') || (ch > '~') || (ch == ' '))
-        {
-            std::cout << "Содержит недопустимый символ ( №" << i+1 << " ). Попробуйте еще раз\n";
-            return false;
-        }
+    //Можно вводить только символы латинского алфавита
+    std::string permissionedChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    size_t pos = inputValue.find_first_not_of(permissionedChars);
+    if (pos != std::string::npos) {
+        return false;
     }
     return true;
 }

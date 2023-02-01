@@ -9,18 +9,26 @@ SignIn::SignIn() : State("SignIn")
 
 void SignIn::handle(Chat* chat)
 {
-    std::cout << "Введите Ваш Логин: ";
+    std::cout << "Введите Ваш Логин (допустимые символы 'a'-'z', 'A'-'Z'): ";
     std::string login;
     std::getline(std::cin >> std::ws, login);
 
-    if (!chat->isCorrectValue(login)) {
-        chat->transitionTo(new SignIn());
+    //Допустимые символы
+    if (chat->isCorrectValue(login)) {
+        //Логин зарегистрирован
+        if (database::isExistLogin(login)) {
+            chat->getUser()->setLogin(login);
+            chat->transitionTo(new LoginCorrect());
+        }
+        //Логин не зарегистрирован
+        else {
+            chat->transitionTo(new LoginIncorrect());
+        }
     }
-    else if (database::isExistLogin(login)) {
-        chat->getUser()->setLogin(login);
-        chat->transitionTo(new LoginCorrect());
-    }
+    //Недопустимые символы
     else {
-        chat->transitionTo(new LoginIncorrect());
+        std::cout << "Некорректные символы.\n";
+        std::cin.clear();
+        chat->transitionTo(new SignIn());
     }
 }
