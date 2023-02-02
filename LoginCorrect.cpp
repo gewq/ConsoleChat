@@ -21,6 +21,7 @@ void LoginCorrect::handle(Chat* chat)
             //Загрузить из базы и задать Ник текущего пользователя
             const std::string name = database::getNameByLogin(login);
             chat->getUser()->setName(name);
+            std::cout << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
             chat->transitionTo(new UserInChat());
             chat->printMessagesToUser();
         }
