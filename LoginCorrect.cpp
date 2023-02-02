@@ -22,6 +22,7 @@ void LoginCorrect::handle(Chat* chat)
             const std::string name = database::getNameByLogin(login);
             chat->getUser()->setName(name);
             chat->transitionTo(new UserInChat());
+            chat->printMessagesToUser();
         }
 
         //Пароль неверный
