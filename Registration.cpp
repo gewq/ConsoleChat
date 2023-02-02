@@ -17,6 +17,7 @@ void Registration::handle(Chat* chat)
     if (chat->isCorrectValue(login)) {
         //Такой логин уже зарегистрирован
         if (database::isExistLogin(login)) {
+            std::cout << "Логин уже зарегистрирован!\n";
             chat->transitionTo(new LoginNonunique());
         }
         //Логин уникальный

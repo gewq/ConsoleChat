@@ -21,7 +21,7 @@ void EnteringAddressee::handle(Chat* chat)
 
     //Неверное имя адресата
     else if ( (nameAdressee != "all") && ( !database::isExistName(nameAdressee) ) ) {
-
+        std::cout << "Пользователь с таким Ником не зарегистрирован.\n";
         chat->transitionTo(new AddresseeIsMissing());
     }
 

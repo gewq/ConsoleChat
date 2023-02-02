@@ -22,6 +22,7 @@ void SignIn::handle(Chat* chat)
         }
         //Логин не зарегистрирован
         else {
+            std::cout << "Логин не зарегистрирован!\n";
             chat->transitionTo(new LoginIncorrect());
         }
     }

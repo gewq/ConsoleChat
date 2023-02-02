@@ -26,6 +26,7 @@ void LoginCorrect::handle(Chat* chat)
 
         //Пароль неверный
         else {
+            std::cout << "Пароль неверный!\n";
             chat->transitionTo(new PasswordIncorrect());
         }
     }
