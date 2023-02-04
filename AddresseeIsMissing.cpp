@@ -41,7 +41,7 @@ void AddresseeIsMissing::handle(Chat* chat)
             }
         }
     }
-    catch (std::invalid_argument e) {
+    catch (const std::invalid_argument&) {
         chat->transitionTo(new AddresseeIsMissing());
     }
 }

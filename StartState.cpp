@@ -49,7 +49,7 @@ void StartState::handle(Chat* chat)
         }
     }
     //Символ не число - вернуться в начало ко вводу
-    catch (std::invalid_argument e) {
+    catch (const std::invalid_argument&) {
         chat->transitionTo(new StartState());
     }
 }
