@@ -23,14 +23,21 @@ void LoginIncorrect::handle(Chat* chat)
     std::string input;
     std::getline(std::cin >> std::ws, input);
 
-    //Попытка преобразовать символ в число
-    try {
-        int choice = std::stoi(input);
-        handleChoice(chat, choice);
-    }
-    //Символ не число - вернуться в начало ко вводу
-    catch (const std::invalid_argument&) {
+    //Введено более одного символа
+    if (input.length() > 1) {
         chat->transitionTo(new LoginIncorrect());
+    }
+    //Введён один символ
+    else {
+        //Попытка преобразовать символ в число
+        try {
+            int choice = std::stoi(input);
+            handleChoice(chat, choice);
+        }
+        //Символ не число - вернуться в начало ко вводу
+        catch (const std::invalid_argument&) {
+            chat->transitionTo(new LoginIncorrect());
+        }
     }
 }
 

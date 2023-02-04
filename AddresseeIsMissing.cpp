@@ -23,12 +23,19 @@ void AddresseeIsMissing::handle(Chat* chat)
     std::string input;
     std::getline(std::cin >> std::ws, input);
 
-    try {
-        int choice = std::stoi(input);
-        handleChoice(chat, choice);
-    }
-    catch (const std::invalid_argument&) {
+    //Введено более одного символа
+    if (input.length() > 1) {
         chat->transitionTo(new AddresseeIsMissing());
+    }
+    //Введён один символ
+    else {
+        try {
+            int choice = std::stoi(input);
+            handleChoice(chat, choice);
+        }
+        catch (const std::invalid_argument&) {
+            chat->transitionTo(new AddresseeIsMissing());
+        }
     }
 }
 
