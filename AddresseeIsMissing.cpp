@@ -25,23 +25,30 @@ void AddresseeIsMissing::handle(Chat* chat)
 
     try {
         int choice = std::stoi(input);
-        switch (choice) {
-            case INPUT_AGAIN: {
-                chat->transitionTo(new EnteringAddressee());
-                break;
-            }
-            case CANCEL: {
-                chat->transitionTo(new UserInChat());
-                break;
-            }
-            default: {
-                std::cin.clear();
-                chat->transitionTo(new AddresseeIsMissing());
-                break;
-            }
-        }
+        handleChoice(chat, choice);
     }
     catch (const std::invalid_argument&) {
         chat->transitionTo(new AddresseeIsMissing());
+    }
+}
+
+
+
+void AddresseeIsMissing::handleChoice(Chat* chat, int choice)
+{
+    switch (choice) {
+        case INPUT_AGAIN: {
+            chat->transitionTo(new EnteringAddressee());
+            break;
+        }
+        case CANCEL: {
+            chat->transitionTo(new UserInChat());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new AddresseeIsMissing());
+            break;
+        }
     }
 }

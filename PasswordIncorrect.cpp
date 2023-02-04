@@ -26,24 +26,31 @@ void PasswordIncorrect::handle(Chat* chat)
     //Попытка преобразовать символ в число
     try {
         int choice = std::stoi(input);
-        switch (choice) {
-            case INPUT_AGAIN: {
-                chat->transitionTo(new LoginCorrect());
-                break;
-            }
-            case TO_MAIN_MENU: {
-                chat->transitionTo(new StartState());
-                break;
-            }
-            default: {
-                std::cin.clear();
-                chat->transitionTo(new PasswordIncorrect());
-                break;
-            }
-        }
+        handleChoice(chat, choice);
     }
     //Символ не число - вернуться в начало ко вводу
     catch (const std::invalid_argument&) {
         chat->transitionTo(new PasswordIncorrect());
+    }
+}
+
+
+
+void PasswordIncorrect::handleChoice(Chat* chat, int choice)
+{
+    switch (choice) {
+        case INPUT_AGAIN: {
+            chat->transitionTo(new LoginCorrect());
+            break;
+        }
+        case TO_MAIN_MENU: {
+            chat->transitionTo(new StartState());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new PasswordIncorrect());
+            break;
+        }
     }
 }

@@ -29,38 +29,45 @@ void UserInChat::handle(Chat* chat)
     //Попытка преобразовать символ в число
     try {
         int choice = std::stoi(input);
-        switch (choice) {
-            case SEND_MESSAGE: {
-                chat->transitionTo(new EnteringAddressee());
-                break;
-            }
-            case READ_MESSAGE: {
-                chat->printMessagesToUser();
-                break;
-            }
-            case SHOW_USERS: {
-                chat->printUserList();
-                break;
-            }
-            case EXIT: {
-                chat->transitionTo(new StartState());
-                chat->getUser()->reset();
-                break;
-            }
-            case REMOVE_ACCOUT: {
-                chat->removeAccount();
-                chat->transitionTo(new StartState());
-                break;
-            }
-            default: {
-                std::cin.clear();
-                chat->transitionTo(new UserInChat());
-                break;
-            }
-        }
+        handleChoice(chat, choice);
     }
     //Символ не число - вернуться в начало ко вводу
     catch (const std::invalid_argument&) {
         chat->transitionTo(new StartState());
+    }
+}
+
+
+
+void UserInChat::handleChoice(Chat* chat, int choice)
+{
+    switch (choice) {
+        case SEND_MESSAGE: {
+            chat->transitionTo(new EnteringAddressee());
+            break;
+        }
+        case READ_MESSAGE: {
+            chat->printMessagesToUser();
+            break;
+        }
+        case SHOW_USERS: {
+            chat->printUserList();
+            break;
+        }
+        case EXIT: {
+            chat->transitionTo(new StartState());
+            chat->getUser()->reset();
+            break;
+        }
+        case REMOVE_ACCOUT: {
+            chat->removeAccount();
+            chat->transitionTo(new StartState());
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new UserInChat());
+            break;
+        }
     }
 }

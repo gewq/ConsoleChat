@@ -27,29 +27,36 @@ void StartState::handle(Chat* chat)
     //Попытка преобразовать символ в число
     try {
         int choice = std::stoi(input);
-        switch (choice) {
-            case SIGN_IN: {
-                chat->transitionTo(new SignIn());
-                break;
-            }
-            case REGISTRATION: {
-                chat->transitionTo(new Registration());
-                break;
-            }
-            case EXIT: {
-                std::cout << "Завершение работы";
-                chat->exit();
-                break;
-            }
-            default: {
-                std::cin.clear();
-                chat->transitionTo(new StartState());
-                break;
-            }
-        }
+        handleChoice(chat, choice);
     }
     //Символ не число - вернуться в начало ко вводу
     catch (const std::invalid_argument&) {
         chat->transitionTo(new StartState());
+    }
+}
+
+
+
+void StartState::handleChoice(Chat* chat, int choice)
+{
+    switch (choice) {
+        case SIGN_IN: {
+            chat->transitionTo(new SignIn());
+            break;
+        }
+        case REGISTRATION: {
+            chat->transitionTo(new Registration());
+            break;
+        }
+        case EXIT: {
+            std::cout << "Завершение работы";
+            chat->exit();
+            break;
+        }
+        default: {
+            std::cin.clear();
+            chat->transitionTo(new StartState());
+            break;
+        }
     }
 }
