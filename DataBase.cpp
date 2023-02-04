@@ -109,9 +109,15 @@ void database::addUser(const User& user)
 }
 
 
+/**
+Удалить из базы все сообщения, адресованные пользователю с заданным ником
+\param[in] name Ник пользователя
+*/
+static void removeMessagesToUser(const std::string& name);
 
 void database::removeUser(const User& user)
 {
+	removeMessagesToUser(user.getName());
 	users.erase(std::remove(users.begin(), users.end(), user), users.end());
 }
 
@@ -141,20 +147,6 @@ void database::loadUserNames(std::shared_ptr<std::vector<std::string> > userName
 	for (const auto& user : users) {
 		userNames->push_back(user.getName());
 	}
-}
-
-
-
-void database::removeMessagesToUser(const std::string& name)
-{
-	//Удалить сообщение по условию true
-	messages.remove_if([&name](const Message& message) {
-		//Если адресат текущего сообщения совпадает с заданным именем
-		if (message.getNameTo() == name) {
-			return true;
-		}
-		return false;
-		});
 }
 
 
@@ -207,6 +199,20 @@ static int8_t getUserPosition(const std::string& login)
 	else {
 		return static_cast<int8_t> (iterator - users.begin());
 	}
+}
+
+
+
+static void removeMessagesToUser(const std::string& name)
+{
+	//Удалить сообщение по условию true
+	messages.remove_if([&name](const Message& message) {
+		//Если адресат текущего сообщения совпадает с заданным именем
+		if (message.getNameTo() == name) {
+			return true;
+		}
+		return false;
+		});
 }
 
 
@@ -445,7 +451,7 @@ static void testRemoveMessagesToUser()
 	database::pushMessage(messageU2_U1);
 	database::pushMessage(messageU1_ALL);
 
-	database::removeMessagesToUser(u1.getName());
+	removeMessagesToUser(u1.getName());
 
 	for (auto& message : messages) {
 		//Нет сообщений адресованных пользователю u1
