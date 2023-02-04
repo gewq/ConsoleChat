@@ -15,6 +15,7 @@ void Registration::handle(Chat* chat)
 
     //Допустимые символы
     if (chat->isCorrectValue(login)) {
+        chat->getUser()->setLogin(login);
         //Такой логин уже зарегистрирован
         if (database::isExistLogin(login)) {
             std::cout << "Логин уже зарегистрирован!\n";
@@ -22,7 +23,6 @@ void Registration::handle(Chat* chat)
         }
         //Логин уникальный
         else {
-            chat->getUser()->setLogin(login);
             chat->transitionTo(new LoginUnique());
         }
     }
