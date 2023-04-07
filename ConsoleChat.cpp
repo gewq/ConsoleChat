@@ -18,10 +18,10 @@ int main()
 		test();
 		database::initialize();
 
-		bool isRun = true;
-		Chat::getInstance()->attach(&isRun);
+		std::shared_ptr<bool> isRun = std::make_shared<bool>(true);
+		Chat::getInstance()->attach(isRun);
 
-		while (isRun) {
+		while (*isRun) {
 			Chat::getInstance()->process();
 		}
 	}

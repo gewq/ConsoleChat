@@ -46,7 +46,7 @@ User* Chat::getUser()
 
 
 
-void Chat::attach(bool* isRun)
+void Chat::attach(std::shared_ptr<bool> isRun)
 {
     isRun_ = isRun;
 }
