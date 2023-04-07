@@ -1,5 +1,9 @@
 ﻿#include "Registration.h"
+
 #include <iostream>
+#include <memory>
+
+
 
 Registration::Registration() : State("Registration")
 {
@@ -19,11 +23,12 @@ void Registration::handle(Chat* chat)
         //Такой логин уже зарегистрирован
         if (database::isExistLogin(login)) {
             std::cout << "Логин уже зарегистрирован!\n";
-            chat->transitionTo(new LoginNonunique());
+            chat->transitionTo(std::move(std::make_unique<LoginNonunique>()));
+
         }
         //Логин уникальный
         else {
-            chat->transitionTo(new LoginUnique());
+            chat->transitionTo(std::move(std::make_unique<LoginUnique>()));
         }
     }
 
@@ -31,6 +36,6 @@ void Registration::handle(Chat* chat)
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat->transitionTo(new Registration());
+        chat->transitionTo(std::move(std::make_unique<Registration>()));
     }
 }

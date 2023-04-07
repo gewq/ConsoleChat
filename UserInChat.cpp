@@ -1,5 +1,8 @@
 ﻿#include "UserInChat.h"
+
 #include <iostream>
+#include <memory>
+
 
 namespace {
     //Возможный выбор пользователя
@@ -28,7 +31,7 @@ void UserInChat::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(new UserInChat());
+        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
     }
     //Введён один символ
     else {
@@ -39,7 +42,7 @@ void UserInChat::handle(Chat* chat)
         }
         //Символ не число - вернуться в начало ко вводу
         catch (const std::invalid_argument&) {
-            chat->transitionTo(new StartState());
+            chat->transitionTo(std::move(std::make_unique<StartState>()));
         }
     }
 }
@@ -50,7 +53,7 @@ void UserInChat::handleChoice(Chat* chat, int choice)
 {
     switch (choice) {
         case SEND_MESSAGE: {
-            chat->transitionTo(new EnteringAddressee());
+            chat->transitionTo(std::move(std::make_unique<EnteringAddressee>()));
             break;
         }
         case READ_MESSAGE: {
@@ -62,18 +65,18 @@ void UserInChat::handleChoice(Chat* chat, int choice)
             break;
         }
         case EXIT: {
-            chat->transitionTo(new StartState());
+            chat->transitionTo(std::move(std::make_unique<StartState>()));
             chat->getUser()->reset();
             break;
         }
         case REMOVE_ACCOUT: {
             chat->removeAccount();
-            chat->transitionTo(new StartState());
+            chat->transitionTo(std::move(std::make_unique<StartState>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(new UserInChat());
+            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
             break;
         }
     }

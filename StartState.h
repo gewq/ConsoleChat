@@ -5,8 +5,11 @@
 
 #pragma once
 
+#include <memory>
+
 #include "State.h"
 #include "Chat.h"
+
 
 class StartState : public State {
     public:

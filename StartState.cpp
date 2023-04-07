@@ -26,7 +26,7 @@ void StartState::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(new StartState());
+        chat->transitionTo(std::move(std::make_unique<StartState>()));
     }
     //Введён один символ
     else {
@@ -37,7 +37,7 @@ void StartState::handle(Chat* chat)
         }
         //Символ не число - вернуться в начало ко вводу
         catch (const std::invalid_argument&) {
-            chat->transitionTo(new StartState());
+            chat->transitionTo(std::move(std::make_unique<StartState>()));
         }
     }
 }
@@ -48,11 +48,11 @@ void StartState::handleChoice(Chat* chat, int choice)
 {
     switch (choice) {
         case SIGN_IN: {
-            chat->transitionTo(new SignIn());
+            chat->transitionTo(std::move(std::make_unique<SignIn>()));
             break;
         }
         case REGISTRATION: {
-            chat->transitionTo(new Registration());
+            chat->transitionTo(std::move(std::make_unique<Registration>()));
             break;
         }
         case EXIT: {
@@ -62,7 +62,7 @@ void StartState::handleChoice(Chat* chat, int choice)
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(new StartState());
+            chat->transitionTo(std::move(std::make_unique<StartState>()));
             break;
         }
     }

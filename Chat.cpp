@@ -1,4 +1,5 @@
 ﻿#include "Chat.h"
+
 #include <iostream>
 #include <vector>
 
@@ -24,17 +25,16 @@ void Chat::process()
 
 
 
-Chat::Chat() : state_(new StartState()), user_(new User), isRun_(nullptr)
+Chat::Chat() : state_(std::make_unique<StartState>()), user_(new User), isRun_(nullptr)
 {
 
 };
 
 
 
-void Chat::transitionTo(State* newState)
+void Chat::transitionTo(std::unique_ptr<State> newState)
 {
-    delete state_;
-    state_ = newState;
+    state_ = std::move(newState);
 }
 
 

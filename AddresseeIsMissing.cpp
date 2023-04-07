@@ -1,5 +1,8 @@
 ﻿#include "AddresseeIsMissing.h"
+
 #include <iostream>
+#include <memory>
+
 
 namespace {
     //Возможный выбор пользователя
@@ -25,7 +28,7 @@ void AddresseeIsMissing::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(new AddresseeIsMissing());
+        chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
     }
     //Введён один символ
     else {
@@ -34,7 +37,7 @@ void AddresseeIsMissing::handle(Chat* chat)
             handleChoice(chat, choice);
         }
         catch (const std::invalid_argument&) {
-            chat->transitionTo(new AddresseeIsMissing());
+            chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
         }
     }
 }
@@ -45,16 +48,16 @@ void AddresseeIsMissing::handleChoice(Chat* chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat->transitionTo(new EnteringAddressee());
+            chat->transitionTo(std::move(std::make_unique<EnteringAddressee>()));
             break;
         }
         case CANCEL: {
-            chat->transitionTo(new UserInChat());
+            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(new AddresseeIsMissing());
+            chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
             break;
         }
     }

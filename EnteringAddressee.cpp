@@ -1,5 +1,8 @@
 ﻿#include "EnteringAddressee.h"
+
 #include <iostream>
+#include <memory>
+
 
 EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
 {
@@ -16,13 +19,13 @@ void EnteringAddressee::handle(Chat* chat)
     //Зарегистрирован только один пользователь
     if (database::getNumberUser() == 1) {
         std::cout << "Вы единственный пользователь чата\n";
-        chat->transitionTo(new UserInChat());
+        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
     }
 
     //Неверное имя адресата
     else if ( (nameAdressee != "all") && ( !database::isExistName(nameAdressee) ) ) {
         std::cout << "Пользователь с таким Ником не зарегистрирован.\n";
-        chat->transitionTo(new AddresseeIsMissing());
+        chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
     }
 
     //Адресат корректный
@@ -44,6 +47,6 @@ void EnteringAddressee::handle(Chat* chat)
         else {
             std::cout << "Сообщение не отправлено (отсутствует текст сообщения)\n";
         }
-        chat->transitionTo(new UserInChat());
+        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
     }
 }

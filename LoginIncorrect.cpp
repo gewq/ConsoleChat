@@ -1,5 +1,8 @@
 ﻿#include "LoginIncorrect.h"
+
 #include <iostream>
+#include <memory>
+
 
 namespace {
     //Возможный выбор пользователя
@@ -25,7 +28,7 @@ void LoginIncorrect::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(new LoginIncorrect());
+        chat->transitionTo(std::move(std::make_unique<LoginIncorrect>()));
     }
     //Введён один символ
     else {
@@ -36,7 +39,7 @@ void LoginIncorrect::handle(Chat* chat)
         }
         //Символ не число - вернуться в начало ко вводу
         catch (const std::invalid_argument&) {
-            chat->transitionTo(new LoginIncorrect());
+            chat->transitionTo(std::move(std::make_unique<LoginIncorrect>()));
         }
     }
 }
@@ -47,16 +50,16 @@ void LoginIncorrect::handleChoice(Chat* chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat->transitionTo(new SignIn());
+            chat->transitionTo(std::move(std::make_unique<SignIn>()));
             break;
         }
         case REGISTRATION: {
-            chat->transitionTo(new Registration());
+            chat->transitionTo(std::move(std::make_unique<Registration>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(new LoginIncorrect());
+            chat->transitionTo(std::move(std::make_unique<LoginIncorrect>()));
             break;
         }
     }

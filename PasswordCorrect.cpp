@@ -1,5 +1,8 @@
 ﻿#include "PasswordCorrect.h"
+
 #include <iostream>
+#include <memory>
+
 
 PasswordCorrect::PasswordCorrect() : State("PasswordCorrect")
 {
@@ -18,7 +21,7 @@ void PasswordCorrect::handle(Chat* chat)
         //Такой ник уже зарегистрирован
         if (database::isExistName(name)) {
             std::cout << "Пользователь с таким Ником уже зарегистрирован\n";
-            chat->transitionTo(new PasswordCorrect());
+            chat->transitionTo(std::move(std::make_unique<PasswordCorrect>()));
         }
 
         //Ник уникальный
@@ -27,7 +30,7 @@ void PasswordCorrect::handle(Chat* chat)
             database::addUser(*chat->getUser());
             std::cout << "Вы успешно зарегистрированы!\n"
                 << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
-            chat->transitionTo(new UserInChat());
+            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
         }
     }
 
@@ -35,6 +38,6 @@ void PasswordCorrect::handle(Chat* chat)
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat->transitionTo(new PasswordCorrect());
+        chat->transitionTo(std::move(std::make_unique<PasswordCorrect>()));
     }
 }

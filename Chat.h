@@ -13,6 +13,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 
 #include "User.h"
 //Классы-обработчики состояний
@@ -53,7 +54,7 @@ public:
     Перейти в заданное состояние
     \param[in] newState Указатель на объект - новое состояние
     */
-    void transitionTo(State* newState);
+    void transitionTo(std::unique_ptr<State> newState);
 
     /**
     \return Указатель на текущего пользователя чата
@@ -100,6 +101,6 @@ private:
 
     static Chat* instance_; ///<Указатель на единственный объект класса
     User* user_;            ///<Текущий пользователь чата (чтобы передавать параметры пользователя между состояниями)
-    State* state_;          ///<Текущее состояние
+    std::unique_ptr<State> state_;  ///<Текущее состояние
     bool* isRun_;           ///<Признак продолжения работы программы
 };

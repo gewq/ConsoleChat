@@ -1,5 +1,9 @@
 ﻿#include "LoginCorrect.h"
+
 #include <iostream>
+#include <memory>
+
+
 
 LoginCorrect::LoginCorrect() : State("LoginCorrect")
 {
@@ -22,14 +26,14 @@ void LoginCorrect::handle(Chat* chat)
             const std::string name = database::getNameByLogin(login);
             chat->getUser()->setName(name);
             std::cout << chat->getUser()->getName() << ", добро пожаловать в Чат!\n";
-            chat->transitionTo(new UserInChat());
+            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
             chat->printMessagesToUser();
         }
 
         //Пароль неверный
         else {
             std::cout << "Пароль неверный!\n";
-            chat->transitionTo(new PasswordIncorrect());
+            chat->transitionTo(std::move(std::make_unique<PasswordIncorrect>()));
         }
     }
 
@@ -37,6 +41,6 @@ void LoginCorrect::handle(Chat* chat)
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat->transitionTo(new LoginCorrect());
+        chat->transitionTo(std::move(std::make_unique<LoginCorrect>()));
     }
 }

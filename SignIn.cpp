@@ -1,5 +1,9 @@
 ﻿#include "SignIn.h"
+
 #include <iostream>
+#include <memory>
+
+
 
 SignIn::SignIn() : State("SignIn")
 {
@@ -18,18 +22,18 @@ void SignIn::handle(Chat* chat)
         //Логин зарегистрирован
         if (database::isExistLogin(login)) {
             chat->getUser()->setLogin(login);
-            chat->transitionTo(new LoginCorrect());
+            chat->transitionTo(std::move(std::make_unique<LoginCorrect>()));
         }
         //Логин не зарегистрирован
         else {
             std::cout << "Логин не зарегистрирован!\n";
-            chat->transitionTo(new LoginIncorrect());
+            chat->transitionTo(std::move(std::make_unique<LoginIncorrect>()));
         }
     }
     //Недопустимые символы
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat->transitionTo(new SignIn());
+        chat->transitionTo(std::move(std::make_unique<SignIn>()));
     }
 }
