@@ -10,7 +10,7 @@ EnteringAddressee::EnteringAddressee() : State("EnteringAddressee")
 
 
 
-void EnteringAddressee::handle(Chat* chat)
+void EnteringAddressee::handle(Chat& chat)
 {
     std::cout << "Введите Ник адресата (all - отправить всем): ";
     std::string nameAdressee;
@@ -19,13 +19,13 @@ void EnteringAddressee::handle(Chat* chat)
     //Зарегистрирован только один пользователь
     if (database::getNumberUser() == 1) {
         std::cout << "Вы единственный пользователь чата\n";
-        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
+        chat.transitionTo(std::move(std::make_unique<UserInChat>()));
     }
 
     //Неверное имя адресата
     else if ( (nameAdressee != "all") && ( !database::isExistName(nameAdressee) ) ) {
         std::cout << "Пользователь с таким Ником не зарегистрирован.\n";
-        chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
+        chat.transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
     }
 
     //Адресат корректный
@@ -37,7 +37,7 @@ void EnteringAddressee::handle(Chat* chat)
         //Текст введён
         if (!textMessage.empty()) {
             //Создать сообщение
-            Message message(chat->getUser()->getName(), nameAdressee, textMessage);
+            Message message(chat.getUser()->getName(), nameAdressee, textMessage);
             //Поместить в базу сообщений
             database::pushMessage(message);
             std::cout << "Сообщение отправлено\n";
@@ -47,6 +47,6 @@ void EnteringAddressee::handle(Chat* chat)
         else {
             std::cout << "Сообщение не отправлено (отсутствует текст сообщения)\n";
         }
-        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
+        chat.transitionTo(std::move(std::make_unique<UserInChat>()));
     }
 }

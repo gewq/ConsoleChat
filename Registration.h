@@ -18,5 +18,5 @@ class Registration : public State {
         /**
         Обработчик состояния "РЕГИСТРАЦИЯ ПОЛЬЗОВАТЕЛЯ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

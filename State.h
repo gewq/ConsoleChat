@@ -25,16 +25,16 @@ public:
     */
     virtual ~State();
 
-        /**
-        Обработчик конкретного состояния - реализацию определяют производные классы
-        \param[in] chat Указатель на объект - Чат
-        */
-        virtual void handle(Chat* chat) = 0;
+    /**
+    Обработчик конкретного состояния - реализацию определяют производные классы
+    \param[in] chat Указатель на объект - Чат
+    */
+    virtual void handle(Chat& chat) = 0;
 
-        /**
-        \return Название состояния
-        */
-        const std::string& getName() const;
+    /**
+    \return Название состояния
+    */
+    const std::string& getName() const;
 
     private:
         std::string name_;	///<Название состояния

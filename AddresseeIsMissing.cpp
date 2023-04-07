@@ -20,7 +20,7 @@ AddresseeIsMissing::AddresseeIsMissing() : State("AddresseeIsMissing")
 
 
 
-void AddresseeIsMissing::handle(Chat* chat)
+void AddresseeIsMissing::handle(Chat& chat)
 {
     std::cout << "| 1 - Ввести Ник адресата повторно | 2 - Отменить отправку сообщения | :  ";
     std::string input;
@@ -28,7 +28,7 @@ void AddresseeIsMissing::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
+        chat.transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
     }
     //Введён один символ
     else {
@@ -37,27 +37,27 @@ void AddresseeIsMissing::handle(Chat* chat)
             handleChoice(chat, choice);
         }
         catch (const std::invalid_argument&) {
-            chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
+            chat.transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
         }
     }
 }
 
 
 
-void AddresseeIsMissing::handleChoice(Chat* chat, int choice)
+void AddresseeIsMissing::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat->transitionTo(std::move(std::make_unique<EnteringAddressee>()));
+            chat.transitionTo(std::move(std::make_unique<EnteringAddressee>()));
             break;
         }
         case CANCEL: {
-            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
+            chat.transitionTo(std::move(std::make_unique<UserInChat>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
+            chat.transitionTo(std::move(std::make_unique<AddresseeIsMissing>()));
             break;
         }
     }

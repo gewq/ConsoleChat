@@ -18,5 +18,5 @@ class LoginCorrect : public State {
         /**
         Обработчик состояния "ЛОГИН КОРРЕКТНЫЙ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

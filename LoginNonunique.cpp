@@ -20,7 +20,7 @@ LoginNonunique::LoginNonunique() : State("LoginNonunique")
 
 
 
-void LoginNonunique::handle(Chat* chat)
+void LoginNonunique::handle(Chat& chat)
 {
     std::cout << "| 1 - Войти по этому Логину | 2 - Назад к регистрации | :  ";
     std::string input;
@@ -28,7 +28,7 @@ void LoginNonunique::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(std::move(std::make_unique<LoginNonunique>()));
+        chat.transitionTo(std::move(std::make_unique<LoginNonunique>()));
     }
     //Введён один символ
     else {
@@ -39,27 +39,27 @@ void LoginNonunique::handle(Chat* chat)
         }
         //Символ не число - вернуться в начало ко вводу
         catch (const std::invalid_argument&) {
-            chat->transitionTo(std::move(std::make_unique<LoginNonunique>()));
+            chat.transitionTo(std::move(std::make_unique<LoginNonunique>()));
         }
     }
 }
 
 
 
-void LoginNonunique::handleChoice(Chat* chat, int choice)
+void LoginNonunique::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat->transitionTo(std::move(std::make_unique<LoginCorrect>()));
+            chat.transitionTo(std::move(std::make_unique<LoginCorrect>()));
             break;
         }
         case REGISTRATION: {
-            chat->transitionTo(std::move(std::make_unique<Registration>()));
+            chat.transitionTo(std::move(std::make_unique<Registration>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(std::move(std::make_unique<LoginNonunique>()));
+            chat.transitionTo(std::move(std::make_unique<LoginNonunique>()));
             break;
         }
     }

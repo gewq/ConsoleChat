@@ -18,5 +18,5 @@ class LoginUnique : public State {
         /**
         Обработчик состояния "ЛОГИН УНИКАЛЬНЫЙ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

@@ -18,7 +18,7 @@ class UserInChat : public State {
         /**
         Обработчик состояния "ПОЛЬЗОВАТЕЛЬ В ЧАТЕ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 
     private:
         /**
@@ -26,5 +26,5 @@ class UserInChat : public State {
         \param[in] chat Указатель на объект чата для которого выполнять обработку
         \param[in] choice Число которое ввёл пользователь
         */
-        void handleChoice(Chat* chat, int choice);
+        void handleChoice(Chat& chat, int choice);
 };

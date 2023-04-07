@@ -18,5 +18,5 @@ class SignIn : public State {
         /**
         Обработчик состояния "ВХОД ПОЛЬЗОВАТЕЛЯ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

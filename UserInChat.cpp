@@ -23,7 +23,7 @@ UserInChat::UserInChat() : State("UserInChat")
 
 
 
-void UserInChat::handle(Chat* chat)
+void UserInChat::handle(Chat& chat)
 {
     std::cout << "| 1 - Отправить сообщение | 2 - Прочитать сообщения | 3 - Список пользователей | 4 - Выход из чата | 5 - Удалить аккаунт | :  ";
     std::string input;
@@ -31,7 +31,7 @@ void UserInChat::handle(Chat* chat)
 
     //Введено более одного символа
     if (input.length() > 1) {
-        chat->transitionTo(std::move(std::make_unique<UserInChat>()));
+        chat.transitionTo(std::move(std::make_unique<UserInChat>()));
     }
     //Введён один символ
     else {
@@ -42,41 +42,41 @@ void UserInChat::handle(Chat* chat)
         }
         //Символ не число - вернуться в начало ко вводу
         catch (const std::invalid_argument&) {
-            chat->transitionTo(std::move(std::make_unique<StartState>()));
+            chat.transitionTo(std::move(std::make_unique<StartState>()));
         }
     }
 }
 
 
 
-void UserInChat::handleChoice(Chat* chat, int choice)
+void UserInChat::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case SEND_MESSAGE: {
-            chat->transitionTo(std::move(std::make_unique<EnteringAddressee>()));
+            chat.transitionTo(std::move(std::make_unique<EnteringAddressee>()));
             break;
         }
         case READ_MESSAGE: {
-            chat->printMessagesToUser();
+            chat.printMessagesToUser();
             break;
         }
         case SHOW_USERS: {
-            chat->printUserList();
+            chat.printUserList();
             break;
         }
         case EXIT: {
-            chat->transitionTo(std::move(std::make_unique<StartState>()));
-            chat->getUser()->reset();
+            chat.transitionTo(std::move(std::make_unique<StartState>()));
+            chat.getUser()->reset();
             break;
         }
         case REMOVE_ACCOUT: {
-            chat->removeAccount();
-            chat->transitionTo(std::move(std::make_unique<StartState>()));
+            chat.removeAccount();
+            chat.transitionTo(std::move(std::make_unique<StartState>()));
             break;
         }
         default: {
             std::cin.clear();
-            chat->transitionTo(std::move(std::make_unique<UserInChat>()));
+            chat.transitionTo(std::move(std::make_unique<UserInChat>()));
             break;
         }
     }

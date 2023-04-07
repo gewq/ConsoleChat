@@ -18,5 +18,5 @@ class EnteringAddressee : public State {
         /**
         Обработчик состояния "ВВОД АДРЕСАТА"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

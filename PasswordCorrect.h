@@ -18,5 +18,5 @@ class PasswordCorrect : public State {
         /**
         Обработчик состояния "ПАРОЛЬ КОРРЕКТНЫЙ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 };

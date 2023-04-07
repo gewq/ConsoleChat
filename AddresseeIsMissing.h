@@ -18,7 +18,7 @@ class AddresseeIsMissing : public State {
         /**
         Обработчик состояния "АДРЕСАТ ОТСУТСТВУЕТ"
         */
-        virtual void handle(Chat* chat) override;
+        virtual void handle(Chat& chat) override;
 
     private:
         /**
@@ -26,5 +26,5 @@ class AddresseeIsMissing : public State {
         \param[in] chat Указатель на объект чата для которого выполнять обработку
         \param[in] choice Число которое ввёл пользователь
         */
-        void handleChoice(Chat* chat, int choice);
+        void handleChoice(Chat& chat, int choice);
 };

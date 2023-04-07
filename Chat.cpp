@@ -20,7 +20,7 @@ Chat* Chat::getInstance()
 
 void Chat::process()
 {
-    state_->handle(this);
+    state_->handle(*this);
 }
 
 
