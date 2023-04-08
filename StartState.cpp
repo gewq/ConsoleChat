@@ -48,7 +48,7 @@ void StartState::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case SIGN_IN: {
-            chat.transitionTo(std::move(std::make_unique<SignIn>()));
+            chat.transitionTo(std::move(std::make_unique<LoginInputState>()));
             break;
         }
         case REGISTRATION: {

@@ -8,12 +8,12 @@
 #include "State.h"
 #include "Chat.h"
 
-class SignIn : public State {
+class LoginInputState : public State {
     public:
         /**
         Конструктор по-умолчанию
         */
-        SignIn();
+        LoginInputState();
 
         /**
         Обработчик состояния "ВХОД ПОЛЬЗОВАТЕЛЯ"

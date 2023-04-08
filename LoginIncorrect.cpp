@@ -50,7 +50,7 @@ void LoginIncorrect::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat.transitionTo(std::move(std::make_unique<SignIn>()));
+            chat.transitionTo(std::move(std::make_unique<LoginInputState>()));
             break;
         }
         case REGISTRATION: {

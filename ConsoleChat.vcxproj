@@ -144,6 +144,7 @@
     </ClCompile>
     <ClCompile Include="ConsoleChat.cpp" />
     <ClCompile Include="DataBase.cpp" />
+    <ClCompile Include="LoginInputState.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="AddresseeIsMissing.cpp" />
     <ClCompile Include="EnteringAddressee.cpp" />
@@ -154,13 +155,13 @@
     <ClCompile Include="PasswordCorrect.cpp" />
     <ClCompile Include="PasswordIncorrect.cpp" />
     <ClCompile Include="Registration.cpp" />
-    <ClCompile Include="SignIn.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="UserInChat.cpp" />
     <ClCompile Include="User.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LoginInputState.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="AddresseeIsMissing.h" />
     <ClInclude Include="Chat.h" />
@@ -173,7 +174,6 @@
     <ClInclude Include="PasswordCorrect.h" />
     <ClInclude Include="PasswordIncorrect.h" />
     <ClInclude Include="Registration.h" />
-    <ClInclude Include="SignIn.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="UserInChat.h" />

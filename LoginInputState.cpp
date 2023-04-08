@@ -1,17 +1,17 @@
-﻿#include "SignIn.h"
+﻿#include "LoginInputState.h"
 
 #include <iostream>
 #include <memory>
 
 
 
-SignIn::SignIn() : State("SignIn")
+LoginInputState::LoginInputState() : State("SignIn")
 {
 };
 
 
 
-void SignIn::handle(Chat& chat)
+void LoginInputState::handle(Chat& chat)
 {
     std::cout << "Введите Ваш Логин (допустимые символы 'a'-'z', 'A'-'Z', '0'-'9'): ";
     std::string login;
@@ -34,6 +34,6 @@ void SignIn::handle(Chat& chat)
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat.transitionTo(std::move(std::make_unique<SignIn>()));
+        chat.transitionTo(std::move(std::make_unique<LoginInputState>()));
     }
 }
