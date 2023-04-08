@@ -25,7 +25,9 @@ void Chat::process()
 
 
 
-Chat::Chat() : state_(std::make_unique<StartState>()), user_(new User), isRun_(nullptr)
+Chat::Chat() : state_(std::make_unique<StartState>()),
+               user_(std::make_shared<User>()),
+               isRun_(nullptr)
 {
 
 };
@@ -39,7 +41,7 @@ void Chat::transitionTo(std::unique_ptr<State> newState)
 
 
 
-User* Chat::getUser()
+std::shared_ptr<User> Chat::getUser()
 {
     return user_;
 }
