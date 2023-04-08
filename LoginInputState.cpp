@@ -22,7 +22,7 @@ void LoginInputState::handle(Chat& chat)
         //Логин зарегистрирован
         if (database::isExistLogin(login)) {
             chat.getUser()->setLogin(login);
-            chat.transitionTo(std::move(std::make_unique<LoginCorrect>()));
+            chat.transitionTo(std::move(std::make_unique<PasswordInputState>()));
         }
         //Логин не зарегистрирован
         else {

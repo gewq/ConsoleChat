@@ -50,7 +50,7 @@ void PasswordIncorrect::handleChoice(Chat& chat, int choice)
 {
     switch (choice) {
         case INPUT_AGAIN: {
-            chat.transitionTo(std::move(std::make_unique<LoginCorrect>()));
+            chat.transitionTo(std::move(std::make_unique<PasswordInputState>()));
             break;
         }
         case TO_MAIN_MENU: {

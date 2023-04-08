@@ -39,9 +39,6 @@
     <ClCompile Include="EnteringAddressee.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="LoginCorrect.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="LoginIncorrect.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -69,6 +66,9 @@
     <ClCompile Include="LoginInputState.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="PasswordInputState.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Chat.h">
@@ -90,9 +90,6 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="EnteringAddressee.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="LoginCorrect.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LoginIncorrect.h">
@@ -120,6 +117,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="LoginInputState.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="PasswordInputState.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

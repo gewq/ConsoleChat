@@ -1,17 +1,17 @@
-﻿#include "LoginCorrect.h"
+﻿#include "PasswordInputState.h"
 
 #include <iostream>
 #include <memory>
 
 
 
-LoginCorrect::LoginCorrect() : State("LoginCorrect")
+PasswordInputState::PasswordInputState() : State("PasswordInputState")
 {
 };
 
 
 
-void LoginCorrect::handle(Chat& chat)
+void PasswordInputState::handle(Chat& chat)
 {
     std::cout << "Введите Пароль: ";
     std::string password;
@@ -41,6 +41,6 @@ void LoginCorrect::handle(Chat& chat)
     else {
         std::cout << "Некорректные символы.\n";
         std::cin.clear();
-        chat.transitionTo(std::move(std::make_unique<LoginCorrect>()));
+        chat.transitionTo(std::move(std::make_unique<PasswordInputState>()));
     }
 }

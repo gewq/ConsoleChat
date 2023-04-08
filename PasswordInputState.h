@@ -1,5 +1,5 @@
 ﻿/**
-\file LoginCorrect.h
+\file PasswordInputState.h
 \brief Класс-обработчик состояния "ЛОГИН КОРРЕКТНЫЙ"
 */
 
@@ -8,12 +8,12 @@
 #include "State.h"
 #include "Chat.h"
 
-class LoginCorrect : public State {
+class PasswordInputState : public State {
     public:
         /**
         Конструктор по-умолчанию
         */
-        LoginCorrect();
+        PasswordInputState();
 
         /**
         Обработчик состояния "ЛОГИН КОРРЕКТНЫЙ"

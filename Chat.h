@@ -21,7 +21,7 @@
 #include "StartState.h"
 #include "LoginInputState.h"
 #include "Registration.h"
-#include "LoginCorrect.h"
+#include "PasswordInputState.h"
 #include "LoginIncorrect.h"
 #include "LoginUnique.h"
 #include "LoginNonunique.h"
