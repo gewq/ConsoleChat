@@ -155,6 +155,7 @@
     <ClCompile Include="PasswordIncorrect.cpp" />
     <ClCompile Include="PasswordInputState.cpp" />
     <ClCompile Include="Registration.cpp" />
+    <ClCompile Include="SHA_1_Wrapper.cpp" />
     <ClCompile Include="StartState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="UserInChat.cpp" />
@@ -175,6 +176,7 @@
     <ClInclude Include="PasswordInputState.h" />
     <ClInclude Include="Registration.h" />
     <ClInclude Include="sha1.hpp" />
+    <ClInclude Include="SHA_1_Wrapper.h" />
     <ClInclude Include="StartState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="UserInChat.h" />

@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <iostream>
 
-#include "sha1.hpp"
+#include "SHA_1_Wrapper.h"
 
 #include "User.h"
 #include "Message.h"
@@ -22,16 +22,8 @@ namespace {
 
 void database::initialize()
 {
-	std::string password = "123";
-	auto checksum = std::make_unique<SHA1>();
-	checksum->update(password);
-	std::string hash = checksum->final();
-	User u1("G", "Ger", hash);
-
-	password = "qwe";
-	checksum->update(password);
-	hash = checksum->final();
-	User u2("S", "Sve", hash);
+	User u1("G", "Ger", sha_1::hash("123"));
+	User u2("S", "Sve", sha_1::hash("qwe"));
 
 	users.push_back(u1);
 	users.push_back(u2);
@@ -84,10 +76,7 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 
 	int8_t userPosition = getUserPosition(login);
 	//Хэш введённого пароля совпадает с хэшэм пароля в базе
-	auto checksum = std::make_unique<SHA1>();
-	checksum->update(password);
-	const std::string hashInputPassword = checksum->final();
-	if (users.at(userPosition).getHashPassword() == hashInputPassword) {
+	if (users.at(userPosition).getHashPassword() == sha_1::hash(password)) {
 		return true;
 	}
 
@@ -205,7 +194,7 @@ void database::test()
 static int8_t getUserPosition(const std::string& login)
 {
 	//Ищем объект класса User
-	User wanted("1", login, "1");	//При поиске сравниваем только login
+	User wanted("1", login, sha_1::hash("password")); //При поиске сравниваем только login
 	//Итератор - const чтобы нельзя было изменить вектор или объект в нём
 	std::vector<User>::const_iterator iterator =
 		std::find(users.begin(), users.end(), wanted);
@@ -239,7 +228,7 @@ static void removeMessagesToUser(const std::string& name)
 static void testIsExistLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
+	User user("name", "login", sha_1::hash("password"));
 	users.push_back(user);
 
 	assert(database::isExistLogin(user.getLogin()) == true);
@@ -255,7 +244,7 @@ static void testIsExistLogin()
 static void testIsExistName()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
+	User user("name", "login", sha_1::hash("password"));
 	users.push_back(user);
 
 	assert(database::isExistName(user.getName()) == true);
@@ -272,11 +261,7 @@ static void testIsCorrectPassword()
 {
 	//Поместить тестовое значение
 	const std::string password = "password";
-	auto checksum = std::make_unique<SHA1>();
-	checksum->update(password);
-	const std::string hash = checksum->final();
-
-	User user("name", "login", hash);
+	User user("name", "login", sha_1::hash(password));
 	users.push_back(user);
 
 	assert(database::isCorrectPassword(user.getLogin(), password) == true);
@@ -293,8 +278,8 @@ static void testIsCorrectPassword()
 static void testGetUserPosition()
 {
 	//Поместить тестовое значение
-	User user_1("user_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
-	User user_2("user_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
+	User user_1("user_1", "login_1", sha_1::hash("password_1"));
+	User user_2("user_2", "login_2", sha_1::hash("password_2"));
 	users.push_back(user_1);
 	users.push_back(user_2);
 
@@ -330,8 +315,8 @@ static void testPushMessage()
 static void testLoadMessages()
 {
 	messages.clear();
-	User u1("name_1", "login_1", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
-	User u2("name_2", "login_2", "f054ffc85b4c1615a7190ea0b248564bb1e9f9ab");
+	User u1("name_1", "login_1", sha_1::hash("password_1"));
+	User u2("name_2", "login_2", sha_1::hash("password_2"));
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
@@ -374,11 +359,7 @@ static void testAddUser()
 {
 	//Поместить тестовое значение
 	const std::string password = "password";
-	auto checksum = std::make_unique<SHA1>();
-	checksum->update(password);
-	const std::string hash = checksum->final();
-
-	User user("name", "login", hash);
+	User user("name", "login", sha_1::hash(password));
 
 	database::addUser(user);
 	assert(database::isExistName(user.getName()) == true);
@@ -394,7 +375,7 @@ static void testAddUser()
 static void testRemoveUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User user("name", "login", sha_1::hash("password"));
 	database::addUser(user);
 	database::removeUser(user);
 
@@ -413,7 +394,7 @@ static void testRemoveUser()
 static void testGetNameByLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User user("name", "login", sha_1::hash("password"));
 	users.push_back(user);
 
 	assert(database::getNameByLogin(user.getLogin()) == user.getName());
@@ -428,12 +409,12 @@ static void testGetNameByLogin()
 static void testGetNumberUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User user("name", "login", sha_1::hash("password"));
 	users.push_back(user);
 	assert(database::getNumberUser() == 1);
 
 	//Поместить тестовое значение
-	User user2("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User user2("name", "login", sha_1::hash("password"));
 	users.push_back(user2);
 	assert(database::getNumberUser() == 2);
 	//Очистить от тестовых значений
@@ -446,8 +427,8 @@ static void testGetNumberUser()
 static void testLoadUserNames()
 {
 	//Поместить тестовое значение
-	User user_1("user_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
-	User user_2("user_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
+	User user_1("user_1", "login_1", sha_1::hash("password_1"));
+	User user_2("user_2", "login_2", sha_1::hash("password_2"));
 	users.push_back(user_1);
 	users.push_back(user_2);
 
@@ -469,8 +450,8 @@ static void testLoadUserNames()
 static void testRemoveMessagesToUser()
 {
 	messages.clear();
-	User u1("name_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
-	User u2("name_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
+	User u1("name_1", "login_1", sha_1::hash("password_1"));
+	User u2("name_2", "login_2", sha_1::hash("password_2"));
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
