@@ -21,7 +21,7 @@ void LoginUnique::handle(Chat& chat)
 
     //Допустимые символы
     if (chat.isCorrectValue(password)) {
-        chat.getUser()->setHashPassword(sha_1::hash(password));
+        chat.getUser()->setPassword(password);
         chat.transitionTo(std::move(std::make_unique<PasswordCorrect>()));
     }
 

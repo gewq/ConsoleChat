@@ -24,6 +24,16 @@ namespace database {
 	void initialize();
 
 	/**
+	Добавить нового пользователя в базу
+	\param[in] name Ник пользователя
+	\param[in] login Логин пользователя
+	\param[in] password Пароль пользователя
+	*/
+	void addUser(const std::string& name,
+		const std::string& login,
+		const std::string& password);
+
+	/**
 	Проверить есть ли в базе заданный Логин
 	\param[in] login Логин
 	\return Признак наличия заданного Логина в базе
@@ -59,16 +69,10 @@ namespace database {
 	void loadMessages(const User& addressee, std::shared_ptr<std::list<Message> > destination);
 
 	/**
-	Добавить в базу заданного пользователя
-	\param[in] user Пользователь которого добавить
-	*/
-	void addUser(const User& user);
-
-	/**
 	Удалить заданного пользователя из базы
-	\param[in] user Пользователь которого удалить
+	\param[in] login Логин пользователя которого удалить
 	*/
-	void removeUser(const User& user);
+	void removeUser(const std::string& login);
 
 	/**
 	Вернуть ник по логину.

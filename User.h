@@ -16,6 +16,7 @@ public:
 	User();
 	User(const std::string& name,
 		const std::string& login,
+		const std::string& password,
 		const std::string& hashPassword);
 
 	/**
@@ -35,7 +36,12 @@ public:
 	std::string getLogin() const;
 
 	/**
-	\return Хэш Пароля
+	\return Пароль
+	*/
+	std::string getPassword() const;
+
+	/**
+	\return Хеш Пароля
 	*/
 	std::string getHashPassword() const;
 
@@ -52,7 +58,13 @@ public:
 	void setLogin(const std::string& login);
 
 	/**
-	Задать пользователю Хэш Пароля
+	Задать пользователю Пароль
+	\param[in] hashPassword Хэш Пароля
+	*/
+	void setPassword(const std::string& password);
+
+	/**
+	Задать пользователю Хеш Пароля
 	\param[in] hashPassword Хэш Пароля
 	*/
 	void setHashPassword(const std::string& hashPassword);
@@ -65,7 +77,8 @@ public:
 private:
 	std::string name_;		///<Ник
 	std::string login_;		///<Логин
-	std::string hashPassword_;	///<Хэш Пароля
+	std::string password_;	///<Пароль
+	std::string hashPassword_;	///<Хеш Пароля
 };
 
 

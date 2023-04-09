@@ -1,6 +1,6 @@
 #include "DataBase.h"
 
-#include <vector>
+#include <map>
 #include <list>
 #include <assert.h>
 #include <iostream>
@@ -14,7 +14,13 @@ namespace {
 	//Имя адресата чтобы отправить сообщение всем
 	const std::string MSG_TO_ALL = "all";
 
-	std::vector<User> users;		//База зарегистрированных пользователей
+	/*
+	Хэш таблица данных пользователей
+	Ключ 	 - Логин пользователя
+	Значение - Пользователь
+	*/
+	std::map <std::string, User> userData;
+
 	std::list<Message> messages;	//База сообщений пользователей друг другу
 }
 
@@ -22,48 +28,32 @@ namespace {
 
 void database::initialize()
 {
-	User u1("G", "Ger", sha_1::hash("123"));
-	User u2("S", "Sve", sha_1::hash("qwe"));
-
-	users.push_back(u1);
-	users.push_back(u2);
+	database::addUser("G", "Ger", "123");
+	database::addUser("S", "Sve", "qwe");
 }
 
 
 
 bool database::isExistLogin(const std::string& login)
 {
-	//Range-based loop
-	for (const auto& user : users) {
-		if (user.getLogin() == login) {
-			return true;
-		}
+	//Логина нет в базе
+	if (userData.find(login) == userData.end()) {
+		return false;
 	}
-	return false;
+	return true;
 }
 
 
 
 bool database::isExistName(const std::string& name)
 {
-	//Range-based loop
-	for (const auto& user : users) {
-		if (user.getName() == name) {
+	for (const auto& dataPair : userData) {
+		if (dataPair.second.getName() == name) {
 			return true;
 		}
 	}
 	return false;
 }
-
-
-
-/**
-Найти индекс пользователя в базе по логину
-Если пользователь не найден - возвращает -1
-\param[in] login Логин пользователя
-\return Индекс в векторе пользователей
-*/
-static int8_t getUserPosition(const std::string& login);
 
 
 
@@ -74,9 +64,8 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 		return false;
 	}
 
-	int8_t userPosition = getUserPosition(login);
-	//Хэш введённого пароля совпадает с хэшэм пароля в базе
-	if (users.at(userPosition).getHashPassword() == sha_1::hash(password)) {
+	//Хэш введённого пароля совпадает с хэшем пароля в базе
+	if (sha_1::hash(password) == userData[login].getHashPassword()) {
 		return true;
 	}
 
@@ -108,43 +97,38 @@ void database::loadMessages(const User& addressee, std::shared_ptr<std::list<Mes
 
 
 
-void database::addUser(const User& user)
-{
-	//Если пользователь ещё не в базе данных
-	if (!isExistLogin(user.getLogin())) {
-		users.push_back(user);
-	}
-}
-
-
 /**
 Удалить из базы все сообщения, адресованные пользователю с заданным ником
 \param[in] name Ник пользователя
 */
 static void removeMessagesToUser(const std::string& name);
 
-void database::removeUser(const User& user)
+
+void database::removeUser(const std::string& login)
 {
-	removeMessagesToUser(user.getName());
-	users.erase(std::remove(users.begin(), users.end(), user), users.end());
+	removeMessagesToUser(getNameByLogin(login));
+	userData.erase(login);
 }
 
 
 
 std::string database::getNameByLogin(const std::string& login)
 {
-	if (isExistLogin(login)) {
-		int userPosition = getUserPosition(login);
-		return users.at(userPosition).getName();
+	//Итератор на пользователя с заданным логином
+	auto userIterator = userData.find(login);
+
+	//Логина нет в базе
+	if (userIterator == userData.end()) {
+		return "";
 	}
-	return "";
+	return userIterator->second.getName();
 }
 
 
 
 size_t database::getNumberUser()
 {
-	return users.size();
+	return userData.size();
 }
 
 
@@ -152,65 +136,33 @@ size_t database::getNumberUser()
 void database::loadUserNames(std::shared_ptr<std::vector<std::string> > userNames)
 {
 	userNames->clear();
-	for (const auto& user : users) {
-		userNames->push_back(user.getName());
+	for (const auto& dataPair : userData) {
+		userNames->push_back(dataPair.second.getName());
 	}
 }
 
 
 
-static void testIsExistLogin();
-static void testIsExistName();
-static void testIsCorrectPassword();
-static void testGetUserPosition();
-static void testPushMessage();
-static void testLoadMessages();
-static void testAddUser();
-static void testRemoveUser();
-static void testGetNameByLogin();
-static void testGetNumberUser();
-static void testLoadUserNames();
-static void testRemoveMessagesToUser();
-
-
-void database::test()
+void database::addUser(const std::string& name,
+	const std::string& login,
+	const std::string& password)
 {
-	testIsExistLogin();
-	testIsExistName();
-	testIsCorrectPassword();
-	testGetUserPosition();
-	testPushMessage();
-	testLoadMessages();
-	testAddUser();
-	testRemoveUser();
-	testGetNameByLogin();
-	testGetNumberUser();
-	testLoadUserNames();
-	testRemoveMessagesToUser();
+	//Пользователь уже есть в базе
+	if (userData.find(login) != userData.end()) {
+		return;
+	}
+	//Данные пользователя не введены
+	if (name.empty() || login.empty() || password.empty()) {
+		return;
+	}
+
+	//Создать в базе пару Логин-Пользователь
+	userData.emplace(std::make_pair(login, User(name, login, password, sha_1::hash(password))));
 }
 
 
 
-static int8_t getUserPosition(const std::string& login)
-{
-	//Ищем объект класса User
-	User wanted("1", login, sha_1::hash("password")); //При поиске сравниваем только login
-	//Итератор - const чтобы нельзя было изменить вектор или объект в нём
-	std::vector<User>::const_iterator iterator =
-		std::find(users.begin(), users.end(), wanted);
-
-	//Элемент НЕ найден
-	if (iterator == users.end()) {
-		return -1;
-	}
-	//Элемент НАЙДЕН
-	else {
-		return static_cast<int8_t> (iterator - users.begin());
-	}
-}
-
-
-
+//---------------------------------------------------------------------------------------------------------
 static void removeMessagesToUser(const std::string& name)
 {
 	//Удалить сообщение по условию true
@@ -225,18 +177,52 @@ static void removeMessagesToUser(const std::string& name)
 
 
 
+//=========================================================================================================
+static void testIsExistLogin();
+static void testIsExistName();
+static void testIsCorrectPassword();
+static void testPushMessage();
+static void testLoadMessages();
+static void testRemoveUser();
+static void testGetNameByLogin();
+static void testGetNumberUser();
+static void testLoadUserNames();
+static void testRemoveMessagesToUser();
+
+
+void database::test()
+{
+	testIsExistLogin();
+	testIsExistName();
+	testIsCorrectPassword();
+	testPushMessage();
+	testLoadMessages();
+	testRemoveUser();
+	testGetNameByLogin();
+	testGetNumberUser();
+	testLoadUserNames();
+	testRemoveMessagesToUser();
+
+	//После тестов база должна быть пуста
+	assert(userData.empty() == true);
+	assert(messages.empty() == true);
+}
+
+
+
 static void testIsExistLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", sha_1::hash("password"));
-	users.push_back(user);
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	database::addUser(name, login, password);
 
-	assert(database::isExistLogin(user.getLogin()) == true);
+	assert(database::isExistLogin(login) == true);
 	assert(database::isExistLogin("incorrect_login") == false);
 
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -244,15 +230,16 @@ static void testIsExistLogin()
 static void testIsExistName()
 {
 	//Поместить тестовое значение
-	User user("name", "login", sha_1::hash("password"));
-	users.push_back(user);
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	database::addUser(name, login, password);
 
-	assert(database::isExistName(user.getName()) == true);
+	assert(database::isExistName(name) == true);
 	assert(database::isExistName("incorrect_name") == false);
 
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -260,35 +247,17 @@ static void testIsExistName()
 static void testIsCorrectPassword()
 {
 	//Поместить тестовое значение
+	const std::string name = "name";
+	const std::string login = "login";
 	const std::string password = "password";
-	User user("name", "login", sha_1::hash(password));
-	users.push_back(user);
+	database::addUser(name, login, password);
 
-	assert(database::isCorrectPassword(user.getLogin(), password) == true);
-	assert(database::isCorrectPassword(user.getLogin(), "incorrect_password") == false);
+	assert(database::isCorrectPassword(login, password) == true);
+	assert(database::isCorrectPassword(login, "incorrect_password") == false);
 	assert(database::isCorrectPassword("incorrect_login", password) == false);
 
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
-}
-
-
-
-static void testGetUserPosition()
-{
-	//Поместить тестовое значение
-	User user_1("user_1", "login_1", sha_1::hash("password_1"));
-	User user_2("user_2", "login_2", sha_1::hash("password_2"));
-	users.push_back(user_1);
-	users.push_back(user_2);
-
-	assert(getUserPosition(user_1.getLogin()) == 0);
-	assert(getUserPosition(user_2.getLogin()) == 1);
-
-	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -307,7 +276,6 @@ static void testPushMessage()
 
 	//Очистить от тестовых значений
 	messages.clear();
-	assert(messages.empty() == true);
 }
 
 
@@ -315,8 +283,8 @@ static void testPushMessage()
 static void testLoadMessages()
 {
 	messages.clear();
-	User u1("name_1", "login_1", sha_1::hash("password_1"));
-	User u2("name_2", "login_2", sha_1::hash("password_2"));
+	User u1("name_1", "login_1", "password_1", sha_1::hash("password_1"));
+	User u2("name_2", "login_2", "password_2", sha_1::hash("password_2"));
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
@@ -350,24 +318,6 @@ static void testLoadMessages()
 
 	//Очистить от тестовых значений
 	messages.clear();
-	assert(messages.empty() == true);
-}
-
-
-
-static void testAddUser()
-{
-	//Поместить тестовое значение
-	const std::string password = "password";
-	User user("name", "login", sha_1::hash(password));
-
-	database::addUser(user);
-	assert(database::isExistName(user.getName()) == true);
-	assert(database::isExistLogin(user.getLogin()) == true);
-	assert(database::isCorrectPassword(user.getLogin(), password) == true);
-	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
 }
 
 
@@ -375,18 +325,20 @@ static void testAddUser()
 static void testRemoveUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", sha_1::hash("password"));
-	database::addUser(user);
-	database::removeUser(user);
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	database::addUser(name, login, password);
 
-	assert(users.empty() == true);
-	assert(database::isExistName(user.getName()) == false);
-	assert(database::isExistLogin(user.getLogin()) == false);
-	assert(database::isCorrectPassword(user.getLogin(), user.getHashPassword()) == false);
+	database::removeUser(login);
+
+	assert(userData.empty() == true);
+	assert(database::isExistName(name) == false);
+	assert(database::isExistLogin(login) == false);
+	assert(database::isCorrectPassword(login, password) == false);
 
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -394,14 +346,16 @@ static void testRemoveUser()
 static void testGetNameByLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", sha_1::hash("password"));
-	users.push_back(user);
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	database::addUser(name, login, password);
 
-	assert(database::getNameByLogin(user.getLogin()) == user.getName());
+	assert(database::getNameByLogin(login) == name);
 	assert(database::getNameByLogin("Not_Exist") == "");
+
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -409,17 +363,23 @@ static void testGetNameByLogin()
 static void testGetNumberUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", sha_1::hash("password"));
-	users.push_back(user);
+	std::string name = "name_1";
+	std::string login = "login_1";
+	std::string password = "password_1";
+	database::addUser(name, login, password);
+
 	assert(database::getNumberUser() == 1);
 
 	//Поместить тестовое значение
-	User user2("name", "login", sha_1::hash("password"));
-	users.push_back(user2);
+	name = "name_2";
+	login = "login_2";
+	password = "password_2";
+	database::addUser(name, login, password);
+
 	assert(database::getNumberUser() == 2);
+
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
@@ -427,48 +387,57 @@ static void testGetNumberUser()
 static void testLoadUserNames()
 {
 	//Поместить тестовое значение
-	User user_1("user_1", "login_1", sha_1::hash("password_1"));
-	User user_2("user_2", "login_2", sha_1::hash("password_2"));
-	users.push_back(user_1);
-	users.push_back(user_2);
+	const std::string name_1 = "name_1";
+	const std::string login_1 = "login_1";
+	const std::string password_1 = "password_1";
+
+	const std::string name_2 = "name_2";
+	const std::string login_2 = "login_2";
+	const std::string password_2 = "password_2";
+
+	database::addUser(name_1, login_1, password_1);
+	database::addUser(name_2, login_2, password_2);
 
 	//Укзатель на вектор сообщений конкретному пользователю
 	auto userNames = std::make_shared<std::vector<std::string> >();
 
 	database::loadUserNames(userNames);
 	assert(userNames->size() == 2);
-	assert(userNames->at(0) == user_1.getName());
-	assert(userNames->at(1) == user_2.getName());
+	assert(userNames->at(0) == name_1);
+	assert(userNames->at(1) == name_2);
 
 	//Очистить от тестовых значений
-	users.clear();
-	assert(users.empty() == true);
+	userData.clear();
 }
 
 
 
 static void testRemoveMessagesToUser()
 {
-	messages.clear();
-	User u1("name_1", "login_1", sha_1::hash("password_1"));
-	User u2("name_2", "login_2", sha_1::hash("password_2"));
+	const std::string name_1 = "name_1";
+	const std::string login_1 = "login_1";
+	const std::string password_1 = "password_1";
+
+	const std::string name_2 = "name_2";
+	const std::string login_2 = "login_2";
+	const std::string password_2 = "password_2";
 
 	//Создать сообщения
-	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
-	Message messageU2_U1(u2.getName(), u1.getName(), "U2 -> U1");
-	Message messageU1_ALL(u1.getName(), MSG_TO_ALL, "U1 -> ALL");
+	Message messageU1_U2(name_1, name_2, "U1 -> U2");
+	Message messageU2_U1(name_2, name_1, "U2 -> U1");
+	Message messageU1_ALL(name_1, MSG_TO_ALL, "U1 -> ALL");
 	//Поместить сообщения в базу данных
 	database::pushMessage(messageU1_U2);
 	database::pushMessage(messageU2_U1);
 	database::pushMessage(messageU1_ALL);
 
-	removeMessagesToUser(u1.getName());
+	removeMessagesToUser(name_1);
 
 	for (auto& message : messages) {
 		//Нет сообщений адресованных пользователю u1
-		assert((message.getNameTo() == u1.getName()) == false);
+		assert((message.getNameTo() == name_1) == false);
 	}
+
 	//Очистить от тестовых значений
 	messages.clear();
-	assert(messages.empty() == true);
 }

@@ -27,7 +27,9 @@ void PasswordCorrect::handle(Chat& chat)
         //Ник уникальный
         else {
             chat.getUser()->setName(name);
-            database::addUser(*chat.getUser());
+            database::addUser(chat.getUser()->getName(),
+                chat.getUser()->getLogin(),
+                chat.getUser()->getPassword());
             std::cout << "Вы успешно зарегистрированы!\n"
                 << chat.getUser()->getName() << ", добро пожаловать в Чат!\n";
             chat.transitionTo(std::move(std::make_unique<UserInChat>()));

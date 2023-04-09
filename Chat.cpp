@@ -95,7 +95,7 @@ void Chat::printMessagesToUser()
 
 void Chat::removeAccount()
 {
-    database::removeUser(*user_);
+    database::removeUser(user_->getLogin());
     user_->reset();
     std::cout << "Ваш аккаунт удалён.\n";
 }
