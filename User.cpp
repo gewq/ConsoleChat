@@ -87,21 +87,43 @@ void User::reset()
 {
 	name_.clear();
 	login_.clear();
+	password_.clear();
 	hashPassword_.clear();
 }
 
 
+//========================================================================================================
+static void testConstructorDefault();
+static void testConstructorParameterized();
+static void testSet();
+static void testOperatorEquality();
+static void testReset();
+
 
 void user::test()
 {
-	//Тест конструктора по-умолчанию и get-методов
-	User user1;
-	assert(user1.getName() == "");
-	assert(user1.getLogin() == "");
-	assert(user1.getPassword() == "");
-	assert(user1.getHashPassword() == "");
+	testConstructorDefault();
+	testConstructorParameterized();
+	testSet();
+	testOperatorEquality();
+	testReset();
+}
 
-	//Тест параметризованного конструктора и get-методов
+
+
+static void testConstructorDefault()
+{
+	User user;
+	assert(user.getName() == "");
+	assert(user.getLogin() == "");
+	assert(user.getPassword() == "");
+	assert(user.getHashPassword() == "");
+}
+
+
+
+static void testConstructorParameterized()
+{
 	const std::string name = "name";
 	const std::string login = "login";
 	const std::string password = "password";
@@ -112,35 +134,56 @@ void user::test()
 	assert(user.getLogin() == login);
 	assert(user.getPassword() == password);
 	assert(user.getHashPassword() == hashPassword);
+}
 
-	//Тест set-методов
-	const std::string new_name = "new_name";
-	const std::string new_login = "new_login";
-	const std::string new_password = "new_password";
-	const std::string new_hashPassword = "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8";
 
-	user.setName(new_name);
-	user.setLogin(new_login);
-	user.setPassword(new_password);
-	user.setHashPassword(new_hashPassword);
-	assert(user.getName() == new_name);
-	assert(user.getLogin() == new_login);
-	assert(user.getPassword() == new_password);
-	assert(user.getHashPassword() == new_hashPassword);
 
-	//Тест пегруженного оператора ==
-	User user2(name, login, password, hashPassword);
-	User user3(name, login, new_password, new_hashPassword);
-	User user4(new_name, login, new_password, new_hashPassword);
+static void testSet()
+{
+	User user;
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	const std::string hashPassword = "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8";
 
-	assert((user == user2) == false);
+	user.setName(name);
+	user.setLogin(login);
+	user.setPassword(password);
+	user.setHashPassword(hashPassword);
+	assert(user.getName() == name);
+	assert(user.getLogin() == login);
+	assert(user.getPassword() == password);
+	assert(user.getHashPassword() == hashPassword);
+}
+
+
+
+static void testOperatorEquality()
+{
+	User user1;
+	User user2("name", "login", "password", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User user3("name", "login", "new_password", "d63d5c2879619d7ffd81d029490b4e69b81ff55d");
+	User user4("new_name", "new_login", "new_password", "d63d5c2879619d7ffd81d029490b4e69b81ff55d");
+
+	assert((user1 == user2) == false);
 	assert((user2 == user3) == true);
-	assert((user2 == user4) == true);
+	assert((user2 == user4) == false);
+}
 
-	//Tecт reset()
+
+
+static void testReset()
+{
+	const std::string name = "name";
+	const std::string login = "login";
+	const std::string password = "password";
+	const std::string hashPassword = "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8";
+
+	User user(name, login, password, hashPassword);
+
 	user.reset();
 	assert(user.getName() == "");
 	assert(user.getLogin() == "");
-	assert(user1.getPassword() == "");
+	assert(user.getPassword() == "");
 	assert(user.getHashPassword() == "");
 }
