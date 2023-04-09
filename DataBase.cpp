@@ -5,6 +5,8 @@
 #include <assert.h>
 #include <iostream>
 
+#include "sha1.hpp"
+
 #include "User.h"
 #include "Message.h"
 
@@ -20,8 +22,17 @@ namespace {
 
 void database::initialize()
 {
-	User u1("G", "Ger", "123");
-	User u2("S", "Sve", "qwe");
+	std::string password = "123";
+	auto checksum = std::make_unique<SHA1>();
+	checksum->update(password);
+	std::string hash = checksum->final();
+	User u1("G", "Ger", hash);
+
+	password = "qwe";
+	checksum->update(password);
+	hash = checksum->final();
+	User u2("S", "Sve", hash);
+
 	users.push_back(u1);
 	users.push_back(u2);
 }
@@ -66,12 +77,20 @@ static int8_t getUserPosition(const std::string& login);
 
 bool database::isCorrectPassword(const std::string& login, const std::string& password)
 {
-	if (isExistLogin(login)) {
-		int8_t userPosition = getUserPosition(login);
-		if (users.at(userPosition).getPassword() == password) {
-			return true;
-		}
+	//Пользователь не зарегистрирован
+	if (!isExistLogin(login)) {
+		return false;
 	}
+
+	int8_t userPosition = getUserPosition(login);
+	//Хэш введённого пароля совпадает с хэшэм пароля в базе
+	auto checksum = std::make_unique<SHA1>();
+	checksum->update(password);
+	const std::string hashInputPassword = checksum->final();
+	if (users.at(userPosition).getHashPassword() == hashInputPassword) {
+		return true;
+	}
+
 	return false;
 }
 
@@ -220,7 +239,7 @@ static void removeMessagesToUser(const std::string& name)
 static void testIsExistLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	User user("name", "login", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
 	users.push_back(user);
 
 	assert(database::isExistLogin(user.getLogin()) == true);
@@ -236,7 +255,7 @@ static void testIsExistLogin()
 static void testIsExistName()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	User user("name", "login", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
 	users.push_back(user);
 
 	assert(database::isExistName(user.getName()) == true);
@@ -252,12 +271,17 @@ static void testIsExistName()
 static void testIsCorrectPassword()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	const std::string password = "password";
+	auto checksum = std::make_unique<SHA1>();
+	checksum->update(password);
+	const std::string hash = checksum->final();
+
+	User user("name", "login", hash);
 	users.push_back(user);
 
-	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	assert(database::isCorrectPassword(user.getLogin(), password) == true);
 	assert(database::isCorrectPassword(user.getLogin(), "incorrect_password") == false);
-	assert(database::isCorrectPassword("incorrect_login", user.getPassword()) == false);
+	assert(database::isCorrectPassword("incorrect_login", password) == false);
 
 	//Очистить от тестовых значений
 	users.clear();
@@ -269,8 +293,8 @@ static void testIsCorrectPassword()
 static void testGetUserPosition()
 {
 	//Поместить тестовое значение
-	User user_1("name_1", "login_1", "password_1");
-	User user_2("name_2", "login_2", "password_2");
+	User user_1("user_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
+	User user_2("user_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
 	users.push_back(user_1);
 	users.push_back(user_2);
 
@@ -306,8 +330,8 @@ static void testPushMessage()
 static void testLoadMessages()
 {
 	messages.clear();
-	User u1("name_1", "login_1", "pass_1");
-	User u2("name_2", "login_2", "pass_2");
+	User u1("name_1", "login_1", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
+	User u2("name_2", "login_2", "f054ffc85b4c1615a7190ea0b248564bb1e9f9ab");
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");
@@ -349,11 +373,17 @@ static void testLoadMessages()
 static void testAddUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	const std::string password = "password";
+	auto checksum = std::make_unique<SHA1>();
+	checksum->update(password);
+	const std::string hash = checksum->final();
+
+	User user("name", "login", hash);
+
 	database::addUser(user);
 	assert(database::isExistName(user.getName()) == true);
 	assert(database::isExistLogin(user.getLogin()) == true);
-	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == true);
+	assert(database::isCorrectPassword(user.getLogin(), password) == true);
 	//Очистить от тестовых значений
 	users.clear();
 	assert(users.empty() == true);
@@ -364,14 +394,14 @@ static void testAddUser()
 static void testRemoveUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
 	database::addUser(user);
 	database::removeUser(user);
 
 	assert(users.empty() == true);
 	assert(database::isExistName(user.getName()) == false);
 	assert(database::isExistLogin(user.getLogin()) == false);
-	assert(database::isCorrectPassword(user.getLogin(), user.getPassword()) == false);
+	assert(database::isCorrectPassword(user.getLogin(), user.getHashPassword()) == false);
 
 	//Очистить от тестовых значений
 	users.clear();
@@ -383,7 +413,7 @@ static void testRemoveUser()
 static void testGetNameByLogin()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
 	users.push_back(user);
 
 	assert(database::getNameByLogin(user.getLogin()) == user.getName());
@@ -398,12 +428,12 @@ static void testGetNameByLogin()
 static void testGetNumberUser()
 {
 	//Поместить тестовое значение
-	User user("name", "login", "password");
+	User user("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
 	users.push_back(user);
 	assert(database::getNumberUser() == 1);
 
 	//Поместить тестовое значение
-	User user2("name", "login", "password");
+	User user2("name", "login", "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8");
 	users.push_back(user2);
 	assert(database::getNumberUser() == 2);
 	//Очистить от тестовых значений
@@ -416,8 +446,8 @@ static void testGetNumberUser()
 static void testLoadUserNames()
 {
 	//Поместить тестовое значение
-	User user_1("user_1", "login_1", "password_1");
-	User user_2("user_2", "login_2", "password_2");
+	User user_1("user_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
+	User user_2("user_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
 	users.push_back(user_1);
 	users.push_back(user_2);
 
@@ -439,8 +469,8 @@ static void testLoadUserNames()
 static void testRemoveMessagesToUser()
 {
 	messages.clear();
-	User u1("name_1", "login_1", "pass_1");
-	User u2("name_2", "login_2", "pass_2");
+	User u1("name_1", "login_1", "3833b3a1c69cf71a31d86cb5bb4d3866789b4d1e");
+	User u2("name_2", "login_2", "148dfdc3c539d35004cb808ca84e17ff962af744");
 
 	//Создать сообщения
 	Message messageU1_U2(u1.getName(), u2.getName(), "U1 -> U2");

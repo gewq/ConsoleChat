@@ -4,7 +4,7 @@
 Класс инкапсулирует в себе параметры пользователя:
 - Ник (имя) - по нику он будет известен другим пользователям
 - Логин - имя по которому он будет заходить в чат
-- Пароль
+- Хэш Пароля
 */
 
 #pragma once
@@ -16,7 +16,7 @@ public:
 	User();
 	User(const std::string& name,
 		const std::string& login,
-		const std::string& password);
+		const std::string& hashPassword);
 
 	/**
 	Перегрузка оператора '==' для поиска пользователя в базе данных
@@ -35,9 +35,9 @@ public:
 	std::string getLogin() const;
 
 	/**
-	\return Пароль пользователя
+	\return Хэш Пароля
 	*/
-	std::string getPassword() const;
+	std::string getHashPassword() const;
 
 	/**
 	Задать пользователю Имя
@@ -52,10 +52,10 @@ public:
 	void setLogin(const std::string& login);
 
 	/**
-	Задать пользователю Пароль
-	\param[in] password Пароль
+	Задать пользователю Хэш Пароля
+	\param[in] hashPassword Хэш Пароля
 	*/
-	void setPassword(const std::string& password);
+	void setHashPassword(const std::string& hashPassword);
 
 	/**
 	Присвоить значения полей класса - пустая строка
@@ -65,7 +65,7 @@ public:
 private:
 	std::string name_;		///<Ник
 	std::string login_;		///<Логин
-	std::string password_;	///<Пароль
+	std::string hashPassword_;	///<Хэш Пароля
 };
 
 

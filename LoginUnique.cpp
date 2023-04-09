@@ -3,6 +3,8 @@
 #include <iostream>
 #include <memory>
 
+#include "sha1.hpp"
+
 
 
 LoginUnique::LoginUnique() : State("LoginUnique")
@@ -19,7 +21,12 @@ void LoginUnique::handle(Chat& chat)
 
     //Допустимые символы
     if (chat.isCorrectValue(password)) {
-        chat.getUser()->setPassword(password);
+        //Вычислить Хэш пароля
+        auto checksum = std::make_unique<SHA1>();
+        checksum->update(password);
+        const std::string hash = checksum->final();
+
+        chat.getUser()->setHashPassword(hash);
         chat.transitionTo(std::move(std::make_unique<PasswordCorrect>()));
     }
 

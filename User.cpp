@@ -3,7 +3,7 @@
 #include <assert.h>
 
 
-User::User() : name_(""), login_(""), password_("")
+User::User() : name_(""), login_(""), hashPassword_("")
 {
 }
 
@@ -11,8 +11,8 @@ User::User() : name_(""), login_(""), password_("")
 
 User::User(const std::string& name,
 	const std::string& login,
-	const std::string& password) :
-	name_(name), login_(login), password_(password)
+	const std::string& hashPassword) :
+	name_(name), login_(login), hashPassword_(hashPassword)
 {
 }
 
@@ -43,9 +43,9 @@ std::string User::getLogin() const
 
 
 
-std::string User::getPassword() const
+std::string User::getHashPassword() const
 {
-	return password_;
+	return hashPassword_;
 }
 
 
@@ -64,9 +64,9 @@ void User::setLogin(const std::string& login)
 
 
 
-void User::setPassword(const std::string& password)
+void User::setHashPassword(const std::string& hashPassword)
 {
-	password_ = password;
+	hashPassword_ = hashPassword;
 }
 
 
@@ -75,7 +75,7 @@ void User::reset()
 {
 	name_.clear();
 	login_.clear();
-	password_.clear();
+	hashPassword_.clear();
 }
 
 
@@ -86,31 +86,31 @@ void user::test()
 	User user1;
 	assert(user1.getName() == "");
 	assert(user1.getLogin() == "");
-	assert(user1.getPassword() == "");
+	assert(user1.getHashPassword() == "");
 
 	//Тест параметризованного конструктора и get-методов
 	std::string name = "name";
 	std::string login = "login";
-	std::string password = "password";
+	std::string hashPassword = "5baa61e4c9b93f3f0682250b6cf8331b7ee68fd8";
 
-	User user(name, login, password);
+	User user(name, login, hashPassword);
 	assert(user.getName() == name);
 	assert(user.getLogin() == login);
-	assert(user.getPassword() == password);
+	assert(user.getHashPassword() == hashPassword);
 
 	//Тест set-методов
 	std::string new_name = "new_name";
 	std::string new_login = "new_login";
-	std::string new_password = "new_password";
+	std::string new_password = "f054ffc85b4c1615a7190ea0b248564bb1e9f9ab";
 	user.setName(new_name);
 	user.setLogin(new_login);
-	user.setPassword(new_password);
+	user.setHashPassword(new_password);
 	assert(user.getName() == new_name);
 	assert(user.getLogin() == new_login);
-	assert(user.getPassword() == new_password);
+	assert(user.getHashPassword() == new_password);
 
 	//Тест пегруженного оператора ==
-	User user2(name, login, password);
+	User user2(name, login, hashPassword);
 	User user3(name, login, new_password);
 	User user4(new_name, login, new_password);
 
@@ -122,5 +122,5 @@ void user::test()
 	user.reset();
 	assert(user.getName() == "");
 	assert(user.getLogin() == "");
-	assert(user.getPassword() == "");
+	assert(user.getHashPassword() == "");
 }
