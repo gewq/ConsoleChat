@@ -3,7 +3,8 @@
 #include <assert.h>
 
 
-User::User() : name_(""), login_(""), password_(""), hashPassword_("")
+User::User() : name_(""), login_(""), password_(""), hashPassword_(""),
+	messages_(std::make_shared<std::list<Message> >())
 {
 }
 
@@ -11,7 +12,8 @@ User::User(const std::string& name,
 	const std::string& login,
 	const std::string& password,
 	const std::string& hashPassword):
-	name_(name), login_(login), password_(password), hashPassword_(hashPassword)
+	name_(name), login_(login), password_(password), hashPassword_(hashPassword),
+	messages_(std::make_shared<std::list<Message> >())
 {
 }
 
@@ -45,6 +47,13 @@ std::string User::getLogin() const
 std::string User::getPassword() const
 {
 	return password_;
+}
+
+
+
+std::shared_ptr<std::list<Message> > User::getMessageList() const
+{
+	return messages_;
 }
 
 
@@ -83,12 +92,20 @@ void User::setHashPassword(const std::string& hashPassword)
 
 
 
+void User::setMessage(const Message& message)
+{
+	messages_->push_front(message);
+}
+
+
+
 void User::reset()
 {
 	name_.clear();
 	login_.clear();
 	password_.clear();
 	hashPassword_.clear();
+	messages_->clear();
 }
 
 
@@ -98,6 +115,7 @@ static void testConstructorParameterized();
 static void testSet();
 static void testOperatorEquality();
 static void testReset();
+static void testMessages();
 
 
 void user::test()
@@ -107,6 +125,7 @@ void user::test()
 	testSet();
 	testOperatorEquality();
 	testReset();
+	testMessages();
 }
 
 
@@ -186,4 +205,18 @@ static void testReset()
 	assert(user.getLogin() == "");
 	assert(user.getPassword() == "");
 	assert(user.getHashPassword() == "");
+}
+
+
+
+static void testMessages()
+{
+	User user("name", "login", "password", "1");
+
+	const std::string nameUserFrom = "nameUserFrom";
+	const std::string messageText = "Message to User";
+
+	user.setMessage(Message(nameUserFrom, messageText));
+
+	assert(user.getMessageList()->front().getText() == messageText);
 }

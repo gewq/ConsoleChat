@@ -78,8 +78,8 @@ void Chat::printUserList()
 void Chat::printMessagesToUser()
 {
     //Загрузить сообщения и вывести на экран
-    auto messagesToUser = std::make_shared<std::list<Message> >();  //Сообщения текущему пользователю
-    database::loadMessages(*user_, messagesToUser);                 //Заполнить вектор - сообщениями пользователю
+    auto messagesToUser = std::make_shared<std::list<Message> >();
+    database::loadMessages(user_->getLogin(), messagesToUser);
     if (messagesToUser->empty()) {
         std::cout << "Вам сообщений нет.\n";
     }

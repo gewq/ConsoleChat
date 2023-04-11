@@ -13,7 +13,6 @@
 #include <list>
 #include <memory>
 
-#include "Message.h"
 #include "User.h"
 
 
@@ -56,17 +55,18 @@ namespace database {
 	bool isCorrectPassword(const std::string& login, const std::string& password);
 
 	/**
-	Добавить в базу сообщение от одного пользователя другому.
+	Поместить в базу сообщение от одного пользователя другому
+	\param[in] nameAdressee Ник пользователя кому сообщение
 	\param[in] message Сообщение
 	*/
-	void pushMessage(const Message& message);
+	void pushMessage(const std::string& nameAdressee, const Message& message);
 
 	/**
 	Загрузить сообщения, адресованные заданному пользователю
-	\param[in] addressee Адресат сообщений
-	\param[in] destination Умный указатель на вектор в который поместить сообщения
+	\param[in] login Логин пользователя
+	\param[in] destination Указатель на список в который поместить сообщения
 	*/
-	void loadMessages(const User& addressee, std::shared_ptr<std::list<Message> > destination);
+	void loadMessages(const std::string& login, std::shared_ptr<std::list<Message> >& messages);
 
 	/**
 	Удалить заданного пользователя из базы
@@ -75,12 +75,20 @@ namespace database {
 	void removeUser(const std::string& login);
 
 	/**
-	Вернуть ник по логину.
-	Если логин не зарегистрирован - возвращает пустую строку
+	Вернуть ник по логину
+	Если пользователь не зарегистрирован - возвращает пустую строку
 	\param[in] login Логин
 	\return Ник пользователя
 	*/
 	std::string getNameByLogin(const std::string& login);
+
+	/**
+	Вернуть логин по нику
+	Если пользователь не зарегистрирован - возвращает пустую строку
+	\param[in] name Ник пользователя
+	\return Логин пользователя
+	*/
+	std::string getLoginByName(const std::string& name);
 
 	/**
 	\return Количество зарегистрированных пользователей

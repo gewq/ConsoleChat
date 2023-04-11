@@ -25,9 +25,7 @@ class Message {
         \param[in] nameUserTo Ник пользователя кому адресовано сообщение
         \param[in] text Текст сообщения
         */
-        Message(const std::string& nameUserFrom,
-            const std::string& nameUserTo,
-            const std::string& text);
+        Message(const std::string& nameUserFrom, const std::string& text);
         /**
         \return Ник пользователя от которого сообщение
         */
@@ -36,16 +34,10 @@ class Message {
         /**
         \return Ник пользователя кому сообщение
         */
-        const std::string& getNameTo() const;
-
-        /**
-        \return Ник пользователя кому сообщение
-        */
         const std::string& getText() const;
 
     private:
-        const std::string nameUserFrom_;	///<Имя пользователя от которого сообщение
-        const std::string nameUserTo_;		///<Имя пользователя кому адресовано сообщение
+        const std::string nameUserFrom_;    ///<Имя отправителя сообщения
         const std::string text_;			///<Текст сообщения
 };
 

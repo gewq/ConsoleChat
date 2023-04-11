@@ -10,6 +10,11 @@
 #pragma once
 
 #include <string>
+#include <list>
+#include <memory>
+
+#include "Message.h"
+
 
 class User {
 public:
@@ -46,6 +51,11 @@ public:
 	std::string getHashPassword() const;
 
 	/**
+	\return Указатель на список сообщений пользователю
+	*/
+	std::shared_ptr<std::list<Message> > getMessageList() const;
+
+	/**
 	Задать пользователю Имя
 	\param[in] name Имя
 	*/
@@ -70,6 +80,12 @@ public:
 	void setHashPassword(const std::string& hashPassword);
 
 	/**
+	Задать пользователю Сообщение
+	\param[in] message Сообщение
+	*/
+	void setMessage(const Message& message);
+
+	/**
 	Присвоить значения полей класса - пустая строка
 	*/
 	void reset();
@@ -79,6 +95,7 @@ private:
 	std::string login_;		///<Логин
 	std::string password_;	///<Пароль
 	std::string hashPassword_;	///<Хеш Пароля
+	std::shared_ptr<std::list<Message> > messages_;	///<Сообщения пользователю
 };
 
 

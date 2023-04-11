@@ -36,10 +36,7 @@ void EnteringAddressee::handle(Chat& chat)
 
         //Текст введён
         if (!textMessage.empty()) {
-            //Создать сообщение
-            Message message(chat.getUser()->getName(), nameAdressee, textMessage);
-            //Поместить в базу сообщений
-            database::pushMessage(message);
+            database::pushMessage(nameAdressee, Message(chat.getUser()->getName(), textMessage));
             std::cout << "Сообщение отправлено\n";
         }
 
