@@ -205,6 +205,7 @@ static void testReset()
 	assert(user.getLogin() == "");
 	assert(user.getPassword() == "");
 	assert(user.getHashPassword() == "");
+	assert(user.getMessageList()->empty() == true);
 }
 
 

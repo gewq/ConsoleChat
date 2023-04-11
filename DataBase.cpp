@@ -213,10 +213,8 @@ void database::test()
 static void testIsExistLogin()
 {
 	//Поместить тестовое значение
-	const std::string name = "name";
 	const std::string login = "login";
-	const std::string password = "password";
-	database::addUser(name, login, password);
+	database::addUser("name", login, "password");
 
 	assert(database::isExistLogin(login) == true);
 	assert(database::isExistLogin("incorrect_login") == false);
@@ -231,9 +229,7 @@ static void testIsExistName()
 {
 	//Поместить тестовое значение
 	const std::string name = "name";
-	const std::string login = "login";
-	const std::string password = "password";
-	database::addUser(name, login, password);
+	database::addUser(name, "login", "password");
 
 	assert(database::isExistName(name) == true);
 	assert(database::isExistName("incorrect_name") == false);
@@ -247,10 +243,9 @@ static void testIsExistName()
 static void testIsCorrectPassword()
 {
 	//Поместить тестовое значение
-	const std::string name = "name";
 	const std::string login = "login";
 	const std::string password = "password";
-	database::addUser(name, login, password);
+	database::addUser("name", login, password);
 
 	assert(database::isCorrectPassword(login, password) == true);
 	assert(database::isCorrectPassword(login, "incorrect_password") == false);
