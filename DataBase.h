@@ -83,14 +83,6 @@ namespace database {
 	std::string getNameByLogin(const std::string& login);
 
 	/**
-	Вернуть логин по нику
-	Если пользователь не зарегистрирован - возвращает пустую строку
-	\param[in] name Ник пользователя
-	\return Логин пользователя
-	*/
-	std::string getLoginByName(const std::string& name);
-
-	/**
 	\return Количество зарегистрированных пользователей
 	*/
 	size_t getNumberUser();

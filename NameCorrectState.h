@@ -1,6 +1,6 @@
 ﻿/**
-\file PasswordCorrect.h
-\brief Класс-обработчик состояния "ПАРОЛЬ КОРРЕКТНЫЙ"
+\file NameCorrectState.h
+\brief Класс-обработчик состояния "НИК КОРРЕКТНЫЙ"
 */
 
 #pragma once
@@ -8,12 +8,12 @@
 #include "State.h"
 #include "Chat.h"
 
-class PasswordCorrect : public State {
+class NameCorrectState : public State {
     public:
         /**
         Конструктор по-умолчанию
         */
-        PasswordCorrect();
+        NameCorrectState();
 
         /**
         Обработчик состояния "ПАРОЛЬ КОРРЕКТНЫЙ"

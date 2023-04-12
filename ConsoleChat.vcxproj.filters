@@ -45,9 +45,6 @@
     <ClCompile Include="LoginUnique.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="PasswordCorrect.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
     <ClCompile Include="PasswordIncorrect.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
@@ -70,6 +67,9 @@
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="Message.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
+    <ClCompile Include="NameCorrectState.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -101,9 +101,6 @@
     <ClInclude Include="LoginUnique.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="PasswordCorrect.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="PasswordIncorrect.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -129,6 +126,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="Message.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="NameCorrectState.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

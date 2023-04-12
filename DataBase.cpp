@@ -71,6 +71,7 @@ bool database::isCorrectPassword(const std::string& login, const std::string& pa
 
 
 
+static std::string getLoginByName(const std::string& name);
 
 void database::pushMessage(const std::string& nameAdressee,
 	const Message& message)
@@ -89,7 +90,7 @@ void database::pushMessage(const std::string& nameAdressee,
 		if (!isExistName(nameAdressee)) {
 			return;
 		}
-		userData[database::getLoginByName(nameAdressee)].setMessage(message);
+		userData[getLoginByName(nameAdressee)].setMessage(message);
 	}
 }
 
@@ -125,23 +126,6 @@ std::string database::getNameByLogin(const std::string& login)
 
 
 
-std::string database::getLoginByName(const std::string& name)
-{
-	//Пользователь не зарегистрирован
-	if (!isExistName(name)) {
-		return "";
-	}
-
-	for (const auto& dataPair : userData) {
-		if (dataPair.second.getName() == name) {
-			return dataPair.second.getLogin();
-		}
-	}
-	return "";
-}
-
-
-
 size_t database::getNumberUser()
 {
 	return userData.size();
@@ -173,7 +157,25 @@ void database::addUser(const std::string& name,
 	}
 
 	//Создать в базе пару Логин-Пользователь
-	userData.emplace(std::make_pair(login, User(name, login, password, sha_1::hash(password))));
+	userData.emplace(std::make_pair(login, User(name, login, sha_1::hash(password))));
+}
+
+
+
+//---------------------------------------------------------------------------------------------------------
+static std::string getLoginByName(const std::string& name)
+{
+	//Пользователь не зарегистрирован
+	if (!database::isExistName(name)) {
+		return "";
+	}
+
+	for (const auto& dataPair : userData) {
+		if (dataPair.second.getName() == name) {
+			return dataPair.second.getLogin();
+		}
+	}
+	return "";
 }
 
 
@@ -260,13 +262,13 @@ static void testIsCorrectPassword()
 static void testPushMessage()
 {
 	//Поместить тестовое значение
-	User user_1("name_1", "login_1", "1", "1");
-	User user_2("name_2", "login_2", "1", "1");
-	User user_3("name_3", "login_3", "1", "1");
+	User user_1("name_1", "login_1", "1");
+	User user_2("name_2", "login_2", "1");
+	User user_3("name_3", "login_3", "1");
 
-	database::addUser(user_1.getName(), user_1.getLogin(), user_1.getPassword());
-	database::addUser(user_2.getName(), user_2.getLogin(), user_2.getPassword());
-	database::addUser(user_3.getName(), user_3.getLogin(), user_3.getPassword());
+	database::addUser(user_1.getName(), user_1.getLogin(), "1");
+	database::addUser(user_2.getName(), user_2.getLogin(), "1");
+	database::addUser(user_3.getName(), user_3.getLogin(), "1");
 
 	//Собщение User_1 -> User_2
 	const std::string nameFromUser = user_1.getName();
@@ -303,13 +305,13 @@ static void testPushMessage()
 static void testLoadMessages()
 {
 	//Поместить тестовое значение
-	User user_1("name_1", "login_1", "1", "1");
-	User user_2("name_2", "login_2", "1", "1");
-	User user_3("name_3", "login_3", "1", "1");
+	User user_1("name_1", "login_1", "1");
+	User user_2("name_2", "login_2", "1");
+	User user_3("name_3", "login_3", "1");
 
-	database::addUser(user_1.getName(), user_1.getLogin(), user_1.getPassword());
-	database::addUser(user_2.getName(), user_2.getLogin(), user_2.getPassword());
-	database::addUser(user_3.getName(), user_3.getLogin(), user_3.getPassword());
+	database::addUser(user_1.getName(), user_1.getLogin(), "1");
+	database::addUser(user_2.getName(), user_2.getLogin(), "1");
+	database::addUser(user_3.getName(), user_3.getLogin(), "1");
 
 	//Собщение User_1 -> User_2
 	const std::string nameFromUser = user_1.getName();
@@ -396,8 +398,8 @@ static void testGetLoginByName()
 	const std::string password = "password";
 	database::addUser(name, login, password);
 
-	assert(database::getLoginByName(name) == login);
-	assert(database::getLoginByName("Not_Exist") == "");
+	assert(getLoginByName(name) == login);
+	assert(getLoginByName("Not_Exist") == "");
 
 	//Очистить от тестовых значений
 	userData.clear();
