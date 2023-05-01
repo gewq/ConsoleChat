@@ -99,7 +99,7 @@ private:
     */
     explicit Chat();
     static Chat* instance_; ///<Указатель на единственный объект класса
+		std::unique_ptr<State> state_;  ///<Текущее состояние
     std::shared_ptr<User> user_;    ///<Текущий пользователь чата (чтобы передавать параметры пользователя между состояниями)
-    std::unique_ptr<State> state_;  ///<Текущее состояние
     std::shared_ptr<bool> isRun_;   ///<Признак продолжения работы программы
 };
