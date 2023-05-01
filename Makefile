@@ -3,17 +3,29 @@ BIN = chat
 CXX = g++
 CXXFLAGS = -std=gnu++17 -Wall -Wextra
 
+#Каталог с *.o файлами
+objects_dir := obj
 
+#Каталоги с исходными текстами
 source_dirs := . Chat/States/AddresseeIsMissing Chat/States/EnteringAddressee Chat/States/LoginIncorrect Chat/States/LoginInputState Chat/States/LoginNonunique Chat/States/LoginUnique Chat/States/NameCorrectState Chat/States/PasswordIncorrect Chat/States/PasswordInputState Chat/States/Registration Chat/States/StartState Chat/States/UserInChat Chat DataBase Message SHA_1 State User
-search_wildcards := $(addsuffix /*.cpp,$(source_dirs)) 
+search_wildcards := $(addsuffix /*.cpp,$(source_dirs))
 
-$(BIN): $(notdir $(patsubst %.cpp,%.o,$(wildcard $(search_wildcards))))
-	$(CXX) $^ $(CXXFLAGS) -o $@ 
+#Список объектных файлов для сборки программы
+objectsFile := $(notdir $(patsubst %.cpp,obj/%.o,$(wildcard $(search_wildcards))))
+
+#Список объектных файлов вместе с директорией в которую их помещать
+objectsPath := $(addprefix $(objects_dir)/,$(objectsFile))
+
+
+all: $(BIN)
 
 VPATH := $(source_dirs)
- 
-%.o: %.cpp
-	$(CXX) -c $(CXXFLAGS) -MD $(addprefix -I,$(source_dirs)) $<
+
+$(BIN): $(objectsPath)
+	$(CXX) $^ $(CXXFLAGS) -o $@
+
+$(objects_dir)/%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) -MD $(addprefix -I,$(source_dirs)) $< -o $@
 
 include $(wildcard *.d)
 
